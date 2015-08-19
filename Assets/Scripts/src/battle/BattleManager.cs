@@ -24,7 +24,7 @@ namespace Battle {
 			//initialise the map
 			Map.init(mainCamera);
 			armourItems = new ArmourList();
-			Debug.Log(armourItems.getItem("Cloth Cap").getName());
+			//Debug.Log(armourItems.getItem("Cloth Cap").getName());
 			
 		}
 	}
