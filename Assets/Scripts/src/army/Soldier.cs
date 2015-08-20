@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 using Gear;
 
@@ -14,17 +15,17 @@ namespace Armies {
 		//morale points
 		protected int mp;
 		//armour
-		protected ArmourItem[] armour;
+		private Dictionary<string, string> armour;
 		//weapons
-		protected WeaponItem[] weapons;
+		private Dictionary<string, string> weapons;
 
 		public Soldier () {}
 
-		public Soldier(int _id, string _name, int _hp, int _mp, ArmourItem[] _armour, WeaponItem[] _weapons) {
-			id = _id;
+		public Soldier(string _name, int _hp, int _mp, Dictionary<string, string> _armour, Dictionary<string, string> _weapons) {
 			name = _name;
 			hp = _hp;
 			mp = _mp;
+
 			armour = _armour;
 			weapons = _weapons;
 		}
@@ -64,6 +65,20 @@ namespace Armies {
 
 		public void setMP(int _mp) {
 			mp = _mp;
+		}
+
+		public string getArmourItem(string key) {
+			if (armour.ContainsKey(key)) {
+				return armour[key];
+			}
+			return null;
+		}
+
+		public string getWeaponItem(string key) {
+			if (weapons.ContainsKey(key)) {
+				return weapons[key];
+			}
+			return null;
 		}
 	}
 }

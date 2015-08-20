@@ -17,6 +17,7 @@ namespace Battle {
 
 		public ArmourList armourItems;
 		public WeaponList weaponItems;
+		public SoldierList soldiers;
 
 		void Awake() {
 			//load the children
@@ -24,12 +25,12 @@ namespace Battle {
 			armyManager = new ArmyManager(1);
 			//initialise the map
 			Map.init(mainCamera);
+			//load gear
 			armourItems = new ArmourList();
 			weaponItems = new WeaponList();
-			Debug.Log(weaponItems.getItem("Knife").getName());
-			
-			//Debug.Log(armourItems.getItem("Cloth Cap").getName());
-			
+			//load soldiers
+			soldiers = new SoldierList();
+			Debug.Log(soldiers.GetSoldier("Peasant").getWeaponItem("1"));
 		}
 	}
 }
