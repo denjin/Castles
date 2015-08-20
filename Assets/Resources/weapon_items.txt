@@ -1,0 +1,31 @@
+{
+	{
+		"name" : "Knife",
+		"weight" : 1,
+		"type" : "sword",
+		"required_hands" : 1,
+		"range" : 0,
+		"damage" : 1,
+		"damage_type" : "piercing"
+	},
+	
+	{
+		"name" : "Club",
+		"weight" : 1,
+		"type" : "blunt",
+		"required_hands" : 1,
+		"range" : 0,
+		"damage" : 1,
+		"damage_type" : "crushing"
+	},
+	
+	{
+		"name" : "Stones",
+		"weight" : 1,
+		"type" : "throwing",
+		"required_hands" : 1,
+		"range" : 5,
+		"damage" : 1,
+		"damage_type" : "crushing"
+	}
+}

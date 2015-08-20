@@ -4,6 +4,10 @@
 		"selected_items":
 		[
 			[
+				"lo",
+				"location"
+			],
+			[
 				"da",
 				"damageReduction"
 			],
@@ -55,7 +59,7 @@
 			"file": "src/battle/BattleManager.cs",
 			"settings":
 			{
-				"buffer_size": 625,
+				"buffer_size": 627,
 				"line_ending": "Unix"
 			}
 		},
@@ -103,7 +107,7 @@
 			"file": "src/gear/ArmourList.cs",
 			"settings":
 			{
-				"buffer_size": 1494,
+				"buffer_size": 2284,
 				"line_ending": "Windows"
 			}
 		}
@@ -236,7 +240,7 @@
 	"groups":
 	[
 		{
-			"selected": 6,
+			"selected": 0,
 			"sheets":
 			[
 				{
@@ -245,15 +249,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 625,
+						"buffer_size": 627,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								610,
-								610
+								560,
+								560
 							]
 						],
 						"settings":
@@ -265,7 +269,7 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 1,
+					"stack_index": 0,
 					"type": "text"
 				},
 				{
@@ -418,15 +422,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 1494,
+						"buffer_size": 2284,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								618,
-								618
+								2099,
+								2099
 							]
 						],
 						"settings":
@@ -435,10 +439,10 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 1067.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 0,
+					"stack_index": 1,
 					"type": "text"
 				}
 			]
@@ -521,7 +525,7 @@
 	"show_open_files": false,
 	"show_tabs": true,
 	"side_bar_visible": true,
-	"side_bar_width": 183.0,
+	"side_bar_width": 187.0,
 	"status_bar_visible": true,
 	"template_settings":
 	{

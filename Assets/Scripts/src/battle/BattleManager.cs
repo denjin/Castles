@@ -16,6 +16,7 @@ namespace Battle {
 		public ArmyManager armyManager;
 
 		public ArmourList armourItems;
+		public WeaponList weaponItems;
 
 		void Awake() {
 			//load the children
@@ -24,6 +25,9 @@ namespace Battle {
 			//initialise the map
 			Map.init(mainCamera);
 			armourItems = new ArmourList();
+			weaponItems = new WeaponList();
+			Debug.Log(weaponItems.getItem("Knife").getName());
+			
 			//Debug.Log(armourItems.getItem("Cloth Cap").getName());
 			
 		}
