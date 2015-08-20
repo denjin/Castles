@@ -34,51 +34,54 @@ namespace Armies {
 		//--------------------
 		//getters / setters
 		//--------------------
-
-		public int getID() {
-			return id;
-		}
-
-		public void setID(int _id) {
-			id = _id;
-		}
-
-		public string getName() {
+		public string GetName() {
 			return name;
 		}
 
-		public void setName(string _name) {
+		public void GetName(string _name) {
 			name = _name;
 		}
 
-		public int getHP() {
+		public int GetHP() {
 			return hp;
 		}
 
-		public void setHP(int _hp) {
+		public void GetHP(int _hp) {
 			hp = _hp;
 		}
 
-		public int getMP() {
+		public int GetMP() {
 			return mp;
 		}
 
-		public void setMP(int _mp) {
+		public void GetMP(int _mp) {
 			mp = _mp;
 		}
 
-		public string getArmourItem(string key) {
+		public string GetArmourItem(string key) {
 			if (armour.ContainsKey(key)) {
 				return armour[key];
 			}
 			return null;
 		}
 
-		public string getWeaponItem(string key) {
+		public void SetArmourItem(string item, string key) {
+			if (armour.ContainsKey(key)) {
+				armour[key] = item;
+			}
+		}
+
+		public string GetWeaponItem(string key) {
 			if (weapons.ContainsKey(key)) {
 				return weapons[key];
 			}
 			return null;
+		}
+
+		public void SetWeaponItem(string item, string key) {
+			if (weapons.ContainsKey(key)) {
+				weapons[key] = item;
+			}
 		}
 	}
 }

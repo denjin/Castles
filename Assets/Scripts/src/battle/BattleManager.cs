@@ -30,7 +30,7 @@ namespace Battle {
 			weaponItems = new WeaponList();
 			//load soldiers
 			soldiers = new SoldierList();
-			Debug.Log(soldiers.GetSoldier("Peasant").getWeaponItem("1"));
+			Debug.Log(soldiers.GetSoldier("Peasant").GetWeaponItem("1"));
 		}
 	}
 }

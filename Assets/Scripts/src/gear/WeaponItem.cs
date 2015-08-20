@@ -20,43 +20,43 @@ namespace Gear {
 		//getters / setters
 		//--------------------
 
-		public void setType (string _type) {
+		public void SetType (string _type) {
 			type = _type;
 		}
 		
-		public string getType () {
+		public string GetType () {
 			return type;
 		}
 		
-		public void setRequiredHands (int _requiredHands) {
+		public void SetRequiredHands (int _requiredHands) {
 			requiredHands = _requiredHands;
 		}
 		
-		public int getRequiredHands () {
+		public int GetRequiredHands () {
 			return requiredHands;
 		}
 
-		public void setRange (int _range) {
+		public void SetRange (int _range) {
 			range = _range;
 		}
 		
-		public int getRange () {
+		public int GetRange () {
 			return range;
 		}
 		
-		public void setDamage (int _damage) {
+		public void SetDamage (int _damage) {
 			damage = _damage;
 		}
 		
-		public int getDamage () {
+		public int GetDamage () {
 			return damage;
 		}
 
-		public void setDamageType (string _damageType) {
+		public void SetDamageType (string _damageType) {
 			damageType = _damageType;
 		}
 		
-		public string getDamageType () {
+		public string GetDamageType () {
 			return damageType;
 		}
 		

@@ -10,19 +10,19 @@ namespace Gear {
 			damageReduction = _damageReduction;
 		}
 
-		public void setLocation (string _location) {
+		public void SetLocation (string _location) {
 			location = _location;
 		}
 		
-		public string getLocation () {
+		public string GetLocation () {
 			return location;
 		}
 		
-		public void setDamageReduction (int _damageReduction) {
+		public void SetDamageReduction (int _damageReduction) {
 			damageReduction = _damageReduction;
 		}
 		
-		public int getDamageReduction () {
+		public int GetDamageReduction () {
 			return damageReduction;
 		}
 	}

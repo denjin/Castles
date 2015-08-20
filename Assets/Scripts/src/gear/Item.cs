@@ -11,19 +11,19 @@ namespace Gear {
 			weight = _weight;
 		}
 
-		public string getName() {
+		public string GetName() {
 			return name;
 		}
 
-		public void setName(string _name) {
+		public void SetName(string _name) {
 			name = _name;
 		}
 
-		public void setWeight (int _weight) {
+		public void SetWeight (int _weight) {
 			weight = _weight;
 		}
 		
-		public int getWeight () {
+		public int GetWeight () {
 			return weight;
 		}
 	}

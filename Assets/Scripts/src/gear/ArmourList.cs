@@ -23,7 +23,7 @@ namespace Gear {
 			//init dictionary
 			armour = new Dictionary<string , ArmourItem>();
 			//parse the data
-			parseData(json, armour);
+			ParseData(json, armour);
 		}
 
 
@@ -41,7 +41,7 @@ namespace Gear {
 		 * @param  	{JSON Object} 	obj 		the object to parse
 		 * @param	{Dictionary}	Dictionary 	the dictionary to place the parsed data
 		 */
-		void parseData(JSONObject obj, Dictionary<string, ArmourItem> dictionary) {
+		void ParseData(JSONObject obj, Dictionary<string, ArmourItem> dictionary) {
 			//vars to add to each item
 			string name;
 			int weight;

@@ -10,7 +10,7 @@ namespace Armies {
 		 * gets the name of the soldier
 		 * @return {string}
 		 */
-		public string getName() {
+		public string GetName() {
 			return name;
 		}
 
@@ -18,7 +18,7 @@ namespace Armies {
 		 * sets the name of the soldier
 		 * @param {string}
 		 */
-		public void setName(string _name) {
+		public void SetName(string _name) {
 			name = _name;
 		}
 	}
