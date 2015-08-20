@@ -16,3 +16,6 @@ ehthumbs.db
 Thumbs.db
 $RECYCLE.BIN/
 Desktop.ini
+
+# workspace files are user-specific
+*.sublime-workspace
