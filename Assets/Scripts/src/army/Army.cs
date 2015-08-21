@@ -6,7 +6,7 @@ namespace Armies {
 		public Soldier[] soldiers;
 
 		public Army() {
-
+			soldiers = new Soldier[10];
 		}
 	}
 }

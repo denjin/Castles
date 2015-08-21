@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
-using SpriteTile;
+//using SpriteTile;
 using Battle;
 using Armies;
 using Gear;
@@ -20,17 +20,24 @@ namespace Battle {
 		public SoldierList soldiers;
 
 		void Awake() {
-			//load the children
+			//load the map
 			Map = new MapManager();
-			armyManager = new ArmyManager(1);
 			//initialise the map
 			Map.init(mainCamera);
+			//load the armies
+			armyManager = new ArmyManager(1);
 			//load gear
 			armourItems = new ArmourList();
 			weaponItems = new WeaponList();
 			//load soldiers
 			soldiers = new SoldierList();
-			Debug.Log(soldiers.GetSoldier("Peasant").GetWeaponItem("1"));
+		}
+
+		IEnumerator DeployUnits() {
+			//runs forever
+			for (;;) {
+				
+			}
 		}
 	}
 }
