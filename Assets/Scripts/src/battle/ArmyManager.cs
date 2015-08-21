@@ -4,16 +4,14 @@ using Armies;
 
 namespace Battle {
 	public class ArmyManager {
-		//the human players army
-		public Army PlayerArmy;
-		//the ai controlled armies
-		public Army[] ComputerArmies;
+		//the armies
+		public Army[] armies;
 
 		public ArmyManager(int _computerArmies) {
-			PlayerArmy = new Army();
-			ComputerArmies = new Army[_computerArmies];
-			for (int i = 0; i < _computerArmies; i++) {
-				ComputerArmies[i] = new Army();
+			armies = new Army[_computerArmies];
+			armies[0] = new Army(true);
+			for (int i = 1; i < _computerArmies; i++) {
+				armies[i] = new Army();
 			}
 		}
 	}

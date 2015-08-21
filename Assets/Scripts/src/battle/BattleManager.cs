@@ -24,20 +24,23 @@ namespace Battle {
 			Map = new MapManager();
 			//initialise the map
 			Map.init(mainCamera);
-			//load the armies
-			armyManager = new ArmyManager(1);
-			//load gear
+			//load gear data
 			armourItems = new ArmourList();
 			weaponItems = new WeaponList();
-			//load soldiers
+			//load soldiers data
 			soldiers = new SoldierList();
+
+			//load the armies
+			armyManager = new ArmyManager(1);
+
+			//deploy the armies
+			
 		}
 
-		IEnumerator DeployUnits() {
-			//runs forever
-			for (;;) {
-				
-			}
+		void DeployArmies() {
+
 		}
+
+
 	}
 }
