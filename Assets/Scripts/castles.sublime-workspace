@@ -68,19 +68,19 @@
 	"buffers":
 	[
 		{
-			"file": "src/battle/BattleManager.cs",
+			"file": "src/battle/ArmyManager.cs",
 			"settings":
 			{
-				"buffer_size": 753,
+				"buffer_size": 437,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "src/gear/WeaponList.cs",
+			"file": "src/army/Army.cs",
 			"settings":
 			{
-				"buffer_size": 2618,
-				"line_ending": "Windows"
+				"buffer_size": 143,
+				"line_ending": "Unix"
 			}
 		},
 		{
@@ -88,6 +88,14 @@
 			"settings":
 			{
 				"buffer_size": 1222,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "src/gear/Item.cs",
+			"settings":
+			{
+				"buffer_size": 450,
 				"line_ending": "Windows"
 			}
 		}
@@ -99,8 +107,8 @@
 	"build_varint": "",
 	"command_palette":
 	{
-		"height": 173.0,
-		"last_filter": "Snippet: ",
+		"height": 392.0,
+		"last_filter": "",
 		"selected_items":
 		[
 			[
@@ -150,29 +158,32 @@
 	"expanded_folders":
 	[
 		"/C/Users/Chris/Documents/Unity/Castles/Castles/Assets/Scripts",
-		"/C/Users/Chris/Documents/Unity/Castles/Castles/Assets/Scripts/lib/JSON",
 		"/C/Users/Chris/Documents/Unity/Castles/Castles/Assets/Scripts/src",
 		"/C/Users/Chris/Documents/Unity/Castles/Castles/Assets/Scripts/src/army",
-		"/C/Users/Chris/Documents/Unity/Castles/Castles/Assets/Scripts/src/battle",
 		"/C/Users/Chris/Documents/Unity/Castles/Castles/Assets/Scripts/src/gear"
 	],
 	"file_history":
 	[
-		"/C/Users/Chris/AppData/Roaming/Sublime Text 3/Packages/User/Preferences.sublime-settings",
+		"/C/Users/Chris/Documents/Unity/Castles/Castles/Assets/Scripts/src/gear/Item.cs",
+		"/C/Users/Chris/Documents/Unity/Castles/Castles/Assets/Scripts/src/gear/WeaponItem.cs",
 		"/C/Users/Chris/Documents/Unity/Castles/Castles/Assets/Scripts/src/battle/ArmyManager.cs",
-		"/C/Users/Chris/Documents/Unity/Castles/Castles/Assets/Scripts/src/army/Soldier.cs",
+		"/C/Users/Chris/Documents/Unity/Castles/Castles/Assets/Scripts/src/gear/WeaponList.cs",
+		"/C/Users/Chris/Documents/Unity/Castles/Castles/Assets/Scripts/src/army/Division.cs",
 		"/C/Users/Chris/Documents/Unity/Castles/Castles/Assets/Scripts/src/army/SoldierList.cs",
-		"/C/Users/Chris/Documents/Unity/Castles/Castles/Assets/Scripts/src/gear/ArmourItem.cs",
-		"/C/Users/Chris/Documents/Unity/Castles/Castles/Assets/Scripts/lib/JSON/JSONObject.cs",
 		"/C/Users/Chris/Documents/Unity/Castles/Castles/Assets/Scripts/src/gear/ArmourList.cs",
+		"/C/Users/Chris/Documents/Unity/Castles/Castles/Assets/Scripts/src/gear/ArmourItem.cs",
+		"/C/Users/Chris/Documents/Unity/Castles/Castles/Assets/Scripts/src/army/Soldier.cs",
+		"/C/Users/Chris/Documents/Unity/Castles/Castles/Assets/Scripts/src/battle/BattleManager.cs",
+		"/C/Users/Chris/Documents/Unity/Castles/Castles/Assets/Scripts/src/army/Peasant.cs",
+		"/C/Users/Chris/Documents/Unity/Castles/Castles/Assets/Scripts/src/JSONParser.cs",
+		"/C/Users/Chris/AppData/Roaming/Sublime Text 3/Packages/User/Preferences.sublime-settings",
+		"/C/Users/Chris/Documents/Unity/Castles/Castles/Assets/Scripts/lib/JSON/JSONObject.cs",
 		"/C/Users/Chris/AppData/Roaming/Sublime Text 3/Packages/Default/Preferences.sublime-settings",
 		"/C/Users/Chris/Documents/Unity/Castles/Castles/Assets/Resources/armour_items.txt",
 		"/C/Users/Chris/Documents/Unity/Castles/Castles/Assets/Scripts/src/xml/XmlParser.cs",
 		"/C/Users/Chris/Documents/Unity/Castles/Castles/Assets/Scripts/src/gear/armour_types/ArmourList.cs",
-		"/C/Users/Chris/Documents/Unity/Castles/Castles/Assets/Scripts/src/gear/Item.cs",
 		"/C/Users/Chris/AppData/Roaming/Sublime Text 3/Packages/User/log.sublime-snippet",
 		"/C/Users/Chris/Documents/Unity/Castles/Castles/Assets/Scripts/src/army/Army.cs",
-		"/C/Users/Chris/Documents/Unity/Castles/Castles/Assets/Scripts/src/gear/WeaponItem.cs",
 		"/C/Users/Chris/Documents/Unity/Castles/Castles/Assets/Scripts/src/gear/weapon_types/Knife.cs",
 		"/C/Users/Chris/AppData/Roaming/Sublime Text 3/Packages/User/for.sublime-snippet",
 		"/C/Users/Chris/Documents/Unity/Castles/Castles/Assets/Scripts/src/battle/TurnManager.cs",
@@ -181,16 +192,13 @@
 		"/C/Users/Chris/AppData/Roaming/Sublime Text 3/Packages/User/snippets/setter.sublime-snippet",
 		"/C/Users/Chris/AppData/Roaming/Sublime Text 3/Packages/User/setter.sublime-snippet",
 		"/C/Users/Chris/AppData/Roaming/Sublime Text 3/Packages/User/getter.sublime-snippet",
-		"/C/Users/Chris/Documents/Unity/Castles/Castles/Assets/Scripts/src/army/Peasant.cs",
-		"/C/Users/Chris/Documents/Unity/Castles/Castles/Assets/Scripts/src/army/Division.cs",
 		"/C/Users/Chris/AppData/Roaming/Sublime Text 3/Packages/Colorsublime/Colorsublime.sublime-settings",
 		"/C/Users/Chris/Documents/Unity/Castles/Castles/Assets/Scripts/castles.sublime-project",
-		"/C/Users/Chris/Documents/Unity/Castles/Castles/Assets/Scripts/src/battle/BattleManager.cs",
 		"/C/Users/Chris/AppData/Roaming/Sublime Text 3/Packages/User/C#.sublime-settings"
 	],
 	"find":
 	{
-		"height": 39.0
+		"height": 31.0
 	},
 	"find_in_files":
 	{
@@ -225,24 +233,24 @@
 	"groups":
 	[
 		{
-			"selected": 0,
+			"selected": 2,
 			"sheets":
 			[
 				{
 					"buffer": 0,
-					"file": "src/battle/BattleManager.cs",
+					"file": "src/battle/ArmyManager.cs",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 753,
+						"buffer_size": 437,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								674,
-								674
+								0,
+								0
 							]
 						],
 						"settings":
@@ -254,36 +262,35 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 0,
+					"stack_index": 3,
 					"type": "text"
 				},
 				{
 					"buffer": 1,
-					"file": "src/gear/WeaponList.cs",
+					"file": "src/army/Army.cs",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 2618,
+						"buffer_size": 143,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								2332,
-								2332
+								137,
+								137
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/C#/C#.tmLanguage",
-							"translate_tabs_to_spaces": false
+							"syntax": "Packages/C#/C#.tmLanguage"
 						},
 						"translation.x": 0.0,
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 1,
+					"stack_index": 2,
 					"type": "text"
 				},
 				{
@@ -299,8 +306,36 @@
 						"selection":
 						[
 							[
-								175,
-								175
+								636,
+								636
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C#/C#.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "src/gear/Item.cs",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 450,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
 							]
 						],
 						"settings":
@@ -312,7 +347,7 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 2,
+					"stack_index": 1,
 					"type": "text"
 				}
 			]
