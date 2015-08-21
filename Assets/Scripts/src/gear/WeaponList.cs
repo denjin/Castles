@@ -32,8 +32,8 @@ namespace Gear {
 		 * @param  {string} key		the key to select
 		 * @return {WeaponItem}		the item
 		 */
-		public WeaponItem getItem(string key) {
-			return weapons[key];
+		public WeaponItem GetItem(string _key) {
+			return weapons[_key];
 		}
 
 		/**
