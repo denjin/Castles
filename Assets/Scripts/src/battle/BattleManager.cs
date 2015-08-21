@@ -38,7 +38,9 @@ namespace Battle {
 		}
 
 		void DeployArmies() {
-
+			//pick deployment zones
+			Debug.Log(armyManager.GetSoldiers(0));
+			
 		}
 
 

@@ -14,5 +14,9 @@ namespace Battle {
 				armies[i] = new Army();
 			}
 		}
+
+		public Soldier[] GetSoldiers(int _army) {
+			return armies[_army].soldiers;
+		}
 	}
 }
