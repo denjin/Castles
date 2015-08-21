@@ -15,24 +15,13 @@ namespace Battle {
 		//the armies
 		public ArmyManager armyManager;
 
-		public ArmourList armourItems;
-		public WeaponList weaponItems;
-		public SoldierList soldiers;
-
 		void Awake() {
 			//load the map
 			Map = new MapManager();
 			//initialise the map
 			Map.init(mainCamera);
-			//load gear data
-			armourItems = new ArmourList();
-			weaponItems = new WeaponList();
-			//load soldiers data
-			soldiers = new SoldierList();
-
 			//load the armies
 			armyManager = new ArmyManager(1);
-
 			//deploy the armies
 			
 		}
