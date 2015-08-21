@@ -20,11 +20,11 @@ namespace Gear {
 		//getters / setters
 		//--------------------
 
-		public void SetType (string _type) {
+		public void SetWeaponType (string _type) {
 			type = _type;
 		}
 		
-		public string GetType () {
+		public string GetWeaponType () {
 			return type;
 		}
 		
