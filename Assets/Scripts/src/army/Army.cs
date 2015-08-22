@@ -4,16 +4,23 @@ using System.Collections;
 namespace Armies {
 	public class Army {
 		public bool human;
-		public Soldier[] soldiers;
+
+		public GameObject[] soldiers;
 
 		public bool deployed = false;
 
 		public Army(bool _human = false) {
 			human = _human;
-			soldiers = new Soldier[10];
+			soldiers = new GameObject[10];
+
+			GameObject gameObject;
+
 			for (int i = 0; i < 10; i++) {
-				soldiers[i] = DataStore.Instance.GetSoldier("Peasant");
-				soldiers[i].SetID(i);
+				gameObject = GameObject.Instantiate(Resources.Load("Prefabs/SoldierGameObject")) as GameObject;
+				soldiers[i] = gameObject;
+
+				//soldiers[i] = DataStore.Instance.GetSoldier("Peasant");
+				//soldiers[i].SetID(i);
 			}
 		}
 	}

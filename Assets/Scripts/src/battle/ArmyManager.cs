@@ -15,8 +15,10 @@ namespace Battle {
 			}
 		}
 
-		public Soldier[] GetSoldiers(int _army) {
+		
+		public GameObject[] GetSoldiers(int _army) {
 			return armies[_army].soldiers;
 		}
+		
 	}
 }
