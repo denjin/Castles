@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -15,25 +15,36 @@ namespace Armies {
 		//morale points
 		protected int mp;
 		//armour
-		private Dictionary<string, string> armour;
+		protected Dictionary<string, string> armour;
 		//weapons
-		private Dictionary<string, string> weapons;
+		protected Dictionary<string, string> weapons;
+		//graphics asset
+		protected string sprite;
 
 		public Soldier () {}
 
-		public Soldier(string _name, int _hp, int _mp, Dictionary<string, string> _armour, Dictionary<string, string> _weapons) {
+		public Soldier(string _name, int _hp, int _mp, Dictionary<string, string> _armour, Dictionary<string, string> _weapons, string _sprite) {
 			name = _name;
 			hp = _hp;
 			mp = _mp;
-
 			armour = _armour;
 			weapons = _weapons;
+			sprite = _sprite;
 		}
 		
 
 		//--------------------
 		//getters / setters
 		//--------------------
+		
+		public int GetID() {
+			return id;
+		}
+
+		public void SetID(int _id) {
+			id = _id;
+		}
+
 		public string GetName() {
 			return name;
 		}
@@ -82,6 +93,14 @@ namespace Armies {
 			if (weapons.ContainsKey(key)) {
 				weapons[key] = item;
 			}
+		}
+
+		public string GetSprite() {
+			return sprite;
+		}
+
+		public void SetSprite(string _sprite) {
+			sprite = _sprite;
 		}
 	}
 }

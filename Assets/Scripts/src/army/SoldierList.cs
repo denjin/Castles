@@ -42,6 +42,8 @@ namespace Armies {
 			//references to the soldier's gear
 			Dictionary<string, string> armour = new Dictionary<string, string>();
 			Dictionary<string, string> weapons = new Dictionary<string, string>();
+			//graphics asset
+			string sprite;
 			//temporary JSONObject
 			JSONObject item;
 
@@ -54,6 +56,7 @@ namespace Armies {
 				mp = 0;
 				armour.Clear();
 				weapons.Clear();
+				sprite = "NULL";
 
 				//for each field in the item
 				for (int j = 0; j < item.list.Count; j++) {
@@ -117,11 +120,15 @@ namespace Armies {
 							}
 						}
 						break;
+
+						case "sprite" :
+						sprite = obj[i].list[j].str;
+						break;
 					}
 					
 				}
 
-				dictionary.Add(name, new Soldier(name, hp, mp, armour, weapons));
+				dictionary.Add(name, new Soldier(name, hp, mp, armour, weapons, sprite));
 				
 			}
 

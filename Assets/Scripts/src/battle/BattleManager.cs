@@ -23,12 +23,13 @@ namespace Battle {
 			//load the armies
 			armyManager = new ArmyManager(1);
 			//deploy the armies
+			DeployArmies();
 			
 		}
 
 		void DeployArmies() {
 			//pick deployment zones
-			Debug.Log(armyManager.GetSoldiers(0));
+			Debug.Log(armyManager.GetSoldiers(0)[0].GetSprite());
 			
 		}
 

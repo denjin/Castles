@@ -11,6 +11,10 @@ namespace Armies {
 		public Army(bool _human = false) {
 			human = _human;
 			soldiers = new Soldier[10];
+			for (int i = 0; i < 10; i++) {
+				soldiers[i] = DataStore.Instance.GetSoldier("Peasant");
+				soldiers[i].SetID(i);
+			}
 		}
 	}
 }

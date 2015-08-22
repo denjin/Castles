@@ -11,6 +11,7 @@
 		"weapons" : {
 			"1" : "Club",
 			"2" : "Stones"
-		}
+		},
+		"sprite" : "peasant.png"
 	}
 }
