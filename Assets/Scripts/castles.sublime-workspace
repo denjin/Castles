@@ -4,6 +4,10 @@
 		"selected_items":
 		[
 			[
+				"De",
+				"DeployArmies"
+			],
+			[
 				"dam",
 				"damageType"
 			],
@@ -71,7 +75,26 @@
 			"file": "src/battle/ArmyManager.cs",
 			"settings":
 			{
-				"buffer_size": 437,
+				"buffer_size": 432,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "src/battle/BattleManager.cs",
+			"settings":
+			{
+				"buffer_size": 675,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"contents": "using UnityEngine;\nusing System.Collections;\nusing System.Collections.Generic;\n\nusing Gear;\n\nnamespace Armies {\n	public class Soldier {\n		//the soldiers unique id\n		protected int id;\n		//the sprite asset\n		protected GameObject sprite;\n\n		//name of the soldier\n		protected string name;\n		//hit points\n		protected int hp;\n		//morale points\n		protected int mp;\n		//armour\n		private Dictionary<string, string> armour;\n		//weapons\n		private Dictionary<string, string> weapons;\n\n		public Soldier () {}\n\n		public Soldier(string _name, int _hp, int _mp, Dictionary<string, string> _armour, Dictionary<string, string> _weapons) {\n			name = _name;\n			hp = _hp;\n			mp = _mp;\n\n			sprite = \n\n			armour = _armour;\n			weapons = _weapons;\n		}\n		\n\n		//--------------------\n		//getters / setters\n		//--------------------\n		\n		public int GetID() {\n			return id;\n		}\n\n		public void SetID(int _id) {\n			id = _id;\n		}\n\n		public string GetName() {\n			return name;\n		}\n\n		public void GetName(string _name) {\n			name = _name;\n		}\n\n		public int GetHP() {\n			return hp;\n		}\n\n		public void GetHP(int _hp) {\n			hp = _hp;\n		}\n\n		public int GetMP() {\n			return mp;\n		}\n\n		public void GetMP(int _mp) {\n			mp = _mp;\n		}\n\n		public string GetArmourItem(string key) {\n			if (armour.ContainsKey(key)) {\n				return armour[key];\n			}\n			return null;\n		}\n\n		public void SetArmourItem(string item, string key) {\n			if (armour.ContainsKey(key)) {\n				armour[key] = item;\n			}\n		}\n\n		public string GetWeaponItem(string key) {\n			if (weapons.ContainsKey(key)) {\n				return weapons[key];\n			}\n			return null;\n		}\n\n		public void SetWeaponItem(string item, string key) {\n			if (weapons.ContainsKey(key)) {\n				weapons[key] = item;\n			}\n		}\n	}\n}\n\n",
+			"file": "src/army/Soldier.cs",
+			"file_size": 1693,
+			"file_write_time": 130846410399310789,
+			"settings":
+			{
+				"buffer_size": 1699,
 				"line_ending": "Unix"
 			}
 		},
@@ -79,23 +102,23 @@
 			"file": "src/army/Army.cs",
 			"settings":
 			{
-				"buffer_size": 143,
+				"buffer_size": 390,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "src/gear/WeaponItem.cs",
+			"file": "src/DataStore.cs",
 			"settings":
 			{
-				"buffer_size": 1222,
+				"buffer_size": 757,
 				"line_ending": "Windows"
 			}
 		},
 		{
-			"file": "src/gear/Item.cs",
+			"file": "src/gear/WeaponList.cs",
 			"settings":
 			{
-				"buffer_size": 450,
+				"buffer_size": 2620,
 				"line_ending": "Windows"
 			}
 		}
@@ -164,15 +187,16 @@
 	],
 	"file_history":
 	[
-		"/C/Users/Chris/Documents/Unity/Castles/Castles/Assets/Scripts/src/gear/Item.cs",
+		"/C/Users/Chris/Documents/Unity/Castles/Castles/Assets/Scripts/src/army/Army.cs",
+		"/C/Users/Chris/Documents/Unity/Castles/Castles/Assets/Scripts/src/gear/ArmourItem.cs",
+		"/C/Users/Chris/Documents/Unity/Castles/Castles/Assets/Scripts/src/gear/ArmourList.cs",
+		"/C/Users/Chris/Documents/Unity/Castles/Castles/Assets/Scripts/src/army/Soldier.cs",
+		"/C/Users/Chris/Documents/Unity/Castles/Castles/Assets/Scripts/src/army/SoldierList.cs",
 		"/C/Users/Chris/Documents/Unity/Castles/Castles/Assets/Scripts/src/gear/WeaponItem.cs",
+		"/C/Users/Chris/Documents/Unity/Castles/Castles/Assets/Scripts/src/gear/Item.cs",
 		"/C/Users/Chris/Documents/Unity/Castles/Castles/Assets/Scripts/src/battle/ArmyManager.cs",
 		"/C/Users/Chris/Documents/Unity/Castles/Castles/Assets/Scripts/src/gear/WeaponList.cs",
 		"/C/Users/Chris/Documents/Unity/Castles/Castles/Assets/Scripts/src/army/Division.cs",
-		"/C/Users/Chris/Documents/Unity/Castles/Castles/Assets/Scripts/src/army/SoldierList.cs",
-		"/C/Users/Chris/Documents/Unity/Castles/Castles/Assets/Scripts/src/gear/ArmourList.cs",
-		"/C/Users/Chris/Documents/Unity/Castles/Castles/Assets/Scripts/src/gear/ArmourItem.cs",
-		"/C/Users/Chris/Documents/Unity/Castles/Castles/Assets/Scripts/src/army/Soldier.cs",
 		"/C/Users/Chris/Documents/Unity/Castles/Castles/Assets/Scripts/src/battle/BattleManager.cs",
 		"/C/Users/Chris/Documents/Unity/Castles/Castles/Assets/Scripts/src/army/Peasant.cs",
 		"/C/Users/Chris/Documents/Unity/Castles/Castles/Assets/Scripts/src/JSONParser.cs",
@@ -183,7 +207,6 @@
 		"/C/Users/Chris/Documents/Unity/Castles/Castles/Assets/Scripts/src/xml/XmlParser.cs",
 		"/C/Users/Chris/Documents/Unity/Castles/Castles/Assets/Scripts/src/gear/armour_types/ArmourList.cs",
 		"/C/Users/Chris/AppData/Roaming/Sublime Text 3/Packages/User/log.sublime-snippet",
-		"/C/Users/Chris/Documents/Unity/Castles/Castles/Assets/Scripts/src/army/Army.cs",
 		"/C/Users/Chris/Documents/Unity/Castles/Castles/Assets/Scripts/src/gear/weapon_types/Knife.cs",
 		"/C/Users/Chris/AppData/Roaming/Sublime Text 3/Packages/User/for.sublime-snippet",
 		"/C/Users/Chris/Documents/Unity/Castles/Castles/Assets/Scripts/src/battle/TurnManager.cs",
@@ -242,15 +265,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 437,
+						"buffer_size": 432,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								0,
-								0
+								335,
+								335
 							]
 						],
 						"settings":
@@ -267,24 +290,25 @@
 				},
 				{
 					"buffer": 1,
-					"file": "src/army/Army.cs",
+					"file": "src/battle/BattleManager.cs",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 143,
+						"buffer_size": 675,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								137,
-								137
+								658,
+								658
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/C#/C#.tmLanguage"
+							"syntax": "Packages/C#/C#.tmLanguage",
+							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
 						"translation.y": 0.0,
@@ -295,24 +319,25 @@
 				},
 				{
 					"buffer": 2,
-					"file": "src/gear/WeaponItem.cs",
+					"file": "src/army/Soldier.cs",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 1222,
+						"buffer_size": 1699,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								636,
-								636
+								677,
+								677
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/C#/C#.tmLanguage"
+							"syntax": "Packages/C#/C#.tmLanguage",
+							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
 						"translation.y": 0.0,
@@ -323,11 +348,11 @@
 				},
 				{
 					"buffer": 3,
-					"file": "src/gear/Item.cs",
+					"file": "src/army/Army.cs",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 450,
+						"buffer_size": 390,
 						"regions":
 						{
 						},
@@ -348,6 +373,63 @@
 						"zoom_level": 1.0
 					},
 					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "src/DataStore.cs",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 757,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								757,
+								757
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C#/C#.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 4,
+					"type": "text"
+				},
+				{
+					"buffer": 5,
+					"file": "src/gear/WeaponList.cs",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2620,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								954,
+								954
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C#/C#.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 5,
 					"type": "text"
 				}
 			]
