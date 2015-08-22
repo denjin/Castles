@@ -33,7 +33,7 @@ public class MapManager {
 			//setup map variables
 			levelWidth = _levelWidth;
 			levelHeight = _levelHeight;
-			
+
 			//add a buffer to the size of the level
 			buffer = new Int2(levelWidth * 2, levelHeight * 2);
 			//create the level
@@ -83,6 +83,10 @@ public class MapManager {
 					order++;
 				}
 			}
+		}
+
+		public Int2 GetSize() {
+			return new Int2(levelWidth, levelHeight);
 		}
 		
 		/**
