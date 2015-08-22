@@ -7,8 +7,8 @@ namespace Battle {
 public class MapManager {
 		private Camera mainCamera;
 		//base size of the map
-		private int levelWidth = 20;
-		private int levelHeight = 20;
+		private int levelWidth;
+		private int levelHeight;
 		//amount to add to the map to get it to fit properly into the iso map
 		private Int2 buffer;
 		//height / width of the generated iso map
@@ -25,10 +25,14 @@ public class MapManager {
 		private float seed;
 		private float noise;
 
-		public MapManager(Camera _mainCamera) {
+		public MapManager(Camera _mainCamera, int _levelWidth = 20, int _levelHeight = 20) {
 			//initialise the camera
 			mainCamera = _mainCamera;
 			Tile.SetCamera(mainCamera);
+
+			//setup map variables
+			levelWidth = _levelWidth;
+			levelHeight = _levelHeight;
 			
 			//add a buffer to the size of the level
 			buffer = new Int2(levelWidth * 2, levelHeight * 2);
@@ -80,14 +84,12 @@ public class MapManager {
 				}
 			}
 		}
-
-		 
 		
 		/**
 		 * Convert coordinates of a tile in tiles[,] to one used by SpriteTile
 		 * @param	Int2	tile	the starting tile
 		 */
-		private Int2 CartTileToIsoTile(Int2 tile) {
+		public Int2 CartTileToIsoTile(Int2 tile) {
 			return cartTiles[tile.x, tile.y];
 		}
 		
@@ -96,7 +98,7 @@ public class MapManager {
 		 * @param	Int2	tile	the starting tile
 		 * @return	Int2			the referenced tile, returns (-1, -1) if no tile
 		 **/
-		private Int2 IsoTileToCartTile(Int2 tile) {
+		public Int2 IsoTileToCartTile(Int2 tile) {
 			if (Tile.GetTile(tile) != TileInfo.empty) {
 				return isoTiles[tile.x, tile.y];
 			} else {
