@@ -25,7 +25,7 @@ public class MapManager {
 		private float seed;
 		private float noise;
 
-		public void init(Camera _mainCamera) {
+		public MapManager(Camera _mainCamera) {
 			//initialise the camera
 			mainCamera = _mainCamera;
 			Tile.SetCamera(mainCamera);
@@ -65,8 +65,6 @@ public class MapManager {
 				}
 			}
 			
-			
-			
 			//set the cameras position to the first tiles position
 			Int2 middle = new Int2(levelWidth / 2, levelHeight / 2);
 			Vector3 tilePosition = Tile.MapToWorldPosition(CartTileToIsoTile(middle), 0);
@@ -82,45 +80,14 @@ public class MapManager {
 				}
 			}
 		}
-		
-		/**
-		 * Gets the tile under the mouse
-		 * return	returns the isoTile beneath the current mouse location
-		 */
-		Int2 GetTile() {
-			Vector3 mousePosition = mainCamera.ScreenToWorldPoint(Input.mousePosition);
-			return Tile.WorldToMapPosition(mousePosition);
-		}
-		
-		void HighlightBlock(Int2 centre, int range) {
-			Int2 start = new Int2(centre.x - range, centre.y - range);
-			Int2 end = new Int2(centre.x + range, centre.y + range);
-			for (int y = start.y; y <= end.y; y++) {
-				for (int x = start.x; x <= end.x; x++) {
-					HighlightTile(CartTileToIsoTile(new Int2(x, y)));
-				}
-			}
-			//Debug.Log(IsoTileToCartTile(centre));
-		}
-		
-		/**
-		 * Swaps the desired tile for the highlighted version
-		 * @param	Int2	tile	the desired tile
-		 */
-		void HighlightTile(Int2 tile) {
-			TileInfo currentTile = Tile.GetTile(tile);
-			if (currentTile != TileInfo.empty) {
-				Tile.SetTile(tile, 0, 0, currentTile.tile - numTiles);
-			}
-		}
-		
-		
+
+		 
 		
 		/**
 		 * Convert coordinates of a tile in tiles[,] to one used by SpriteTile
 		 * @param	Int2	tile	the starting tile
 		 */
-		Int2 CartTileToIsoTile(Int2 tile) {
+		private Int2 CartTileToIsoTile(Int2 tile) {
 			return cartTiles[tile.x, tile.y];
 		}
 		
@@ -129,7 +96,7 @@ public class MapManager {
 		 * @param	Int2	tile	the starting tile
 		 * @return	Int2			the referenced tile, returns (-1, -1) if no tile
 		 **/
-		Int2 IsoTileToCartTile(Int2 tile) {
+		private Int2 IsoTileToCartTile(Int2 tile) {
 			if (Tile.GetTile(tile) != TileInfo.empty) {
 				return isoTiles[tile.x, tile.y];
 			} else {
@@ -137,7 +104,7 @@ public class MapManager {
 			}
 		}
 		
-		int GetPerlinNoise(int x, int y, float _seed, int _numTiles) {
+		private int GetPerlinNoise(int x, int y, float _seed, int _numTiles) {
 			float noiseVal = Mathf.PerlinNoise(_seed + x, _seed + y) * (_numTiles + 1);
 			int _int = (int)Mathf.Floor(noiseVal);
 			if (_int < 0) {

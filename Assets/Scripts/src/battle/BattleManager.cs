@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using SpriteTile;
 using Battle;
 using Armies;
 using Gear;
@@ -17,15 +18,9 @@ namespace Battle {
 
 		void Awake() {
 			//load the map
-			Map = new MapManager();
-			//initialise the map
-			Map.init(mainCamera);
-			//load the armies
-			//armyManager = new ArmyManager(1);
-			//deploy the armies
-			//DeployArmies();
+			Map = new MapManager(mainCamera);
+			//init armies
 			initArmies(2, 10);
-			//Debug.Log(armies[0, 0]);
 		}
 
 		void initArmies(int _armies, int _soldiers) {
