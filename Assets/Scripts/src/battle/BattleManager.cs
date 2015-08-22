@@ -34,9 +34,14 @@ namespace Battle {
 			
 			for (int i = 0; i < _armies; i++) {
 				for (int j = 0; j < _soldiers; j++) {
+					//init data object
+					armyData[i,j] = DataStore.Instance.GetSoldier("Peasant");
+					//init display object
 					armySprites[i,j] = new GameObject();
+					//add sprite renderer
 					armySprites[i,j].AddComponent<SpriteRenderer>();
-					armySprites[i,j].GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("graphics/units/peasant");
+					//load sprite
+					armySprites[i,j].GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("graphics/units/" + armyData[i,j].GetSprite());
 					armySprites[i,j].transform.position = new Vector2(j, 0);
 				}
 			}
