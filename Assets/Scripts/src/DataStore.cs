@@ -8,6 +8,10 @@ public class DataStore : MonoBehaviour {
 	public SoldierList soldiers;
 
 	private static DataStore instance;
+
+	/**
+	 * If this oject already exists, return the existing instance of it, or if it's yet to be instantiated then create it
+	 */
 	public static DataStore Instance {
 		get { 
 			return instance ?? (instance = new GameObject("DataStore").AddComponent<DataStore>());

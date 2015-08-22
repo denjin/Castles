@@ -42,7 +42,7 @@ namespace Battle {
 					armySprites[i,j].AddComponent<SpriteRenderer>();
 					//load sprite
 					armySprites[i,j].GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("graphics/units/" + armyData[i,j].GetSprite());
-					armySprites[i,j].transform.position = new Vector2(j, 0);
+					armySprites[i,j].transform.position = new Vector2(0f + Random.value - 0.5f, 0f + Random.value - 0.5f);
 				}
 			}
 			
@@ -53,13 +53,5 @@ namespace Battle {
 			//Debug.Log(armyManager.GetSoldiers(0).Length);
 			
 		}
-
-		/*
-		GameObject InstantiateSoldier(string _soldier) {
-
-		}
-		*/
-
-
 	}
 }
