@@ -109,6 +109,14 @@ public class MapManager {
 				return new Int2(-1, -1);
 			}
 		}
+
+		public Vector3 TileToWorld(Int2 _tile, bool _iso) {
+			if (_iso) {
+				return Tile.MapToWorldPosition(_tile);
+			}
+			return Tile.MapToWorldPosition(CartTileToIsoTile(_tile));
+			
+		}
 		
 		private int GetPerlinNoise(int x, int y, float _seed, int _numTiles) {
 			float noiseVal = Mathf.PerlinNoise(_seed + x, _seed + y) * (_numTiles + 1);
