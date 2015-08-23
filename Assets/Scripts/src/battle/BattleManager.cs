@@ -56,8 +56,6 @@ namespace Battle {
 			for (int i = 0; i < armyData.Length; i++) {
 				deploymentTile.x = (int)Mathf.Floor(Random.value * mapSize.x);
 				deploymentTile.y = (int)Mathf.Floor(Random.value * mapSize.y);
-				//tilePosition = map.
-
 				for (int j = 0; j < armyData[i].Length; j++) {
 					Vector3 pos = map.TileToWorld(deploymentTile, false);
 					armySprites[i][j].transform.position = pos;
