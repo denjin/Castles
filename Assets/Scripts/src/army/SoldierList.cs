@@ -16,7 +16,7 @@ namespace Armies {
 
 		public SoldierList() {
 			//load the data
-			data = Resources.Load("soldiers") as TextAsset;
+			data = Resources.Load("common/soldiers") as TextAsset;
 			//init json object
 			json = new JSONObject(data.text);
 			//init dictionary

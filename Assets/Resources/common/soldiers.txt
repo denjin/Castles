@@ -1,0 +1,34 @@
+{
+	{
+		"name" : "Peasant",
+		"hp" : 10,
+		"mp" : 10,
+		"armour" : {
+			"torso" : "Tunic",
+			"legs" : "Breeches",
+			"feet" : "Cloth Boots"
+		},
+		"weapons" : {
+			"1" : "Club",
+			"2" : "Stones"
+		},
+		"sprite" : "peasant"
+	},
+	
+	{
+		"name" : "Leader",
+		"hp" : 10,
+		"mp" : 10,
+		"armour" : {
+			"head" : "Cloth Cap",
+			"torso" : "Tunic",
+			"legs" : "Breeches",
+			"hands" : "Cloth Gloves",
+			"feet" : "Cloth Boots"
+		},
+		"weapons" : {
+			"1" : "Knife"
+		},
+		"sprite" : "leader"
+	}
+}

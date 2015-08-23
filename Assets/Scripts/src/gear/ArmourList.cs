@@ -17,7 +17,7 @@ namespace Gear {
 
 		public ArmourList() {
 			//load the data
-			data = Resources.Load("armour_items") as TextAsset;
+			data = Resources.Load("common/armour_items") as TextAsset;
 			//init json object
 			json = new JSONObject(data.text);
 			//init dictionary
