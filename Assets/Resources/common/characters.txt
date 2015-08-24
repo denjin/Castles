@@ -1,0 +1,21 @@
+{
+	{
+		"name" : "Dave",
+		"diplomacy" : 5,
+		"martial" : 5,
+		"intrigue" : 5,
+		"soldiers" : {
+			"Peasant" : 10
+		}
+	},
+	
+	{
+		"name" : "Pete",
+		"diplomacy" : 4,
+		"martial" : 4,
+		"intrigue" : 4,
+		"soldiers" : {
+			"Peasant" : 4
+		}
+	}
+}
