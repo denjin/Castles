@@ -6,6 +6,7 @@ public class DataStore : MonoBehaviour {
 	public ArmourList armourItems;
 	public WeaponList weaponItems;
 	public SoldierList soldiers;
+	public CharacterList characters;
 
 	private static DataStore instance;
 
@@ -23,6 +24,7 @@ public class DataStore : MonoBehaviour {
 		armourItems = new ArmourList();
 		weaponItems = new WeaponList();
 		soldiers = new SoldierList();
+		characters = new CharacterList();
 	}
 
 	public ArmourItem GetArmourItem(string _key) {
@@ -35,5 +37,9 @@ public class DataStore : MonoBehaviour {
 
 	public Soldier GetSoldier(string _key) {
 		return soldiers.GetSoldier(_key);
+	}
+
+	public Character GetCharacter(string _key) {
+		return characters.GetCharacter(_key);
 	}
 }

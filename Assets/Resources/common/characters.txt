@@ -4,9 +4,22 @@
 		"diplomacy" : 5,
 		"martial" : 5,
 		"intrigue" : 5,
+		"hp" : 20,
+		"mp" : 20,
+		"armour" : {
+			"torso" : "Tunic",
+			"legs" : "Breeches",
+			"feet" : "Cloth Boots"
+		},
+		"weapons" : {
+			"1" : "Club",
+			"2" : "Stones"
+		},
+		
 		"soldiers" : {
 			"Peasant" : 10
-		}
+		},
+		"sprite" : "leader"
 	},
 	
 	{
@@ -14,8 +27,20 @@
 		"diplomacy" : 4,
 		"martial" : 4,
 		"intrigue" : 4,
+		"hp" : 20,
+		"mp" : 20,
+		"armour" : {
+			"torso" : "Tunic",
+			"legs" : "Breeches",
+			"feet" : "Cloth Boots"
+		},
+		"weapons" : {
+			"1" : "Club",
+			"2" : "Stones"
+		},
 		"soldiers" : {
 			"Peasant" : 4
-		}
+		},
+		"sprite" : "leader",
 	}
 }
