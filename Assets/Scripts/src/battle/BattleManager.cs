@@ -23,9 +23,9 @@ namespace Battle {
 			map = new MapManager(mainCamera, 10, 10);
 			//init armies
 			
-			string[] belligerents = new string[2];
+			string[] belligerents = new string[1];
 			belligerents[0] = "Dave";
-			belligerents[1] = "Pete";
+			//belligerents[1] = "Pete";
 			initArmies(belligerents);
 			DeployArmies();
 			//Debug.Log(DataStore.Instance.GetSoldier("Peasant").GetWeaponItem("1"));
@@ -38,41 +38,35 @@ namespace Battle {
 			armyData = new Soldier[_belligerents.Length][];
 
 			Character character;
-			int soldiers;
+			Dictionary<string, int> soldiers;
 			
 			for (int i = 0; i < _belligerents.Length; i++) {
 				character = DataStore.Instance.GetCharacter(_belligerents[i]);
-				soldiers = character.SoldierCount();
+				soldiers = character.GetSoldiers();
+				armySprites[i] = new GameObject[soldiers.Count];
+				armyData[i] = new Soldier[soldiers.Count];
 				
-
-				
-				armySprites[i] = new GameObject[soldiers];
-				armyData[i] = new Soldier[soldiers];
-				
-				//go through each listed soldier type
-				for (int j = 0; j < soldiers; j++) {
-					
-
-
-					/*
-					//init data object
-					armyData[i][j] = DataStore.Instance.GetSoldier("Peasant");
-					//init display object
-					armySprites[i][j] = new GameObject();
-					//add sprite renderer
-					armySprites[i][j].AddComponent<SpriteRenderer>();
-					//load sprite
-					armySprites[i][j].GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>(graphicsPath + armyData[i][j].GetSprite());
-					armySprites[i][j].GetComponent<SpriteRenderer>().sortingLayerName = "Units";
-					*/
+				foreach (KeyValuePair<string, int> type in soldiers) {
+					Debug.Log(soldiers.Count);
+					Debug.Log(type.Key + ": " + type.Value);
+					for (int j = 0; j < type.Value; j++) {
+						AddSoldier(i, j, type.Key);
+					}
 				}
-				
 			}
 			
 		}
 
-		private void AddSoldier() {
-
+		private void AddSoldier(int _i, int _j, string _type) {
+			//init data object
+			armyData[_i][_j] = DataStore.Instance.GetSoldier(_type);
+			//init display object
+			armySprites[_i][_j] = new GameObject();
+			//add sprite renderer
+			armySprites[_i][_j].AddComponent<SpriteRenderer>();
+			//load sprite
+			armySprites[_i][_j].GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>(graphicsPath + armyData[_i][_j].GetSprite());
+			armySprites[_i][_j].GetComponent<SpriteRenderer>().sortingLayerName = "Units";
 		}
 
 		private void DeployArmies() {

@@ -59,6 +59,10 @@ namespace Armies {
 			return soldiers["peasant"];
 		}
 
+		public Dictionary<string, int> GetSoldiers() {
+			return soldiers;
+		}
+
 		public void SetSoldier(int _item, string _key) {
 			if (soldiers.ContainsKey(_key)) {
 				soldiers[_key] = _item;

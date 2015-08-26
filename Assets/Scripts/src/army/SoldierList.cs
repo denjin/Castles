@@ -51,7 +51,7 @@ namespace Armies {
 				for (int j = 0; j < item.list.Count; j++) {
 					switch (item.keys[j].ToLower()) {
 						case "name" :
-						name = obj[i].list[j].str;
+						name = obj[i].list[j].str.ToLower();
 						break;
 
 						case "hp" :
