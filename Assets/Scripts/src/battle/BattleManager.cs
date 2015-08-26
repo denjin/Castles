@@ -42,16 +42,19 @@ namespace Battle {
 			
 			for (int i = 0; i < _belligerents.Length; i++) {
 				character = DataStore.Instance.GetCharacter(_belligerents[i]);
-				//Debug.Log(character.GetName() + " : " + character.soldiers["peasant"]);
-				//Debug.Log(character.soldiers.Count);
-				
 				soldiers = character.SoldierCount();
-				Debug.Log(soldiers);
 				
+
 				
 				armySprites[i] = new GameObject[soldiers];
 				armyData[i] = new Soldier[soldiers];
+				
+				//go through each listed soldier type
 				for (int j = 0; j < soldiers; j++) {
+					
+
+
+					/*
 					//init data object
 					armyData[i][j] = DataStore.Instance.GetSoldier("Peasant");
 					//init display object
@@ -61,9 +64,15 @@ namespace Battle {
 					//load sprite
 					armySprites[i][j].GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>(graphicsPath + armyData[i][j].GetSprite());
 					armySprites[i][j].GetComponent<SpriteRenderer>().sortingLayerName = "Units";
+					*/
 				}
+				
 			}
 			
+		}
+
+		private void AddSoldier() {
+
 		}
 
 		private void DeployArmies() {
