@@ -4,6 +4,18 @@
 		"selected_items":
 		[
 			[
+				"_m",
+				"_martial"
+			],
+			[
+				"int",
+				"intrigue"
+			],
+			[
+				"di",
+				"diplomacy"
+			],
+			[
 				"Map",
 				"MapToWorldPosition"
 			],
@@ -127,16 +139,24 @@
 			"file": "src/DataStore.cs",
 			"settings":
 			{
-				"buffer_size": 887,
+				"buffer_size": 1047,
 				"line_ending": "Windows"
 			}
 		},
 		{
-			"file": "src/gear/ArmourList.cs",
+			"file": "src/army/CharacterList.cs",
 			"settings":
 			{
-				"buffer_size": 2293,
+				"buffer_size": 3945,
 				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "src/battle/BattleManager.cs",
+			"settings":
+			{
+				"buffer_size": 1958,
+				"line_ending": "Unix"
 			}
 		},
 		{
@@ -156,35 +176,19 @@
 			}
 		},
 		{
+			"file": "src/gear/WeaponItem.cs",
+			"settings":
+			{
+				"buffer_size": 1234,
+				"line_ending": "Windows"
+			}
+		},
+		{
 			"file": "src/army/Character.cs",
 			"settings":
 			{
-				"buffer_size": 224,
+				"buffer_size": 716,
 				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "src/gear/WeaponList.cs",
-			"settings":
-			{
-				"buffer_size": 2627,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "src/battle/BattleManager.cs",
-			"settings":
-			{
-				"buffer_size": 1861,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "src/battle/MapManager.cs",
-			"settings":
-			{
-				"buffer_size": 3843,
-				"line_ending": "Unix"
 			}
 		}
 	],
@@ -252,15 +256,16 @@
 	],
 	"file_history":
 	[
+		"/C/Users/Chris/Documents/Unity/Castles/Castles/Assets/Scripts/src/gear/ArmourList.cs",
+		"/C/Users/Chris/Documents/Unity/Castles/Castles/Assets/Scripts/src/battle/MapManager.cs",
+		"/C/Users/Chris/Documents/Unity/Castles/Castles/Assets/Scripts/src/battle/BattleManager.cs",
+		"/C/Users/Chris/Documents/Unity/Castles/Castles/Assets/Scripts/src/gear/WeaponList.cs",
 		"/C/Users/Chris/Documents/Unity/Castles/Castles/Assets/Scripts/src/gear/ArmourItem.cs",
 		"/C/Users/Chris/Documents/Unity/Castles/Castles/Assets/Scripts/src/CameraController.cs",
 		"/C/Users/Chris/Documents/Unity/Castles/Castles/Assets/Scripts/src/battle/ArmyManager.cs",
 		"/C/Users/Chris/Documents/Unity/Castles/Castles/Assets/Scripts/src/army/Army.cs",
 		"/C/Users/Chris/Documents/Unity/Castles/Castles/Assets/Scripts/src/army/SoldierList.cs",
 		"/C/Users/Chris/Documents/Unity/Castles/Castles/Assets/Scripts/src/army/Soldier.cs",
-		"/C/Users/Chris/Documents/Unity/Castles/Castles/Assets/Scripts/src/battle/BattleManager.cs",
-		"/C/Users/Chris/Documents/Unity/Castles/Castles/Assets/Scripts/src/gear/WeaponList.cs",
-		"/C/Users/Chris/Documents/Unity/Castles/Castles/Assets/Scripts/src/gear/ArmourList.cs",
 		"/C/Users/Chris/Documents/Unity/Castles/Castles/Assets/Scripts/src/gear/WeaponItem.cs",
 		"/C/Users/Chris/Documents/Unity/Castles/Castles/Assets/Scripts/src/gear/Item.cs",
 		"/C/Users/Chris/Documents/Unity/Castles/Castles/Assets/Scripts/src/army/Division.cs",
@@ -276,7 +281,6 @@
 		"/C/Users/Chris/Documents/Unity/Castles/Castles/Assets/Scripts/src/gear/weapon_types/Knife.cs",
 		"/C/Users/Chris/AppData/Roaming/Sublime Text 3/Packages/User/for.sublime-snippet",
 		"/C/Users/Chris/Documents/Unity/Castles/Castles/Assets/Scripts/src/battle/TurnManager.cs",
-		"/C/Users/Chris/Documents/Unity/Castles/Castles/Assets/Scripts/src/battle/MapManager.cs",
 		"/C/Users/Chris/AppData/Roaming/Sublime Text 3/Packages/User/constructor.sublime-snippet",
 		"/C/Users/Chris/AppData/Roaming/Sublime Text 3/Packages/User/snippets/setter.sublime-snippet",
 		"/C/Users/Chris/AppData/Roaming/Sublime Text 3/Packages/User/setter.sublime-snippet",
@@ -301,6 +305,7 @@
 		"case_sensitive": true,
 		"find_history":
 		[
+			";\n",
 			"\");\n",
 			"armour",
 			"ArmourItem",
@@ -323,7 +328,7 @@
 	"groups":
 	[
 		{
-			"selected": 4,
+			"selected": 6,
 			"sheets":
 			[
 				{
@@ -332,20 +337,107 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 887,
+						"buffer_size": 1047,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								342,
-								342
+								987,
+								987
 							]
 						],
 						"settings":
 						{
 							"syntax": "Packages/C#/C#.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 11.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 5,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "src/army/CharacterList.cs",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 3945,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								3910,
+								3910
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C#/C#.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 2862.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 4,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "src/battle/BattleManager.cs",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1958,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								646,
+								646
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C#/C#.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": -0.0,
+						"translation.y": 313.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "src/army/SoldierList.cs",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 3206,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C#/C#.tmLanguage",
+							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
 						"translation.y": 0.0,
@@ -355,20 +447,20 @@
 					"type": "text"
 				},
 				{
-					"buffer": 1,
-					"file": "src/gear/ArmourList.cs",
+					"buffer": 4,
+					"file": "src/army/Soldier.cs",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 2293,
+						"buffer_size": 1839,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								516,
-								516
+								697,
+								697
 							]
 						],
 						"settings":
@@ -384,106 +476,20 @@
 					"type": "text"
 				},
 				{
-					"buffer": 2,
-					"file": "src/army/SoldierList.cs",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 3206,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								494,
-								494
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C#/C#.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 4,
-					"type": "text"
-				},
-				{
-					"buffer": 3,
-					"file": "src/army/Soldier.cs",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 1839,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								304,
-								304
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C#/C#.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": -0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 5,
-					"type": "text"
-				},
-				{
-					"buffer": 4,
-					"file": "src/army/Character.cs",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 224,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								172,
-								172
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C#/C#.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 0,
-					"type": "text"
-				},
-				{
 					"buffer": 5,
-					"file": "src/gear/WeaponList.cs",
+					"file": "src/gear/WeaponItem.cs",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 2627,
+						"buffer_size": 1234,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								517,
-								517
+								0,
+								0
 							]
 						],
 						"settings":
@@ -500,60 +506,30 @@
 				},
 				{
 					"buffer": 6,
-					"file": "src/battle/BattleManager.cs",
+					"file": "src/army/Character.cs",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 1861,
+						"buffer_size": 716,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								405,
-								405
+								611,
+								611
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/C#/C#.tmLanguage",
-							"translate_tabs_to_spaces": false
+							"syntax": "Packages/C#/C#.tmLanguage"
 						},
 						"translation.x": 0.0,
-						"translation.y": 77.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 1,
-					"type": "text"
-				},
-				{
-					"buffer": 7,
-					"file": "src/battle/MapManager.cs",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 3843,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								3412,
-								3412
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C#/C#.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 1897.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 7,
+					"stack_index": 0,
 					"type": "text"
 				}
 			]
