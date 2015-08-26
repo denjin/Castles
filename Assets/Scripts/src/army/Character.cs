@@ -9,7 +9,7 @@ namespace Armies {
 		private int diplomacy;
 		private int martial;
 		private int intrigue;
-		private Dictionary<string, string> soldiers;
+		private Dictionary<string, int> soldiers;
 
 		public Character () {}
 
@@ -22,7 +22,7 @@ namespace Armies {
 			int _mp,
 			Dictionary<string, string> _armour,
 			Dictionary<string, string> _weapons,
-			Dictionary<string, string> _soldiers,
+			Dictionary<string, int> _soldiers,
 			string _sprite) : base (_name, _hp, _mp, _armour, _weapons, _sprite) {
 			
 			diplomacy = _diplomacy;
@@ -55,17 +55,17 @@ namespace Armies {
 			intrigue = _value;
 		}
 
-		public void SetSoldier(string _item, string _key) {
+		public void SetSoldier(int _item, string _key) {
 			if (soldiers.ContainsKey(_key)) {
 				soldiers[_key] = _item;
 			}
 		}
 
-		public string GetSoldier(string _key) {
+		public int GetSoldier(string _key) {
 			if (soldiers.ContainsKey(_key)) {
 				return soldiers[_key];
 			}
-			return null;
+			return 0;
 		}
 	}
 }

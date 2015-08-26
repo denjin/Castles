@@ -60,7 +60,7 @@ namespace Armies {
 
 				//for each field in the item
 				for (int j = 0; j < item.list.Count; j++) {
-					switch (item.keys[j]) {
+					switch (item.keys[j].ToLower()) {
 						case "name" :
 						name = obj[i].list[j].str;
 						break;
@@ -75,7 +75,7 @@ namespace Armies {
 
 						case "armour" :
 						for (int k = 0; k < obj[i][j].Count; k++) {
-							switch (obj[i][j].keys[k]) {
+							switch (obj[i][j].keys[k].ToLower()) {
 								case "head" :
 								armour.Add("head", obj[i][j].list[k].str);
 								break;
@@ -101,7 +101,7 @@ namespace Armies {
 
 						case "weapons" :
 						for (int k = 0; k < obj[i][j].Count; k++) {
-							switch (obj[i][j].keys[k]) {
+							switch (obj[i][j].keys[k].ToLower()) {
 								case "1" :
 								weapons.Add("1", obj[i][j].list[k].str);
 								break;

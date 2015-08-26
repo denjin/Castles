@@ -46,7 +46,7 @@ namespace Armies {
 			Dictionary<string, string> armour = new Dictionary<string, string>();
 			Dictionary<string, string> weapons = new Dictionary<string, string>();
 			//references to the character's soldiers
-			Dictionary<string, string> soldiers = new Dictionary<string, string>();
+			Dictionary<string, int> soldiers = new Dictionary<string, int>();
 			//graphics asset
 			string sprite;
 			//temporary JSONObject
@@ -64,11 +64,12 @@ namespace Armies {
 				mp = 0;
 				armour.Clear();
 				weapons.Clear();
+				soldiers.Clear();
 				sprite = "NULL";
 
 				//for each field in the item
 				for (int j = 0; j < item.list.Count; j++) {
-					switch (item.keys[j]) {
+					switch (item.keys[j].ToLower()) {
 						case "name" :
 						name = obj[i].list[j].str;
 						break;
@@ -95,7 +96,7 @@ namespace Armies {
 
 						case "armour" :
 						for (int k = 0; k < obj[i][j].Count; k++) {
-							switch (obj[i][j].keys[k]) {
+							switch (obj[i][j].keys[k].ToLower()) {
 								case "head" :
 								armour.Add("head", obj[i][j].list[k].str);
 								break;
@@ -121,7 +122,7 @@ namespace Armies {
 
 						case "weapons" :
 						for (int k = 0; k < obj[i][j].Count; k++) {
-							switch (obj[i][j].keys[k]) {
+							switch (obj[i][j].keys[k].ToLower()) {
 								case "1" :
 								weapons.Add("1", obj[i][j].list[k].str);
 								break;
@@ -143,9 +144,9 @@ namespace Armies {
 
 						case "soldiers" :
 						for (int k = 0; k < obj[i][j].Count; k++) {
-							switch (obj[i][j].keys[k]) {
+							switch (obj[i][j].keys[k].ToLower()) {
 								case "peasant" :
-								weapons.Add("1", obj[i][j].list[k].str);
+								soldiers.Add("peasant", (int)obj[i][j].list[k].n);
 								break;
 							}
 						}

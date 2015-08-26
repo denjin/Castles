@@ -24,12 +24,11 @@ namespace Battle {
 			//init armies
 			initArmies(2, 10);
 			DeployArmies();
-			Character chara = DataStore.Instance.GetCharacter("Dave");
-			Debug.Log(chara.GetName());
 			
 		}
 
 		private void initArmies(int _armies, int _soldiers) {
+			Debug.Log(DataStore.Instance.GetCharacter("Dave").GetSoldier("peasant"));
 			armySprites = new GameObject[_armies][];
 			armyData = new Soldier[_armies][];
 			

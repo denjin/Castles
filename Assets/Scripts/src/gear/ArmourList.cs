@@ -61,7 +61,7 @@ namespace Gear {
 				//for each field in the item
 				for (int j = 0; j < item.list.Count; j++) {
 					//get their stats, only if they correspond to the correct fields
-					switch (item.keys[j]) {
+					switch (item.keys[j].ToLower()) {
 						case "name" :
 						name = obj[i].list[j].str;
 						break;
