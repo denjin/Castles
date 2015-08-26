@@ -43,7 +43,7 @@ namespace Armies {
 				//store the item temporarily
 				item = obj[i];
 				//vars to add to each item
-				string name = "";
+				string name = "NULL";
 				int martial = 0;
 				int diplomacy = 0;
 				int intrigue = 0;
@@ -55,7 +55,7 @@ namespace Armies {
 				//references to the character's soldiers
 				Dictionary<string, int> soldiers = new Dictionary<string, int>();
 				//graphics asset
-				string sprite = "";
+				string sprite = "NULL";
 
 				//for each field in the item
 				for (int j = 0; j < item.list.Count; j++) {

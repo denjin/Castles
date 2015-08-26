@@ -40,12 +40,12 @@ namespace Armies {
 			for (int i = 0; i < obj.list.Count; i++) {
 				//store the item temporarily
 				item = obj[i];
-				string name = "";
+				string name = "NULL";
 				int hp = 0;
 				int mp = 0;
 				Dictionary<string, string> armour = new Dictionary<string, string>();
 				Dictionary<string, string> weapons = new Dictionary<string, string>();
-				string sprite = "";
+				string sprite = "NULL";
 
 				//for each field in the item
 				for (int j = 0; j < item.list.Count; j++) {
