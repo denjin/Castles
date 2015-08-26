@@ -15,9 +15,8 @@
 			"1" : "Club",
 			"2" : "Stones"
 		},
-		
 		"soldiers" : {
-			"Peasant" : 10
+			"peasant" : 10
 		},
 		"sprite" : "leader"
 	},
@@ -30,16 +29,15 @@
 		"hp" : 20,
 		"mp" : 20,
 		"armour" : {
-			"torso" : "Tunic",
-			"legs" : "Breeches",
-			"feet" : "Cloth Boots"
+			"torso" : "Tunic"
 		},
 		"weapons" : {
 			"1" : "Club",
 			"2" : "Stones"
 		},
+		
 		"soldiers" : {
-			"Peasant" : 4
+			"peasant" : 20
 		},
 		"sprite" : "leader",
 	}

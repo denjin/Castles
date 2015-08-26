@@ -22,20 +22,36 @@ namespace Battle {
 			//load the map
 			map = new MapManager(mainCamera, 10, 10);
 			//init armies
-			initArmies(2, 10);
-			DeployArmies();
 			
+			string[] belligerents = new string[2];
+			belligerents[0] = "Dave";
+			belligerents[1] = "Pete";
+			initArmies(belligerents);
+			DeployArmies();
+			//Debug.Log(DataStore.Instance.GetSoldier("Peasant").GetWeaponItem("1"));
+			//Debug.Log(DataStore.Instance.GetSoldier("Leader").GetWeaponItem("1"));
 		}
 
-		private void initArmies(int _armies, int _soldiers) {
-			Debug.Log(DataStore.Instance.GetCharacter("Dave").GetSoldier("peasant"));
-			armySprites = new GameObject[_armies][];
-			armyData = new Soldier[_armies][];
+		private void initArmies(string[] _belligerents) {
+			//Debug.Log(DataStore.Instance.GetCharacter("Dave").GetSoldier("peasant"));
+			armySprites = new GameObject[_belligerents.Length][];
+			armyData = new Soldier[_belligerents.Length][];
+
+			Character character;
+			int soldiers;
 			
-			for (int i = 0; i < _armies; i++) {
-				armySprites[i] = new GameObject[_soldiers];
-				armyData[i] = new Soldier[_soldiers];
-				for (int j = 0; j < _soldiers; j++) {
+			for (int i = 0; i < _belligerents.Length; i++) {
+				character = DataStore.Instance.GetCharacter(_belligerents[i]);
+				//Debug.Log(character.GetName() + " : " + character.soldiers["peasant"]);
+				//Debug.Log(character.soldiers.Count);
+				
+				soldiers = character.SoldierCount();
+				Debug.Log(soldiers);
+				
+				
+				armySprites[i] = new GameObject[soldiers];
+				armyData[i] = new Soldier[soldiers];
+				for (int j = 0; j < soldiers; j++) {
 					//init data object
 					armyData[i][j] = DataStore.Instance.GetSoldier("Peasant");
 					//init display object

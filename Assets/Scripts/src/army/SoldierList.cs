@@ -22,7 +22,7 @@ namespace Armies {
 			//init dictionary
 			soldiers = new Dictionary<string , Soldier>();
 			//parse the data
-			parseData(json, soldiers);
+			parseData(json);
 		}
 
 		public Soldier GetSoldier(string key) {
@@ -32,31 +32,20 @@ namespace Armies {
 		/**
 		 * Parses the JSON object and plugs the data into the dictionary
 		 * @param  	{JSON Object} 	obj 		the object to parse
-		 * @param	{Dictionary}	Dictionary 	the dictionary to place the parsed data
 		 */
-		public void parseData(JSONObject obj, Dictionary<string, Soldier> dictionary) {
-			//vars to add to each item
-			string name;
-			int hp;
-			int mp;
-			//references to the soldier's gear
-			Dictionary<string, string> armour = new Dictionary<string, string>();
-			Dictionary<string, string> weapons = new Dictionary<string, string>();
-			//graphics asset
-			string sprite;
+		public void parseData(JSONObject obj) {
 			//temporary JSONObject
 			JSONObject item;
-
 			//for each item in the whole list
 			for (int i = 0; i < obj.list.Count; i++) {
 				//store the item temporarily
 				item = obj[i];
-				name = "NULL";
-				hp = 0;
-				mp = 0;
-				armour.Clear();
-				weapons.Clear();
-				sprite = "NULL";
+				string name = "";
+				int hp = 0;
+				int mp = 0;
+				Dictionary<string, string> armour = new Dictionary<string, string>();
+				Dictionary<string, string> weapons = new Dictionary<string, string>();
+				string sprite = "";
 
 				//for each field in the item
 				for (int j = 0; j < item.list.Count; j++) {
@@ -127,11 +116,8 @@ namespace Armies {
 					}
 					
 				}
-
-				dictionary.Add(name, new Soldier(name, hp, mp, armour, weapons, sprite));
-				
+				soldiers.Add(name, new Soldier(name, hp, mp, armour, weapons, sprite));
 			}
-
 		}
 	}
 }

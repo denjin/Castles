@@ -22,7 +22,7 @@ namespace Armies {
 			//init dictionary
 			characters = new Dictionary<string , Character>();
 			//parse the data
-			parseData(json, characters);
+			parseData(json);
 		}
 
 		public Character GetCharacter(string key) {
@@ -34,21 +34,7 @@ namespace Armies {
 		 * @param  	{JSON Object} 	obj 		the object to parse
 		 * @param	{Dictionary}	Dictionary 	the dictionary to place the parsed data
 		 */
-		public void parseData(JSONObject obj, Dictionary<string, Character> dictionary) {
-			//vars to add to each item
-			string name;
-			int martial;
-			int diplomacy;
-			int intrigue;
-			int hp;
-			int mp;
-			//references to the characters's gear
-			Dictionary<string, string> armour = new Dictionary<string, string>();
-			Dictionary<string, string> weapons = new Dictionary<string, string>();
-			//references to the character's soldiers
-			Dictionary<string, int> soldiers = new Dictionary<string, int>();
-			//graphics asset
-			string sprite;
+		public void parseData(JSONObject obj) {
 			//temporary JSONObject
 			JSONObject item;
 
@@ -56,16 +42,20 @@ namespace Armies {
 			for (int i = 0; i < obj.list.Count; i++) {
 				//store the item temporarily
 				item = obj[i];
-				name = "NULL";
-				martial = 0;
-				diplomacy = 0;
-				intrigue = 0;
-				hp = 0;
-				mp = 0;
-				armour.Clear();
-				weapons.Clear();
-				soldiers.Clear();
-				sprite = "NULL";
+				//vars to add to each item
+				string name = "";
+				int martial = 0;
+				int diplomacy = 0;
+				int intrigue = 0;
+				int hp = 0;
+				int mp = 0;
+				//references to the characters's gear
+				Dictionary<string, string> armour = new Dictionary<string, string>();
+				Dictionary<string, string> weapons = new Dictionary<string, string>();
+				//references to the character's soldiers
+				Dictionary<string, int> soldiers = new Dictionary<string, int>();
+				//graphics asset
+				string sprite = "";
 
 				//for each field in the item
 				for (int j = 0; j < item.list.Count; j++) {
@@ -121,32 +111,32 @@ namespace Armies {
 						break;
 
 						case "weapons" :
-						for (int k = 0; k < obj[i][j].Count; k++) {
-							switch (obj[i][j].keys[k].ToLower()) {
+						for (int l = 0; l < obj[i][j].Count; l++) {
+							switch (obj[i][j].keys[l].ToLower()) {
 								case "1" :
-								weapons.Add("1", obj[i][j].list[k].str);
+								weapons.Add("1", obj[i][j].list[l].str);
 								break;
 
 								case "2" :
-								weapons.Add("2", obj[i][j].list[k].str);
+								weapons.Add("2", obj[i][j].list[l].str);
 								break;
 
 								case "3" :
-								weapons.Add("3", obj[i][j].list[k].str);
+								weapons.Add("3", obj[i][j].list[l].str);
 								break;
 
 								case "4" :
-								weapons.Add("4", obj[i][j].list[k].str);
+								weapons.Add("4", obj[i][j].list[l].str);
 								break;
 							}
 						}
 						break;
 
 						case "soldiers" :
-						for (int k = 0; k < obj[i][j].Count; k++) {
-							switch (obj[i][j].keys[k].ToLower()) {
+						for (int m = 0; m < obj[i][j].Count; m++) {
+							switch (obj[i][j].keys[m].ToLower()) {
 								case "peasant" :
-								soldiers.Add("peasant", (int)obj[i][j].list[k].n);
+								soldiers.Add("peasant", (int)obj[i][j].list[m].n);
 								break;
 							}
 						}
@@ -158,11 +148,8 @@ namespace Armies {
 					}
 					
 				}
-
-				dictionary.Add(name, new Character(name, diplomacy, martial, intrigue, hp, mp, armour, weapons, soldiers, sprite));
-				
+				characters.Add(name, new Character(name, diplomacy, martial, intrigue, hp, mp, armour, weapons, soldiers, sprite));
 			}
-
 		}
 	}
 }

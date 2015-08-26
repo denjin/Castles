@@ -9,7 +9,7 @@ namespace Armies {
 		private int diplomacy;
 		private int martial;
 		private int intrigue;
-		private Dictionary<string, int> soldiers;
+		public Dictionary<string, int> soldiers;
 
 		public Character () {}
 
@@ -53,6 +53,10 @@ namespace Armies {
 
 		public void SetIntrigue(int _value) {
 			intrigue = _value;
+		}
+
+		public int SoldierCount() {
+			return soldiers["peasant"];
 		}
 
 		public void SetSoldier(int _item, string _key) {
