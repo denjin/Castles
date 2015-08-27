@@ -15,27 +15,29 @@ namespace Battle {
 
 		private string graphicsPath = "graphics/units/";
 
-		private GameObject[][] armySprites;
-		private Soldier[][] armyData;
+		private List<GameObject>[] armySprites;
+		private List<Soldier>[] armyData;
 
 		void Awake() {
 			//load the map
 			map = new MapManager(mainCamera, 10, 10);
 			//init armies
 			
-			string[] belligerents = new string[1];
+			string[] belligerents = new string[2];
 			belligerents[0] = "Dave";
-			//belligerents[1] = "Pete";
-			initArmies(belligerents);
-			DeployArmies();
+			belligerents[1] = "Pete";
+			InitArmies(belligerents);
+			Debug.Log(armyData[0].Count);
+			
+			//DeployArmies();
 			//Debug.Log(DataStore.Instance.GetSoldier("Peasant").GetWeaponItem("1"));
 			//Debug.Log(DataStore.Instance.GetSoldier("Leader").GetWeaponItem("1"));
 		}
 
-		private void initArmies(string[] _belligerents) {
+		private void InitArmies(string[] _belligerents) {
 			//Debug.Log(DataStore.Instance.GetCharacter("Dave").GetSoldier("peasant"));
-			armySprites = new GameObject[_belligerents.Length][];
-			armyData = new Soldier[_belligerents.Length][];
+			//armySprites = new List<GameObject>[_belligerents.Length];
+			armyData = new List<Soldier>[_belligerents.Length];
 
 			Character character;
 			Dictionary<string, int> soldiers;
@@ -43,20 +45,25 @@ namespace Battle {
 			for (int i = 0; i < _belligerents.Length; i++) {
 				character = DataStore.Instance.GetCharacter(_belligerents[i]);
 				soldiers = character.GetSoldiers();
-				armySprites[i] = new GameObject[soldiers.Count];
-				armyData[i] = new Soldier[soldiers.Count];
-				
-				foreach (KeyValuePair<string, int> type in soldiers) {
-					Debug.Log(soldiers.Count);
-					Debug.Log(type.Key + ": " + type.Value);
-					for (int j = 0; j < type.Value; j++) {
-						AddSoldier(i, j, type.Key);
-					}
-				}
+				//armySprites[i] = new GameObject[soldiers.Count];
+				armyData[i] = AddSoldiers(character.GetSoldiers());
 			}
-			
 		}
 
+		private List<Soldier> AddSoldiers(Dictionary<string, int> _data) {
+			//create list to store soldiers
+			List<Soldier> soldiers = new List<Soldier>();
+			//for each soldier type in the data
+			foreach (KeyValuePair<string, int> type in _data) {
+				//for each required soldier of this type
+				for (int i = 0; i < type.Value; i++) {
+					soldiers.Add(DataStore.Instance.GetSoldier(type.Key));
+				}
+			}
+			return soldiers;
+		}
+
+		/*
 		private void AddSoldier(int _i, int _j, string _type) {
 			//init data object
 			armyData[_i][_j] = DataStore.Instance.GetSoldier(_type);
@@ -84,5 +91,6 @@ namespace Battle {
 			}
 			
 		}
+		*/
 	}
 }

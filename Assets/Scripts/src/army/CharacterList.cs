@@ -138,6 +138,10 @@ namespace Armies {
 								case "peasant" :
 								soldiers.Add("peasant", (int)obj[i][j].list[m].n);
 								break;
+
+								case "archer" :
+								soldiers.Add("archer", (int)obj[i][j].list[m].n);
+								break;
 							}
 						}
 						break;

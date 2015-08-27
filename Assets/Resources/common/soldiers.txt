@@ -9,8 +9,22 @@
 			"feet" : "Cloth Boots"
 		},
 		"weapons" : {
-			"1" : "Club",
-			"2" : "Stones"
+			"1" : "Stones"
+		},
+		"sprite" : "peasant"
+	},
+	
+	{
+		"name" : "Archer",
+		"hp" : 10,
+		"mp" : 10,
+		"armour" : {
+			"torso" : "Tunic",
+			"legs" : "Breeches",
+			"feet" : "Cloth Boots"
+		},
+		"weapons" : {
+			"1" : "Stones"
 		},
 		"sprite" : "peasant"
 	},
