@@ -17,6 +17,7 @@ namespace Battle {
 
 		private List<GameObject>[] armySprites;
 		private List<Soldier>[] armyData;
+		private int totalSoldiers = 0;
 
 		void Awake() {
 			//load the map
@@ -60,6 +61,9 @@ namespace Battle {
 				for (int i = 0; i < type.Value; i++) {
 					//create temp soldier data
 					Soldier soldier = DataStore.Instance.GetSoldier(type.Key);
+					//store soldier's unique ID
+					soldier.SetID(totalSoldiers);
+					totalSoldiers += 1;
 					//add soldier data
 					armyData[_character].Add(soldier);
 					//add soldier sprite
@@ -68,27 +72,31 @@ namespace Battle {
 					soldierSprite.AddComponent<SpriteRenderer>();
 					soldierSprite.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>(graphicsPath + soldier.GetSprite());
 					soldierSprite.GetComponent<SpriteRenderer>().sortingLayerName = "Units";
+					//add sprite to list
 					armySprites[_character].Add(soldierSprite);
 				}
 			}
 		}
 
 		private void DeployArmies() {
+			//sets the size of the map
 			Int2 mapSize = map.GetSize();
 			Int2 deploymentTile = new Int2();
 			Vector3 tilePosition = new Vector3();
 
+			//set a random starting tile for each army
 			for (int i = 0; i < armyData.Length; i++) {
 				deploymentTile.x = (int)Mathf.Floor(Random.value * mapSize.x);
 				deploymentTile.y = (int)Mathf.Floor(Random.value * mapSize.y);
-				
+				//set each soldier's position to the target tile
 				for (int j = 0; j < armyData[i].Count; j++) {
-					//Debug.Log(armyData[i][j]);
-					
 					Vector3 pos = map.TileToWorld(deploymentTile, false);
+					//shuffle the position slightly
+					pos.x += (Random.value * 2 - 1);
+					pos.y += (Random.value * 2 - 1);
+					//update soldier's position
 					armySprites[i][j].transform.position = pos;
 				}
-				
 			}
 			
 		}
