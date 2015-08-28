@@ -68,6 +68,7 @@ namespace Battle {
 					soldierSprite.AddComponent<SpriteRenderer>();
 					soldierSprite.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>(graphicsPath + soldier.GetSprite());
 					soldierSprite.GetComponent<SpriteRenderer>().sortingLayerName = "Units";
+					armySprites[_character].Add(soldierSprite);
 				}
 			}
 		}
@@ -80,10 +81,14 @@ namespace Battle {
 			for (int i = 0; i < armyData.Length; i++) {
 				deploymentTile.x = (int)Mathf.Floor(Random.value * mapSize.x);
 				deploymentTile.y = (int)Mathf.Floor(Random.value * mapSize.y);
+				
 				for (int j = 0; j < armyData[i].Count; j++) {
+					//Debug.Log(armyData[i][j]);
+					
 					Vector3 pos = map.TileToWorld(deploymentTile, false);
 					armySprites[i][j].transform.position = pos;
 				}
+				
 			}
 			
 		}

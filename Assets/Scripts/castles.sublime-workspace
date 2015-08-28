@@ -4,6 +4,22 @@
 		"selected_items":
 		[
 			[
+				"arm",
+				"armySprites"
+			],
+			[
+				"so",
+				"soldierSprite"
+			],
+			[
+				"sol",
+				"soldierSprite"
+			],
+			[
+				"Arm",
+				"armySprites"
+			],
+			[
 				"De",
 				"Debug"
 			],
@@ -30,10 +46,6 @@
 			[
 				"Map",
 				"MapToWorldPosition"
-			],
-			[
-				"arm",
-				"armySprites"
 			],
 			[
 				"ar",
@@ -116,10 +128,6 @@
 				"ArmourItem"
 			],
 			[
-				"Arm",
-				"Armour"
-			],
-			[
 				"Cl",
 				"ClothGloves"
 			],
@@ -134,10 +142,6 @@
 			[
 				"_",
 				"_type"
-			],
-			[
-				"so",
-				"Soldier"
 			]
 		]
 	},
@@ -171,7 +175,7 @@
 			"file": "src/battle/BattleManager.cs",
 			"settings":
 			{
-				"buffer_size": 2928,
+				"buffer_size": 3027,
 				"line_ending": "Unix"
 			}
 		},
@@ -424,15 +428,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 2928,
+						"buffer_size": 3027,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								668,
-								668
+								2434,
+								2434
 							]
 						],
 						"settings":
@@ -441,7 +445,7 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 428.0,
+						"translation.y": 1140.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 0,
