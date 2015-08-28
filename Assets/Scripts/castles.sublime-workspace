@@ -4,15 +4,19 @@
 		"selected_items":
 		[
 			[
+				"to",
+				"totalSoldiers"
+			],
+			[
+				"sol",
+				"soldier"
+			],
+			[
 				"arm",
 				"armySprites"
 			],
 			[
 				"so",
-				"soldierSprite"
-			],
-			[
-				"sol",
 				"soldierSprite"
 			],
 			[
@@ -175,8 +179,17 @@
 			"file": "src/battle/BattleManager.cs",
 			"settings":
 			{
-				"buffer_size": 3027,
+				"buffer_size": 3711,
 				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "src/UnitSprite.cs",
+			"settings":
+			{
+				"buffer_size": 99,
+				"line_ending": "Windows",
+				"name": "using UnityEngine;"
 			}
 		},
 		{
@@ -361,7 +374,7 @@
 						"translation.y": 180.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 5,
+					"stack_index": 6,
 					"type": "text"
 				},
 				{
@@ -390,7 +403,7 @@
 						"translation.y": 223.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 1,
+					"stack_index": 2,
 					"type": "text"
 				},
 				{
@@ -428,15 +441,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 3027,
+						"buffer_size": 3711,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								2434,
-								2434
+								2902,
+								2902
 							]
 						],
 						"settings":
@@ -445,7 +458,7 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 1140.0,
+						"translation.y": 1010.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 0,
@@ -453,6 +466,35 @@
 				},
 				{
 					"buffer": 4,
+					"file": "src/UnitSprite.cs",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 99,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								96,
+								96
+							]
+						],
+						"settings":
+						{
+							"auto_name": "using UnityEngine;",
+							"syntax": "Packages/C#/C#.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 5,
 					"file": "src/army/Soldier.cs",
 					"semi_transient": false,
 					"settings":
@@ -473,15 +515,15 @@
 							"syntax": "Packages/C#/C#.tmLanguage",
 							"translate_tabs_to_spaces": false
 						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.x": -0.0,
+						"translation.y": 178.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 4,
 					"type": "text"
 				},
 				{
-					"buffer": 5,
+					"buffer": 6,
 					"file": "src/army/Character.cs",
 					"semi_transient": false,
 					"settings":
@@ -506,7 +548,7 @@
 						"translation.y": 793.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 2,
+					"stack_index": 5,
 					"type": "text"
 				}
 			]

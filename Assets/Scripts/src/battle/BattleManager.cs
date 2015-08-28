@@ -63,7 +63,6 @@ namespace Battle {
 					Soldier soldier = DataStore.Instance.GetSoldier(type.Key);
 					//store soldier's unique ID
 					soldier.SetID(totalSoldiers);
-					totalSoldiers += 1;
 					//add soldier data
 					armyData[_character].Add(soldier);
 					//add soldier sprite
@@ -72,10 +71,18 @@ namespace Battle {
 					soldierSprite.AddComponent<SpriteRenderer>();
 					soldierSprite.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>(graphicsPath + soldier.GetSprite());
 					soldierSprite.GetComponent<SpriteRenderer>().sortingLayerName = "Units";
+					//add component to track id and army id
+					soldierSprite.AddComponent<UnitSprite>();
+					soldierSprite.GetComponent<UnitSprite>().armyId = _character;
+					soldierSprite.GetComponent<UnitSprite>().id = totalSoldiers;
 					//add sprite to list
 					armySprites[_character].Add(soldierSprite);
+					//increment num of soldiers
+					totalSoldiers += 1;
 				}
 			}
+			//reset num of soldiers
+			totalSoldiers = 0;
 		}
 
 		private void DeployArmies() {
