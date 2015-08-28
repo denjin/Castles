@@ -29,14 +29,14 @@ namespace Battle {
 			InitArmies(belligerents);
 			Debug.Log(armyData[0].Count);
 			
-			//DeployArmies();
+			DeployArmies();
 			//Debug.Log(DataStore.Instance.GetSoldier("Peasant").GetWeaponItem("1"));
 			//Debug.Log(DataStore.Instance.GetSoldier("Leader").GetWeaponItem("1"));
 		}
 
 		private void InitArmies(string[] _belligerents) {
 			//Debug.Log(DataStore.Instance.GetCharacter("Dave").GetSoldier("peasant"));
-			//armySprites = new List<GameObject>[_belligerents.Length];
+			armySprites = new List<GameObject>[_belligerents.Length];
 			armyData = new List<Soldier>[_belligerents.Length];
 
 			Character character;
@@ -46,34 +46,30 @@ namespace Battle {
 				character = DataStore.Instance.GetCharacter(_belligerents[i]);
 				soldiers = character.GetSoldiers();
 				//armySprites[i] = new GameObject[soldiers.Count];
-				armyData[i] = AddSoldiers(character.GetSoldiers());
+				AddSoldiers(i, character.GetSoldiers());
 			}
 		}
 
-		private List<Soldier> AddSoldiers(Dictionary<string, int> _data) {
-			//create list to store soldiers
-			List<Soldier> soldiers = new List<Soldier>();
+		private void AddSoldiers(int _character, Dictionary<string, int> _data) {
+			//create lists to store soldiers
+			armySprites[_character] = new List<GameObject>();
+			armyData[_character] = new List<Soldier>();
 			//for each soldier type in the data
 			foreach (KeyValuePair<string, int> type in _data) {
 				//for each required soldier of this type
 				for (int i = 0; i < type.Value; i++) {
-					soldiers.Add(DataStore.Instance.GetSoldier(type.Key));
+					//create temp soldier data
+					Soldier soldier = DataStore.Instance.GetSoldier(type.Key);
+					//add soldier data
+					armyData[_character].Add(soldier);
+					//add soldier sprite
+					GameObject soldierSprite = new GameObject();
+					//add sprite renderer component to new sprite and load appropriate sprite into it
+					soldierSprite.AddComponent<SpriteRenderer>();
+					soldierSprite.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>(graphicsPath + soldier.GetSprite());
+					soldierSprite.GetComponent<SpriteRenderer>().sortingLayerName = "Units";
 				}
 			}
-			return soldiers;
-		}
-
-		/*
-		private void AddSoldier(int _i, int _j, string _type) {
-			//init data object
-			armyData[_i][_j] = DataStore.Instance.GetSoldier(_type);
-			//init display object
-			armySprites[_i][_j] = new GameObject();
-			//add sprite renderer
-			armySprites[_i][_j].AddComponent<SpriteRenderer>();
-			//load sprite
-			armySprites[_i][_j].GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>(graphicsPath + armyData[_i][_j].GetSprite());
-			armySprites[_i][_j].GetComponent<SpriteRenderer>().sortingLayerName = "Units";
 		}
 
 		private void DeployArmies() {
@@ -84,13 +80,12 @@ namespace Battle {
 			for (int i = 0; i < armyData.Length; i++) {
 				deploymentTile.x = (int)Mathf.Floor(Random.value * mapSize.x);
 				deploymentTile.y = (int)Mathf.Floor(Random.value * mapSize.y);
-				for (int j = 0; j < armyData[i].Length; j++) {
+				for (int j = 0; j < armyData[i].Count; j++) {
 					Vector3 pos = map.TileToWorld(deploymentTile, false);
 					armySprites[i][j].transform.position = pos;
 				}
 			}
 			
 		}
-		*/
 	}
 }
