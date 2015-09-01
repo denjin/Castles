@@ -137,10 +137,11 @@ namespace Battle {
 			
 		}
 
+		/**
+		 * Sorts a sprite by it's x position
+		 * @param GameObject _sprite the sprite to sort
+		 */
 		private void SortSprite(GameObject _sprite) {
-			//int pos = Mathf.RoundToInt(_sprite.transform.position.y);
-			//pos /= 3;
-			//Debug.Log(pos);
 			float y = _sprite.transform.position.y;
 			Vector3 pos = _sprite.transform.position;
 			pos.z = y;
