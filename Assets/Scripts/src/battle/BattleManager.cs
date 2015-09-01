@@ -15,9 +15,9 @@ namespace Battle {
 
 		private string graphicsPath = "graphics/units/";
 
-		private List<GameObject> armySprites;
+		private List<GameObject>[] armySprites;
 		private List<Soldier>[] armyData;
-		private int totalSoldiers = 0;
+		private int totalSoldiers;
 
 		void Awake() {
 			map = new MapManager(mainCamera, 10, 10);
@@ -25,7 +25,7 @@ namespace Battle {
 			belligerents[0] = "Dave";
 			belligerents[1] = "Pete";
 			InitArmies(belligerents);
-			//DeployArmies();
+			DeployArmies();
 		}
 
 		void Update() {
@@ -39,7 +39,7 @@ namespace Battle {
 		 */
 		private void InitArmies(string[] _belligerents) {
 			//Debug.Log(DataStore.Instance.GetCharacter("Dave").GetSoldier("peasant"));
-			armySprites = new List<GameObject>();
+			armySprites = new List<GameObject>[_belligerents.Length];
 			armyData = new List<Soldier>[_belligerents.Length];
 
 			Character character;
@@ -47,9 +47,35 @@ namespace Battle {
 			
 			for (int i = 0; i < _belligerents.Length; i++) {
 				character = DataStore.Instance.GetCharacter(_belligerents[i]);
+				
+				//create lists to store soldiers
+				armyData[i] = new List<Soldier>();
+				armySprites[i] = new List<GameObject>();
+				//add leader soldier
+				CreateSoldier(i, 0, "leader");
+
 				soldiers = character.GetSoldiers();
 				AddSoldiers(i, soldiers);
 			}
+		}
+
+		private void CreateSoldier(int _armyId, int _soldierId, string _type, string _sortingLayer = "Units") {
+			//create temp soldier data
+			Soldier soldier = DataStore.Instance.GetSoldier(_type);
+			//add soldier data
+			armyData[_armyId].Add(soldier);
+			//add soldier sprite
+			GameObject soldierSprite = new GameObject();
+			//add sprite renderer component to new sprite and load appropriate sprite asset into it
+			soldierSprite.AddComponent<SpriteRenderer>();
+			soldierSprite.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>(graphicsPath + soldier.GetSprite());
+			soldierSprite.GetComponent<SpriteRenderer>().sortingLayerName = _sortingLayer;
+			//add component to track id and army id
+			soldierSprite.AddComponent<UnitSprite>();
+			soldierSprite.GetComponent<UnitSprite>().armyId = _armyId;
+			soldierSprite.GetComponent<UnitSprite>().id = _soldierId;
+			//add sprite to list
+			armySprites[_armyId].Add(soldierSprite);
 		}
 
 		/**
@@ -59,34 +85,18 @@ namespace Battle {
 		 * @param {[type]} Dictionary<string, int>       _data         [description]
 		 */
 		private void AddSoldiers(int _character, Dictionary<string, int> _data) {
-			//create lists to store soldiers
-			armyData[_character] = new List<Soldier>();
+			totalSoldiers = 1;
 			//for each soldier type in the data
 			foreach (KeyValuePair<string, int> type in _data) {
 				//for each required soldier of this type
 				for (int i = 0; i < type.Value; i++) {
-					//create temp soldier data
-					Soldier soldier = DataStore.Instance.GetSoldier(type.Key);
-					//add soldier data
-					armyData[_character].Add(soldier);
-					//add soldier sprite
-					GameObject soldierSprite = new GameObject();
-					//add sprite renderer component to new sprite and load appropriate sprite into it
-					soldierSprite.AddComponent<SpriteRenderer>();
-					soldierSprite.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>(graphicsPath + soldier.GetSprite());
-					soldierSprite.GetComponent<SpriteRenderer>().sortingLayerName = "Units";
-					//add component to track id and army id
-					soldierSprite.AddComponent<UnitSprite>();
-					soldierSprite.GetComponent<UnitSprite>().armyId = _character;
-					soldierSprite.GetComponent<UnitSprite>().id = totalSoldiers;
-					//add sprite to list
-					armySprites.Add(soldierSprite);
-					//increment num of soldiers
+					//add a soldier
+					CreateSoldier(_character, totalSoldiers, type.Key);
 					totalSoldiers += 1;
 				}
 			}
 			//reset num of soldiers
-			totalSoldiers = 0;
+			totalSoldiers = 1;
 		}
 
 		/**
@@ -106,9 +116,10 @@ namespace Battle {
 				for (int j = 0; j < armyData[i].Count; j++) {
 					Vector3 pos = map.TileToWorld(deploymentTile, false);
 					//shuffle the position slightly
-					pos.x += (Random.value * 2 - 1);
-					pos.y += (Random.value * 2 - 1);
+					pos.x += (Random.value - 0.5f);
+					pos.y += (Random.value - 0.5f);
 					armyData[i][j].SetPos(pos.x, pos.y);
+					armySprites[i][j].transform.position = pos;
 				}
 			}
 			
