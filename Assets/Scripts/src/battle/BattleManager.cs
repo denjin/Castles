@@ -26,6 +26,7 @@ namespace Battle {
 			belligerents[1] = "Pete";
 			InitArmies(belligerents);
 			DeployArmies();
+			
 		}
 
 		void Update() {
@@ -59,6 +60,13 @@ namespace Battle {
 			}
 		}
 
+		/**
+		 * Creates a soldier and an on screen soldier asset, sets up it's graphics etc
+		 * @param {int}    _armyId       the id of the army this soldier belongs to
+		 * @param {int}    _soldierId    the id of this soldier
+		 * @param {int}    _type         the type of soldier to create
+		 * @param {String} _sortingLayer the sorting layer, defaults to the units layer
+		 */
 		private void CreateSoldier(int _armyId, int _soldierId, string _type, string _sortingLayer = "Units") {
 			//create temp soldier data
 			Soldier soldier = DataStore.Instance.GetSoldier(_type);

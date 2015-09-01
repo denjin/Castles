@@ -56,12 +56,19 @@ namespace Armies {
 				Dictionary<string, int> soldiers = new Dictionary<string, int>();
 				//graphics asset
 				string sprite = "NULL";
+				bool human = false;
 
 				//for each field in the item
 				for (int j = 0; j < item.list.Count; j++) {
 					switch (item.keys[j].ToLower()) {
 						case "name" :
 						name = obj[i].list[j].str;
+						break;
+
+						case "human" :
+						if (obj[i].list[j].str == "true") {
+							human = true;
+						}
 						break;
 
 						case "hp" :
@@ -152,7 +159,7 @@ namespace Armies {
 					}
 					
 				}
-				characters.Add(name, new Character(name, diplomacy, martial, intrigue, hp, mp, armour, weapons, soldiers, sprite));
+				characters.Add(name, new Character(name, diplomacy, martial, intrigue, hp, mp, armour, weapons, soldiers, sprite, human));
 			}
 		}
 	}

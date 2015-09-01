@@ -6,6 +6,7 @@ using Gear;
 
 namespace Armies {
 	public class Character : Soldier {
+		private bool human;
 		private int diplomacy;
 		private int martial;
 		private int intrigue;
@@ -23,8 +24,10 @@ namespace Armies {
 			Dictionary<string, string> _armour,
 			Dictionary<string, string> _weapons,
 			Dictionary<string, int> _soldiers,
-			string _sprite) : base (_name, _hp, _mp, _armour, _weapons, _sprite) {
+			string _sprite,
+			bool _human = false) : base (_name, _hp, _mp, _armour, _weapons, _sprite) {
 			
+			human = _human;
 			diplomacy = _diplomacy;
 			martial = _martial;
 			intrigue = _intrigue;
@@ -74,6 +77,10 @@ namespace Armies {
 				return soldiers[_key];
 			}
 			return 0;
+		}
+
+		public bool GetHuman() {
+			return human;
 		}
 	}
 }
