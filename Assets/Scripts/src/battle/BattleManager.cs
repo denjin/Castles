@@ -31,7 +31,11 @@ namespace Battle {
 
 		void Update() {
 			//sort soldiers
-			
+			for (int i = 0; i < armySprites.Length; i++) {
+				for (int j = 0; j < armySprites[i].Count; j++) {
+					SortSprite(armySprites[i][j]);
+				}
+			}
 		}
 
 		/**
@@ -131,6 +135,16 @@ namespace Battle {
 				}
 			}
 			
+		}
+
+		private void SortSprite(GameObject _sprite) {
+			//int pos = Mathf.RoundToInt(_sprite.transform.position.y);
+			//pos /= 3;
+			//Debug.Log(pos);
+			float y = _sprite.transform.position.y;
+			Vector3 pos = _sprite.transform.position;
+			pos.z = y;
+			_sprite.transform.position = pos;
 		}
 	}
 }
