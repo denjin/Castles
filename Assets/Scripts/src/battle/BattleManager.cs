@@ -19,6 +19,8 @@ namespace Battle {
 		private List<Soldier>[] armyData;
 		private int totalSoldiers;
 
+		GameObject rallyPoint;
+
 		void Awake() {
 			map = new MapManager(mainCamera, 10, 10);
 			string[] belligerents = new string[2];
@@ -26,17 +28,25 @@ namespace Battle {
 			belligerents[1] = "Pete";
 			InitArmies(belligerents);
 			DeployArmies();
-			
+
+			rallyPoint = new GameObject();
+			rallyPoint.AddComponent<SpriteRenderer>();
+			rallyPoint.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("graphics/misc/rally_point");
 		}
 
 		void Update() {
-			//sort soldiers
+			if (Input.GetMouseButton(0)) {
+				Debug.Log("Pressed left click.");
+			}
+			//sort soldier graphics
 			for (int i = 0; i < armySprites.Length; i++) {
 				for (int j = 0; j < armySprites[i].Count; j++) {
 					SortSprite(armySprites[i][j]);
 				}
 			}
 		}
+
+
 
 		/**
 		 * Starts the initialisation of the soldiers and characters for the battle, sets up the various arrays & lists
