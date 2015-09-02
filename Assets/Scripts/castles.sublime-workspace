@@ -4,6 +4,14 @@
 		"selected_items":
 		[
 			[
+				"Sprite",
+				"SpriteRenderer"
+			],
+			[
+				"ra",
+				"rallyPoint"
+			],
+			[
 				"_",
 				"_sprite"
 			],
@@ -195,7 +203,7 @@
 			"file": "src/battle/BattleManager.cs",
 			"settings":
 			{
-				"buffer_size": 4922,
+				"buffer_size": 5379,
 				"line_ending": "Unix"
 			}
 		},
@@ -457,15 +465,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 4922,
+						"buffer_size": 5379,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								4683,
-								4683
+								1122,
+								1122
 							]
 						],
 						"settings":
@@ -474,7 +482,7 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 305.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 0,

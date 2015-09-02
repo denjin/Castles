@@ -31,12 +31,15 @@ namespace Battle {
 
 			rallyPoint = new GameObject();
 			rallyPoint.AddComponent<SpriteRenderer>();
-			rallyPoint.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("graphics/misc/rally_point");
+			rallyPoint.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("graphics/misc/rallypoint");
+			rallyPoint.GetComponent<SpriteRenderer>().sortingLayerName = "Units";
 		}
 
 		void Update() {
 			if (Input.GetMouseButton(0)) {
-				Debug.Log("Pressed left click.");
+				Vector3 pos = mainCamera.ScreenToWorldPoint(Input.mousePosition);
+				pos.z = 0;
+				rallyPoint.transform.position = pos;
 			}
 			//sort soldier graphics
 			for (int i = 0; i < armySprites.Length; i++) {
