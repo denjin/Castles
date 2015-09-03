@@ -22,7 +22,7 @@ namespace Battle {
 		GameObject rallyPoint;
 
 		void Awake() {
-			map = new MapManager(mainCamera, 10, 10);
+			map = new MapManager(mainCamera, 100, 100);
 			string[] belligerents = new string[2];
 			belligerents[0] = "Dave";
 			belligerents[1] = "Pete";
@@ -139,7 +139,7 @@ namespace Battle {
 				deploymentTile.y = (int)Mathf.Floor(Random.value * mapSize.y);
 				//set each soldier's position to the target tile
 				for (int j = 0; j < armyData[i].Count; j++) {
-					Vector3 pos = map.TileToWorld(deploymentTile, false);
+					Vector3 pos = map.TileToWorld(deploymentTile);
 					//shuffle the position slightly
 					pos.x += (Random.value - 0.5f);
 					pos.y += (Random.value - 0.5f);
