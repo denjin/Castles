@@ -41,9 +41,15 @@ namespace Battle {
 				pos.z = 0;
 				rallyPoint.transform.position = pos;
 			}
-			//sort soldier graphics
+			
 			for (int i = 0; i < armySprites.Length; i++) {
 				for (int j = 0; j < armySprites[i].Count; j++) {
+					if (i == 0) {
+						Vector3 velocity = Seek(armySprites[i][j].GetComponent<UnitSprite>().velocity, armySprites[i][j].transform.position, rallyPoint.transform.position, 0.1f);
+						armySprites[i][j].transform.position += velocity;
+						armySprites[i][j].GetComponent<UnitSprite>().velocity = velocity;
+					}
+					//sort soldier graphics
 					SortSprite(armySprites[i][j]);
 				}
 			}
@@ -159,6 +165,11 @@ namespace Battle {
 			Vector3 pos = _sprite.transform.position;
 			pos.z = y;
 			_sprite.transform.position = pos;
+		}
+
+		private Vector3 Seek(Vector3 _currentVelocity, Vector3 _currentLocation, Vector3 _targetLocation, float _maxSpeed) {
+			Vector3 desiredVelocity = Vector3.Normalize(_targetLocation - _currentLocation) * _maxSpeed;
+			return desiredVelocity;
 		}
 	}
 }

@@ -4,6 +4,14 @@
 		"selected_items":
 		[
 			[
+				"Uni",
+				"UnitSprite"
+			],
+			[
+				"new",
+				"newVelocity"
+			],
+			[
 				"Sprite",
 				"SpriteRenderer"
 			],
@@ -195,8 +203,16 @@
 			"file": "src/battle/BattleManager.cs",
 			"settings":
 			{
-				"buffer_size": 5374,
+				"buffer_size": 5942,
 				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "src/UnitSprite.cs",
+			"settings":
+			{
+				"buffer_size": 125,
+				"line_ending": "Windows"
 			}
 		}
 	],
@@ -340,7 +356,7 @@
 	"groups":
 	[
 		{
-			"selected": 1,
+			"selected": 2,
 			"sheets":
 			[
 				{
@@ -369,7 +385,7 @@
 						"translation.y": 954.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 2,
+					"stack_index": 3,
 					"type": "text"
 				},
 				{
@@ -395,10 +411,10 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 292.0,
+						"translation.y": 1022.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 0,
+					"stack_index": 2,
 					"type": "text"
 				},
 				{
@@ -407,15 +423,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 5374,
+						"buffer_size": 5942,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								4853,
-								4853
+								5924,
+								5924
 							]
 						],
 						"settings":
@@ -423,8 +439,36 @@
 							"syntax": "Packages/C#/C#.tmLanguage",
 							"translate_tabs_to_spaces": false
 						},
-						"translation.x": -0.0,
-						"translation.y": 2587.0,
+						"translation.x": 0.0,
+						"translation.y": 3451.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "src/UnitSprite.cs",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 125,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								123,
+								123
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C#/C#.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 1,
