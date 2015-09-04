@@ -45,9 +45,9 @@ namespace Battle {
 			for (int i = 0; i < armySprites.Length; i++) {
 				for (int j = 0; j < armySprites[i].Count; j++) {
 					if (i == 0) {
-						Vector3 velocity = Seek(armySprites[i][j].GetComponent<UnitSprite>().velocity, armySprites[i][j].transform.position, rallyPoint.transform.position, 0.1f);
-						armySprites[i][j].transform.position += velocity;
+						Vector3 velocity = SteerForSeek(armySprites[i][j].GetComponent<UnitSprite>().velocity, armySprites[i][j].transform.position, rallyPoint.transform.position, 0.1f);
 						armySprites[i][j].GetComponent<UnitSprite>().velocity = velocity;
+						armySprites[i][j].transform.position += velocity;
 					}
 					//sort soldier graphics
 					SortSprite(armySprites[i][j]);
@@ -167,9 +167,15 @@ namespace Battle {
 			_sprite.transform.position = pos;
 		}
 
-		private Vector3 Seek(Vector3 _currentVelocity, Vector3 _currentLocation, Vector3 _targetLocation, float _maxSpeed) {
-			Vector3 desiredVelocity = Vector3.Normalize(_targetLocation - _currentLocation) * _maxSpeed;
-			return desiredVelocity;
+		public Vector3 SteerForSeek(Vector3 _currentVelocity, Vector3 _currentLocation, Vector3 _targetLocation, float _maxSpeed) {
+			Vector3 desiredVelocity = Truncate(_targetLocation - _currentLocation, _maxSpeed);
+			Vector3 steering = Truncate(desiredVelocity - _currentVelocity, _maxSpeed);
+			Vector3 newVelocity = Truncate(_currentVelocity + steering, _maxSpeed);
+			return newVelocity;
+		}
+
+		public Vector3 Truncate(Vector3 _input, float _max) {
+			return Vector3.Normalize(_input) * _max;
 		}
 	}
 }
