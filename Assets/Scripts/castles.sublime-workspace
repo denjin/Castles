@@ -4,6 +4,14 @@
 		"selected_items":
 		[
 			[
+				"_m",
+				"_maxSpeed"
+			],
+			[
+				"des",
+				"desiredVelocity"
+			],
+			[
 				"Uni",
 				"UnitSprite"
 			],
@@ -78,10 +86,6 @@
 			[
 				"Da",
 				"DataStore"
-			],
-			[
-				"_m",
-				"_martial"
 			],
 			[
 				"int",
@@ -203,7 +207,7 @@
 			"file": "src/battle/BattleManager.cs",
 			"settings":
 			{
-				"buffer_size": 5942,
+				"buffer_size": 6202,
 				"line_ending": "Unix"
 			}
 		},
@@ -280,6 +284,8 @@
 	],
 	"file_history":
 	[
+		"/C/Users/Chris/Documents/Unity/Castles/Castles/Assets/Plugins/UnitySteer-development/Behaviors/SteerForWander.cs",
+		"/C/Users/Chris/Documents/Unity/Castles/Castles/Assets/Plugins/UnitySteer-development/Behaviors/AutonomousVehicle.cs",
 		"/C/Users/Chris/Documents/Unity/Castles/Castles/Assets/Scripts/src/army/Soldier.cs",
 		"/C/Users/Chris/Documents/Unity/Castles/Castles/Assets/Scripts/src/UnitSprite.cs",
 		"/C/Users/Chris/Documents/Unity/Castles/Castles/Assets/Scripts/src/DataStore.cs",
@@ -382,7 +388,7 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 954.0,
+						"translation.y": 1046.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 3,
@@ -411,7 +417,7 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 1022.0,
+						"translation.y": 931.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 2,
@@ -423,15 +429,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 5942,
+						"buffer_size": 6202,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								5924,
-								5924
+								6092,
+								6092
 							]
 						],
 						"settings":
@@ -440,7 +446,7 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 3451.0,
+						"translation.y": 3573.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 0,
@@ -459,8 +465,8 @@
 						"selection":
 						[
 							[
-								123,
-								123
+								18,
+								18
 							]
 						],
 						"settings":

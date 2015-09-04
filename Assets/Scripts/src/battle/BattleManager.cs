@@ -36,16 +36,18 @@ namespace Battle {
 		}
 
 		void Update() {
+			/*
 			if (Input.GetMouseButton(0)) {
 				Vector3 pos = mainCamera.ScreenToWorldPoint(Input.mousePosition);
 				pos.z = 0;
 				rallyPoint.transform.position = pos;
 			}
+			*/
 			
 			for (int i = 0; i < armySprites.Length; i++) {
 				for (int j = 0; j < armySprites[i].Count; j++) {
 					if (i == 0) {
-						Vector3 velocity = SteerForSeek(armySprites[i][j].GetComponent<UnitSprite>().velocity, armySprites[i][j].transform.position, rallyPoint.transform.position, 0.1f);
+						Vector3 velocity = SteerForSeek(armySprites[i][j].GetComponent<UnitSprite>().velocity, armySprites[i][j].transform.position, armySprites[i][j].GetComponent<UnitSprite>().targetLocation, 0.05f);
 						armySprites[i][j].GetComponent<UnitSprite>().velocity = velocity;
 						armySprites[i][j].transform.position += velocity;
 					}
@@ -138,7 +140,6 @@ namespace Battle {
 			Int2 mapSize = map.GetSize();
 			Int2 deploymentTile = new Int2();
 			Vector3 tilePosition = new Vector3();
-			int q;
 			//set a random starting tile for each army
 			for (int i = 0; i < armyData.Length; i++) {
 				deploymentTile.x = (int)Mathf.Floor(Random.value * mapSize.x);
@@ -176,6 +177,32 @@ namespace Battle {
 
 		public Vector3 Truncate(Vector3 _input, float _max) {
 			return Vector3.Normalize(_input) * _max;
+		}
+
+		public void SetFormation(string _formation) {
+			int soldierCount = armySprites[0].Count;
+			float spacing = 0.25f;
+			int i;
+			Vector2 position = new Vector2();
+			switch (_formation) {
+				case ("line") :
+				for (i = 0; i < soldierCount; i++) {
+					position.x = i * spacing;
+					position.y = 0;
+					armySprites[0][i].GetComponent<UnitSprite>().targetLocation = position;
+				}
+				break;
+
+				case ("square") :
+				int sqrt = (int)Mathf.Round(Mathf.Sqrt(soldierCount));
+				for (i = 0; i < soldierCount; i++) {
+					int row = (int)Mathf.Floor(i / sqrt);
+					position.x = (i * spacing - row) - row * spacing;
+					position.y = row * spacing;
+					armySprites[0][i].GetComponent<UnitSprite>().targetLocation = position;
+				}
+				break;
+			}
 		}
 	}
 }
