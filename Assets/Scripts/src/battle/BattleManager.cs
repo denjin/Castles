@@ -15,18 +15,18 @@ namespace Battle {
 
 		private string graphicsPath = "graphics/units/";
 
+		private List<Belligerent> belligerents;
 		private List<GameObject>[] armySprites;
-		private List<Soldier>[] armyData;
 		private int totalSoldiers;
 
 		GameObject rallyPoint;
 
 		void Awake() {
 			map = new MapManager(mainCamera, 100, 100);
-			string[] belligerents = new string[2];
-			belligerents[0] = "Dave";
-			belligerents[1] = "Pete";
-			InitArmies(belligerents);
+			string[] characters = new string[2];
+			characters[0] = "Dave";
+			characters[1] = "Pete";
+			InitArmies(characters);
 			DeployArmies();
 
 			rallyPoint = new GameObject();
@@ -58,24 +58,26 @@ namespace Battle {
 		}
 
 
-
 		/**
 		 * Starts the initialisation of the soldiers and characters for the battle, sets up the various arrays & lists
 		 * @param {[type]} string[] _belligerents array of characters names
 		 */
 		private void InitArmies(string[] _belligerents) {
-			//Debug.Log(DataStore.Instance.GetCharacter("Dave").GetSoldier("peasant"));
 			armySprites = new List<GameObject>[_belligerents.Length];
-			armyData = new List<Soldier>[_belligerents.Length];
+			//armyData = new List<Soldier>[_belligerents.Length];
 
 			Character character;
 			Dictionary<string, int> soldiers;
 			
 			for (int i = 0; i < _belligerents.Length; i++) {
 				character = DataStore.Instance.GetCharacter(_belligerents[i]);
+				Belligerent belligerent = new Belligerent(i, character.GetName());
+
+				belligerents = new List<Belligerent>();
+				belligerents.Add(belligerent);
 				
 				//create lists to store soldiers
-				armyData[i] = new List<Soldier>();
+				//armyData[i] = new List<Soldier>();
 				armySprites[i] = new List<GameObject>();
 				//add leader soldier
 				CreateSoldier(i, 0, "leader");
@@ -93,10 +95,12 @@ namespace Battle {
 		 * @param {String} _sortingLayer the sorting layer, defaults to the units layer
 		 */
 		private void CreateSoldier(int _armyId, int _soldierId, string _type, string _sortingLayer = "Units") {
+			Debug.Log(_armyId);
+			
 			//create temp soldier data
 			Soldier soldier = DataStore.Instance.GetSoldier(_type);
-			//add soldier data
-			armyData[_armyId].Add(soldier);
+			//add soldier data to belligrent
+			belligerents[_armyId].soldiers.Add(soldier);
 			//add soldier sprite
 			GameObject soldierSprite = new GameObject();
 			//add sprite renderer component to new sprite and load appropriate sprite asset into it
@@ -141,16 +145,16 @@ namespace Battle {
 			Int2 deploymentTile = new Int2();
 			Vector3 tilePosition = new Vector3();
 			//set a random starting tile for each army
-			for (int i = 0; i < armyData.Length; i++) {
+			for (int i = 0; i < belligerents.Count; i++) {
 				deploymentTile.x = (int)Mathf.Floor(Random.value * mapSize.x);
 				deploymentTile.y = (int)Mathf.Floor(Random.value * mapSize.y);
 				//set each soldier's position to the target tile
-				for (int j = 0; j < armyData[i].Count; j++) {
+				for (int j = 0; j < belligerents[i].soldiers.Count; j++) {
 					Vector3 pos = map.TileToWorld(deploymentTile);
 					//shuffle the position slightly
 					pos.x += (Random.value - 0.5f);
 					pos.y += (Random.value - 0.5f);
-					armyData[i][j].SetPos(pos.x, pos.y);
+					//armyData[i][j].SetPos(pos.x, pos.y);
 					armySprites[i][j].transform.position = pos;
 				}
 			}

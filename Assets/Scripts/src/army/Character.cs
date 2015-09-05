@@ -12,8 +12,6 @@ namespace Armies {
 		private int intrigue;
 		public Dictionary<string, int> soldiers;
 
-		public Character () {}
-
 		public Character (
 			string _name,
 			int _diplomacy,
