@@ -65,23 +65,20 @@ namespace Battle {
 		private void InitArmies(string[] _belligerents) {
 			armySprites = new List<GameObject>[_belligerents.Length];
 			//armyData = new List<Soldier>[_belligerents.Length];
-
+			belligerents = new List<Belligerent>();
 			Character character;
 			Dictionary<string, int> soldiers;
 			
 			for (int i = 0; i < _belligerents.Length; i++) {
 				character = DataStore.Instance.GetCharacter(_belligerents[i]);
+				//add new belligerent
 				Belligerent belligerent = new Belligerent(i, character.GetName());
-
-				belligerents = new List<Belligerent>();
 				belligerents.Add(belligerent);
-				
-				//create lists to store soldiers
-				//armyData[i] = new List<Soldier>();
+				//create list to store soldier sprites
 				armySprites[i] = new List<GameObject>();
 				//add leader soldier
 				CreateSoldier(i, 0, "leader");
-
+				//add the rest of the soldiers
 				soldiers = character.GetSoldiers();
 				AddSoldiers(i, soldiers);
 			}
@@ -193,6 +190,14 @@ namespace Battle {
 				for (i = 0; i < soldierCount; i++) {
 					position.x = i * spacing;
 					position.y = 0;
+					armySprites[0][i].GetComponent<UnitSprite>().targetLocation = position;
+				}
+				break;
+
+				case ("column") :
+				for (i = 0; i < soldierCount; i++) {
+					position.x = 0;
+					position.y = i * spacing;
 					armySprites[0][i].GetComponent<UnitSprite>().targetLocation = position;
 				}
 				break;
