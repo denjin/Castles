@@ -246,29 +246,30 @@ namespace Battle {
 		public void DivisionButtonPressed(string _division) {
 			selectedDivision = _division;
 			Debug.Log("Selected division changed to: " + selectedDivision);
-			//clear outline
-			mainCamera.GetComponent<OutlineEffect>().outlineRenderers.Clear();
+			
 			switch (_division) {
 				case "all" :
-				for (int i = 0; i < belligerents[human].infantry.Count; i++) {
-					mainCamera.GetComponent<OutlineEffect>().outlineRenderers.Add(belligerents[human].infantry[i].GetComponent<SpriteRenderer>());
-				}
-				for (int i = 0; i < belligerents[human].archers.Count; i++) {
-					mainCamera.GetComponent<OutlineEffect>().outlineRenderers.Add(belligerents[human].archers[i].GetComponent<SpriteRenderer>());
-				}
+				List<GameObject> all = new List<GameObject>();
+				all.AddRange(belligerents[human].infantry);
+				all.AddRange(belligerents[human].archers);
+				HighlightDivision(all);
 				break;
-				
+
 				case "infantry" :
-				for (int i = 0; i < belligerents[human].infantry.Count; i++) {
-					mainCamera.GetComponent<OutlineEffect>().outlineRenderers.Add(belligerents[human].infantry[i].GetComponent<SpriteRenderer>());
-				}
+				HighlightDivision(belligerents[human].infantry);
 				break;
 
 				case "archers" :
-				for (int i = 0; i < belligerents[human].archers.Count; i++) {
-					mainCamera.GetComponent<OutlineEffect>().outlineRenderers.Add(belligerents[human].archers[i].GetComponent<SpriteRenderer>());
-				}
+				HighlightDivision(belligerents[human].archers);
 				break;
+			}
+		}
+
+		private void HighlightDivision(List<GameObject> _division) {
+			//clear outline
+			mainCamera.GetComponent<OutlineEffect>().outlineRenderers.Clear();
+			for (int i = 0; i < _division.Count; i++) {
+				mainCamera.GetComponent<OutlineEffect>().outlineRenderers.Add(_division[i].GetComponent<SpriteRenderer>());
 			}
 		}
 
