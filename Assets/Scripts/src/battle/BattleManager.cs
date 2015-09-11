@@ -47,15 +47,11 @@ namespace Battle {
 			}
 			*/
 			for (int i = 0; i < /*belligerents.Count*/1; i++) {
-				for (int j = 0; j < belligerents[i].infantry.Count; j++) {
-					Vector3 velocity = SteerForSeek(belligerents[i].infantry[j].GetComponent<UnitSprite>().velocity, belligerents[i].infantry[j].transform.position, belligerents[i].infantry[j].GetComponent<UnitSprite>().targetLocation, 0.05f);
-					belligerents[i].infantry[j].GetComponent<UnitSprite>().velocity = velocity;
-					belligerents[i].infantry[j].transform.position += velocity;
+				for (int j = 0; j < belligerents[i].troops["infantry"].Count; j++) {
+					MoveSoldier(belligerents[i], "infantry", j);
 				}
-				for (int j = 0; j < belligerents[i].archers.Count; j++) {
-					Vector3 velocity = SteerForSeek(belligerents[i].archers[j].GetComponent<UnitSprite>().velocity, belligerents[i].archers[j].transform.position, belligerents[i].archers[j].GetComponent<UnitSprite>().targetLocation, 0.05f);
-					belligerents[i].archers[j].GetComponent<UnitSprite>().velocity = velocity;
-					belligerents[i].archers[j].transform.position += velocity;
+				for (int j = 0; j < belligerents[i].troops["archers"].Count; j++) {
+					MoveSoldier(belligerents[i], "archers", j);
 				}
 			}
 			/*
@@ -73,6 +69,11 @@ namespace Battle {
 			*/
 		}
 
+		private void MoveSoldier(Belligerent _belligerent, string _division, int _soldier){
+			Vector3 velocity = SteerForSeek(_belligerent.troops[_division][_soldier].GetComponent<UnitSprite>().velocity, _belligerent.troops[_division][_soldier].transform.position, _belligerent.troops[_division][_soldier].GetComponent<UnitSprite>().targetLocation, 0.05f);
+			_belligerent.troops[_division][_soldier].GetComponent<UnitSprite>().velocity = velocity;
+			_belligerent.troops[_division][_soldier].transform.position += velocity;
+		}
 
 		/**
 		 * Starts the initialisation of the soldiers and characters for the battle, sets up the various arrays & lists
@@ -98,7 +99,6 @@ namespace Battle {
 				soldiers = character.GetSoldiers();
 				AddSoldiers(i, soldiers);
 			}
-			Debug.Log(belligerents[0].infantry.Count);
 			
 		}
 
@@ -126,10 +126,10 @@ namespace Battle {
 			soldierSprite.AddComponent<UnitSprite>();
 			soldierSprite.GetComponent<UnitSprite>().armyId = _armyId;
 			soldierSprite.GetComponent<UnitSprite>().id = _soldierId;
-			if (weapon.GetRange() > 0) {
-				belligerents[_armyId].archers.Add(soldierSprite);
+			if (weapon.GetRange() == 0) {
+				belligerents[_armyId].troops["infantry"].Add(soldierSprite);
 			} else {
-				belligerents[_armyId].infantry.Add(soldierSprite);
+				belligerents[_armyId].troops["archers"].Add(soldierSprite);
 			}
 			if (_armyId == human) {
 				mainCamera.GetComponent<OutlineEffect>().outlineRenderers.Add(soldierSprite.GetComponent<SpriteRenderer>());
@@ -176,22 +176,17 @@ namespace Battle {
 				deploymentTile.y = (int)Mathf.Floor(Random.value * mapSize.y);
 				Vector3 pos = map.TileToWorld(deploymentTile);
 				//set each soldier's position to the target tile
-				for (j = 0; j < belligerents[i].infantry.Count; j++) {
-					//shuffle the position slightly
-					pos.x += (Random.value - 0.5f);
-					pos.y += (Random.value - 0.5f);
-					//armyData[i][j].SetPos(pos.x, pos.y);
-					belligerents[i].infantry[j].transform.position = pos;
+				for (j = 0; j < belligerents[i].troops["infantry"].Count; j++) {
+					DeploySoldier(belligerents[i].troops["infantry"][j], new Vector3(pos.x + Random.value - 0.5f, pos.y + Random.value - 0.5f));
 				}
-				for (j = 0; j < belligerents[i].archers.Count; j++) { 
-					//shuffle the position slightly
-					pos.x += (Random.value - 0.5f);
-					pos.y += (Random.value - 0.5f);
-					//armyData[i][j].SetPos(pos.x, pos.y);
-					belligerents[i].archers[j].transform.position = pos;
+				for (j = 0; j < belligerents[i].troops["archers"].Count; j++) {
+					DeploySoldier(belligerents[i].troops["archers"][j], new Vector3(pos.x + Random.value - 0.5f, pos.y + Random.value - 0.5f));
 				}
 			}
-			
+		}
+
+		private void DeploySoldier(GameObject _soldier, Vector3 _pos) {
+			_soldier.transform.position = _pos;
 		}
 
 		/**
@@ -226,16 +221,16 @@ namespace Battle {
 			division = new List<GameObject>();
 			switch (selectedDivision) {
 				case ("all") :
-				division.AddRange(belligerents[human].infantry);
-				division.AddRange(belligerents[human].archers);
+				division.AddRange(belligerents[human].troops["infantry"]);
+				division.AddRange(belligerents[human].troops["archers"]);
 				break;
 
 				case ("infantry") :
-				division = belligerents[human].infantry;
+				division = belligerents[human].troops["infantry"];
 				break;
 
 				case ("archers") :
-				division = belligerents[human].archers;
+				division = belligerents[human].troops["archers"];
 				break;
 			}
 			Debug.Log(division.Count);
@@ -250,17 +245,17 @@ namespace Battle {
 			switch (_division) {
 				case "all" :
 				List<GameObject> all = new List<GameObject>();
-				all.AddRange(belligerents[human].infantry);
-				all.AddRange(belligerents[human].archers);
+				all.AddRange(belligerents[human].troops["infantry"]);
+				all.AddRange(belligerents[human].troops["archers"]);
 				HighlightDivision(all);
 				break;
 
 				case "infantry" :
-				HighlightDivision(belligerents[human].infantry);
+				HighlightDivision(belligerents[human].troops["infantry"]);
 				break;
 
 				case "archers" :
-				HighlightDivision(belligerents[human].archers);
+				HighlightDivision(belligerents[human].troops["archers"]);
 				break;
 			}
 		}
@@ -299,7 +294,7 @@ namespace Battle {
 				int sqrt = (int)Mathf.Round(Mathf.Sqrt(soldierCount));
 				for (i = 0; i < soldierCount; i++) {
 					int row = (int)Mathf.Floor(i / sqrt);
-					position.x = (i * spacing - row) - row * spacing;
+					position.x = (i * spacing - row);
 					position.y = row * spacing;
 					_division[i].GetComponent<UnitSprite>().targetLocation = position;
 				}

@@ -8,18 +8,20 @@ namespace Battle {
 		public int id;
 		public string name;
 		public List<Soldier> soldiers;
-		public List<GameObject> infantry;
-		public List<GameObject> archers;
-		public List<GameObject> cavalry;
+		public List<string> divisions;
+		public Dictionary<string, List<GameObject>> troops;
 
 		public Belligerent(int _id, string _name) {
 			id = _id;
 			name = _name;
 
 			soldiers = new List<Soldier>();
-			infantry = new List<GameObject>();
-			archers = new List<GameObject>();
-			cavalry = new List<GameObject>();
+			divisions = new List<string>();
+			divisions.Add("infantry");
+			divisions.Add("archers");
+			troops = new Dictionary<string, List<GameObject>>();
+			troops.Add("infantry", new List<GameObject>());
+			troops.Add("archers", new List<GameObject>());
 		}
 	}
 }
