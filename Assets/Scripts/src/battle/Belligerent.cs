@@ -8,18 +8,18 @@ namespace Battle {
 		public int id;
 		public string name;
 		public List<Soldier> soldiers;
-		public List<int> infantry;
-		public List<int> archers;
-		public List<int> cavalry;
+		public List<GameObject> infantry;
+		public List<GameObject> archers;
+		public List<GameObject> cavalry;
 
 		public Belligerent(int _id, string _name) {
 			id = _id;
 			name = _name;
 
 			soldiers = new List<Soldier>();
-			infantry = new List<int>();
-			archers = new List<int>();
-			cavalry = new List<int>();
+			infantry = new List<GameObject>();
+			archers = new List<GameObject>();
+			cavalry = new List<GameObject>();
 		}
 	}
 }

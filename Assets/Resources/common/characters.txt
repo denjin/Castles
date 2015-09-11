@@ -17,7 +17,8 @@
 			"2" : "Stones"
 		},
 		"soldiers" : {
-			"peasant" : 24
+			"peasant" : 5,
+			"archer" : 10
 		},
 		"sprite" : "leader"
 	},
@@ -36,9 +37,8 @@
 			"1" : "Club",
 			"2" : "Stones"
 		},
-		
 		"soldiers" : {
-			"peasant" : 20
+			"peasant" : 10
 		},
 		"sprite" : "leader",
 	}

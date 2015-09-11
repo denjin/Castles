@@ -12,6 +12,9 @@ namespace Battle {
 		public Camera mainCamera;
 		//the map
 		public MapManager map;
+		//the belligerent who is the human player
+		private int human = 0;
+		private string selectedDivision = "all";
 
 		private string graphicsPath = "graphics/units/";
 
@@ -27,8 +30,8 @@ namespace Battle {
 			characters[0] = "Dave";
 			characters[1] = "Pete";
 			InitArmies(characters);
+			//Debug.Log(belligerents[0].soldiers[1].GetI());
 			DeployArmies();
-
 			rallyPoint = new GameObject();
 			rallyPoint.AddComponent<SpriteRenderer>();
 			rallyPoint.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("graphics/misc/rallypoint");
@@ -43,18 +46,31 @@ namespace Battle {
 				rallyPoint.transform.position = pos;
 			}
 			*/
-			
+			for (int i = 0; i < /*belligerents.Count*/1; i++) {
+				for (int j = 0; j < belligerents[i].infantry.Count; j++) {
+					Vector3 velocity = SteerForSeek(belligerents[i].infantry[j].GetComponent<UnitSprite>().velocity, belligerents[i].infantry[j].transform.position, belligerents[i].infantry[j].GetComponent<UnitSprite>().targetLocation, 0.05f);
+					belligerents[i].infantry[j].GetComponent<UnitSprite>().velocity = velocity;
+					belligerents[i].infantry[j].transform.position += velocity;
+				}
+				for (int j = 0; j < belligerents[i].archers.Count; j++) {
+					Vector3 velocity = SteerForSeek(belligerents[i].archers[j].GetComponent<UnitSprite>().velocity, belligerents[i].archers[j].transform.position, belligerents[i].archers[j].GetComponent<UnitSprite>().targetLocation, 0.05f);
+					belligerents[i].archers[j].GetComponent<UnitSprite>().velocity = velocity;
+					belligerents[i].archers[j].transform.position += velocity;
+				}
+			}
+			/*
 			for (int i = 0; i < armySprites.Length; i++) {
 				for (int j = 0; j < armySprites[i].Count; j++) {
 					if (i == 0) {
 						Vector3 velocity = SteerForSeek(armySprites[i][j].GetComponent<UnitSprite>().velocity, armySprites[i][j].transform.position, armySprites[i][j].GetComponent<UnitSprite>().targetLocation, 0.05f);
-						armySprites[i][j].GetComponent<UnitSprite>().velocity = velocity;
-						armySprites[i][j].transform.position += velocity;
+						//armySprites[i][j].GetComponent<UnitSprite>().velocity = velocity;
+						//armySprites[i][j].transform.position += velocity;
 					}
 					//sort soldier graphics
 					SortSprite(armySprites[i][j]);
 				}
 			}
+			*/
 		}
 
 
@@ -82,6 +98,8 @@ namespace Battle {
 				soldiers = character.GetSoldiers();
 				AddSoldiers(i, soldiers);
 			}
+			Debug.Log(belligerents[0].infantry.Count);
+			
 		}
 
 		/**
@@ -92,10 +110,10 @@ namespace Battle {
 		 * @param {String} _sortingLayer the sorting layer, defaults to the units layer
 		 */
 		private void CreateSoldier(int _armyId, int _soldierId, string _type, string _sortingLayer = "Units") {
-			Debug.Log(_armyId);
-			
 			//create temp soldier data
 			Soldier soldier = DataStore.Instance.GetSoldier(_type);
+			soldier.SetI(_soldierId);
+			WeaponItem weapon = DataStore.Instance.GetWeaponItem(soldier.GetWeaponItem("1"));
 			//add soldier data to belligrent
 			belligerents[_armyId].soldiers.Add(soldier);
 			//add soldier sprite
@@ -108,8 +126,17 @@ namespace Battle {
 			soldierSprite.AddComponent<UnitSprite>();
 			soldierSprite.GetComponent<UnitSprite>().armyId = _armyId;
 			soldierSprite.GetComponent<UnitSprite>().id = _soldierId;
+			if (weapon.GetRange() > 0) {
+				belligerents[_armyId].archers.Add(soldierSprite);
+			} else {
+				belligerents[_armyId].infantry.Add(soldierSprite);
+			}
+			if (_armyId == human) {
+				mainCamera.GetComponent<OutlineEffect>().outlineRenderers.Add(soldierSprite.GetComponent<SpriteRenderer>());
+			}
+			
 			//add sprite to list
-			armySprites[_armyId].Add(soldierSprite);
+			//armySprites[_armyId].Add(soldierSprite);
 		}
 
 		/**
@@ -141,18 +168,27 @@ namespace Battle {
 			Int2 mapSize = map.GetSize();
 			Int2 deploymentTile = new Int2();
 			Vector3 tilePosition = new Vector3();
+			int i;
+			int j;
 			//set a random starting tile for each army
-			for (int i = 0; i < belligerents.Count; i++) {
+			for (i = 0; i < belligerents.Count; i++) {
 				deploymentTile.x = (int)Mathf.Floor(Random.value * mapSize.x);
 				deploymentTile.y = (int)Mathf.Floor(Random.value * mapSize.y);
+				Vector3 pos = map.TileToWorld(deploymentTile);
 				//set each soldier's position to the target tile
-				for (int j = 0; j < belligerents[i].soldiers.Count; j++) {
-					Vector3 pos = map.TileToWorld(deploymentTile);
+				for (j = 0; j < belligerents[i].infantry.Count; j++) {
 					//shuffle the position slightly
 					pos.x += (Random.value - 0.5f);
 					pos.y += (Random.value - 0.5f);
 					//armyData[i][j].SetPos(pos.x, pos.y);
-					armySprites[i][j].transform.position = pos;
+					belligerents[i].infantry[j].transform.position = pos;
+				}
+				for (j = 0; j < belligerents[i].archers.Count; j++) { 
+					//shuffle the position slightly
+					pos.x += (Random.value - 0.5f);
+					pos.y += (Random.value - 0.5f);
+					//armyData[i][j].SetPos(pos.x, pos.y);
+					belligerents[i].archers[j].transform.position = pos;
 				}
 			}
 			
@@ -176,12 +212,68 @@ namespace Battle {
 			return newVelocity;
 		}
 
+		/**
+		 * Limits a vector's magnitude by a maximum size
+		 * @param Vector3 _input the vector to limit
+		 * @param float   _max   the maximum length
+		 */
 		public Vector3 Truncate(Vector3 _input, float _max) {
 			return Vector3.Normalize(_input) * _max;
 		}
 
-		public void SetFormation(string _formation) {
-			int soldierCount = armySprites[0].Count;
+		public void FormationButtonPressed(string _formation) {
+			List<GameObject> division;
+			division = new List<GameObject>();
+			switch (selectedDivision) {
+				case ("all") :
+				division.AddRange(belligerents[human].infantry);
+				division.AddRange(belligerents[human].archers);
+				break;
+
+				case ("infantry") :
+				division = belligerents[human].infantry;
+				break;
+
+				case ("archers") :
+				division = belligerents[human].archers;
+				break;
+			}
+			Debug.Log(division.Count);
+
+			SetFormation(human, division, _formation);
+		}
+
+		public void DivisionButtonPressed(string _division) {
+			selectedDivision = _division;
+			Debug.Log("Selected division changed to: " + selectedDivision);
+			//clear outline
+			mainCamera.GetComponent<OutlineEffect>().outlineRenderers.Clear();
+			switch (_division) {
+				case "all" :
+				for (int i = 0; i < belligerents[human].infantry.Count; i++) {
+					mainCamera.GetComponent<OutlineEffect>().outlineRenderers.Add(belligerents[human].infantry[i].GetComponent<SpriteRenderer>());
+				}
+				for (int i = 0; i < belligerents[human].archers.Count; i++) {
+					mainCamera.GetComponent<OutlineEffect>().outlineRenderers.Add(belligerents[human].archers[i].GetComponent<SpriteRenderer>());
+				}
+				break;
+				
+				case "infantry" :
+				for (int i = 0; i < belligerents[human].infantry.Count; i++) {
+					mainCamera.GetComponent<OutlineEffect>().outlineRenderers.Add(belligerents[human].infantry[i].GetComponent<SpriteRenderer>());
+				}
+				break;
+
+				case "archers" :
+				for (int i = 0; i < belligerents[human].archers.Count; i++) {
+					mainCamera.GetComponent<OutlineEffect>().outlineRenderers.Add(belligerents[human].archers[i].GetComponent<SpriteRenderer>());
+				}
+				break;
+			}
+		}
+
+		public void SetFormation(int _belligerent, List<GameObject> _division, string _formation) {
+			int soldierCount = _division.Count;
 			float spacing = 0.25f;
 			int i;
 			Vector2 position = new Vector2();
@@ -190,7 +282,7 @@ namespace Battle {
 				for (i = 0; i < soldierCount; i++) {
 					position.x = i * spacing;
 					position.y = 0;
-					armySprites[0][i].GetComponent<UnitSprite>().targetLocation = position;
+					_division[i].GetComponent<UnitSprite>().targetLocation = position;
 				}
 				break;
 
@@ -198,7 +290,7 @@ namespace Battle {
 				for (i = 0; i < soldierCount; i++) {
 					position.x = 0;
 					position.y = i * spacing;
-					armySprites[0][i].GetComponent<UnitSprite>().targetLocation = position;
+					_division[i].GetComponent<UnitSprite>().targetLocation = position;
 				}
 				break;
 
@@ -208,10 +300,11 @@ namespace Battle {
 					int row = (int)Mathf.Floor(i / sqrt);
 					position.x = (i * spacing - row) - row * spacing;
 					position.y = row * spacing;
-					armySprites[0][i].GetComponent<UnitSprite>().targetLocation = position;
+					_division[i].GetComponent<UnitSprite>().targetLocation = position;
 				}
 				break;
 			}
+			Debug.Log("Selected formation changed to: " + _formation + "for: " + selectedDivision);
 		}
 	}
 }

@@ -9,7 +9,7 @@
 			"feet" : "Cloth Boots"
 		},
 		"weapons" : {
-			"1" : "Stones"
+			"1" : "Knife"
 		},
 		"sprite" : "peasant"
 	},
@@ -26,7 +26,7 @@
 		"weapons" : {
 			"1" : "Stones"
 		},
-		"sprite" : "leader"
+		"sprite" : "archer"
 	},
 	
 	{
