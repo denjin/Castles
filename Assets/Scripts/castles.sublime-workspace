@@ -4,6 +4,18 @@
 		"selected_items":
 		[
 			[
+				"_bell",
+				"_belligerent"
+			],
+			[
+				"Dep",
+				"DeploySoldier"
+			],
+			[
+				"Ve",
+				"Vector3"
+			],
+			[
 				"Ad",
 				"AddRange"
 			],
@@ -42,10 +54,6 @@
 			[
 				"so",
 				"soldierCount"
-			],
-			[
-				"Ve",
-				"Vector2"
 			],
 			[
 				"_m",
@@ -227,7 +235,7 @@
 			"file": "src/battle/BattleManager.cs",
 			"settings":
 			{
-				"buffer_size": 9540,
+				"buffer_size": 10819,
 				"line_ending": "Unix"
 			}
 		},
@@ -251,7 +259,7 @@
 			"file": "src/battle/Belligerent.cs",
 			"settings":
 			{
-				"buffer_size": 552,
+				"buffer_size": 672,
 				"line_ending": "Windows"
 			}
 		},
@@ -336,6 +344,7 @@
 	],
 	"file_history":
 	[
+		"/C/Users/Chris/Documents/Unity/Castles/Castles/Assets/OutlineEffect/OutlineEffect.cs",
 		"/C/Users/Chris/Documents/Unity/Castles/Castles/Assets/Scripts/src/army/Character.cs",
 		"/C/Users/Chris/Documents/Unity/Castles/Castles/Assets/Scripts/src/gear/WeaponList.cs",
 		"/C/Users/Chris/Documents/Unity/Castles/Castles/Assets/Scripts/src/battle/MapManager.cs",
@@ -424,15 +433,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 9540,
+						"buffer_size": 10819,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								5040,
-								5040
+								3679,
+								3679
 							]
 						],
 						"settings":
@@ -441,7 +450,7 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 2370.0,
+						"translation.y": 2179.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 0,
@@ -473,7 +482,7 @@
 						"translation.y": 11.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 1,
+					"stack_index": 3,
 					"type": "text"
 				},
 				{
@@ -511,15 +520,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 552,
+						"buffer_size": 672,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								530,
-								530
+								299,
+								299
 							]
 						],
 						"settings":
@@ -530,7 +539,7 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 3,
+					"stack_index": 1,
 					"type": "text"
 				},
 				{

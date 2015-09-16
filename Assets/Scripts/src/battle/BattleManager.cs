@@ -47,28 +47,22 @@ namespace Battle {
 			}
 			*/
 			for (int i = 0; i < /*belligerents.Count*/1; i++) {
-				for (int j = 0; j < belligerents[i].troops["infantry"].Count; j++) {
-					MoveSoldier(belligerents[i], "infantry", j);
-				}
-				for (int j = 0; j < belligerents[i].troops["archers"].Count; j++) {
-					MoveSoldier(belligerents[i], "archers", j);
-				}
-			}
-			/*
-			for (int i = 0; i < armySprites.Length; i++) {
-				for (int j = 0; j < armySprites[i].Count; j++) {
-					if (i == 0) {
-						Vector3 velocity = SteerForSeek(armySprites[i][j].GetComponent<UnitSprite>().velocity, armySprites[i][j].transform.position, armySprites[i][j].GetComponent<UnitSprite>().targetLocation, 0.05f);
-						//armySprites[i][j].GetComponent<UnitSprite>().velocity = velocity;
-						//armySprites[i][j].transform.position += velocity;
+				for (int j = 0; j < belligerents[i].divisions.Count; j++) {
+					string division = belligerents[i].divisions[j];
+					for (int k = 0; k < belligerents[i].troops[division].Count; k++) {
+						MoveSoldier(belligerents[i], division, k);
+						SortSprite(belligerents[i].troops[division][k]);
 					}
-					//sort soldier graphics
-					SortSprite(armySprites[i][j]);
 				}
 			}
-			*/
 		}
 
+		/**
+		 * Moves the selected soldier towards their current target
+		 * @param Belligerent _belligerent the army the soldier belongs to
+		 * @param string      _division    the division the soldier belongs to
+		 * @param int         _soldier     the id of the soldier
+		 */
 		private void MoveSoldier(Belligerent _belligerent, string _division, int _soldier){
 			Vector3 velocity = SteerForSeek(_belligerent.troops[_division][_soldier].GetComponent<UnitSprite>().velocity, _belligerent.troops[_division][_soldier].transform.position, _belligerent.troops[_division][_soldier].GetComponent<UnitSprite>().targetLocation, 0.05f);
 			_belligerent.troops[_division][_soldier].GetComponent<UnitSprite>().velocity = velocity;
@@ -99,7 +93,6 @@ namespace Battle {
 				soldiers = character.GetSoldiers();
 				AddSoldiers(i, soldiers);
 			}
-			
 		}
 
 		/**
@@ -134,9 +127,6 @@ namespace Battle {
 			if (_armyId == human) {
 				mainCamera.GetComponent<OutlineEffect>().outlineRenderers.Add(soldierSprite.GetComponent<SpriteRenderer>());
 			}
-			
-			//add sprite to list
-			//armySprites[_armyId].Add(soldierSprite);
 		}
 
 		/**
