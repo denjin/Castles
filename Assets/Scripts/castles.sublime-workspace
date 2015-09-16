@@ -4,16 +4,100 @@
 		"selected_items":
 		[
 			[
+				"st",
+				"startNode"
+			],
+			[
+				"new",
+				"newCostToNeighbour"
+			],
+			[
+				"gr",
+				"gridX"
+			],
+			[
+				"ne",
+				"neighbour"
+			],
+			[
+				"nei",
+				"neighbour"
+			],
+			[
+				"ch",
+				"checkY"
+			],
+			[
+				"che",
+				"check"
+			],
+			[
+				"Lis",
+				"List"
+			],
+			[
+				"_gr",
+				"_gridY"
+			],
+			[
+				"curren",
+				"currentNode"
+			],
+			[
+				"clos",
+				"closedSet"
+			],
+			[
+				"curr",
+				"currentNode"
+			],
+			[
+				"cu",
+				"currentNode"
+			],
+			[
+				"open",
+				"openSet"
+			],
+			[
+				"op",
+				"openSet"
+			],
+			[
+				"_",
+				"_startPosition"
+			],
+			[
+				"per",
+				"percentX"
+			],
+			[
+				"le",
+				"levelWidth"
+			],
+			[
+				"nod",
+				"Node"
+			],
+			[
+				"V",
+				"Vector3"
+			],
+			[
+				"Ve",
+				"Vector2"
+			],
+			[
+				"Sor",
+				"SortSprite"
+			],
+			[
 				"_bell",
 				"_belligerent"
 			],
 			[
 				"Dep",
 				"DeploySoldier"
-			],
-			[
-				"Ve",
-				"Vector3"
 			],
 			[
 				"Ad",
@@ -68,20 +152,12 @@
 				"UnitSprite"
 			],
 			[
-				"new",
-				"newVelocity"
-			],
-			[
 				"Sprite",
 				"SpriteRenderer"
 			],
 			[
 				"ra",
 				"rallyPoint"
-			],
-			[
-				"_",
-				"_sprite"
 			],
 			[
 				"arm",
@@ -235,8 +311,25 @@
 			"file": "src/battle/BattleManager.cs",
 			"settings":
 			{
-				"buffer_size": 10819,
+				"buffer_size": 11460,
 				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "src/battle/MapManager.cs",
+			"settings":
+			{
+				"buffer_size": 6767,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "src/map/Node.cs",
+			"settings":
+			{
+				"buffer_size": 531,
+				"line_ending": "Windows",
+				"name": "using System.Collections;"
 			}
 		},
 		{
@@ -344,6 +437,8 @@
 	],
 	"file_history":
 	[
+		"/C/Users/Chris/Documents/Unity/Castles/Castles/Assets/Scripts/src/map/Pathfinding.cs",
+		"/C/Users/Chris/Documents/Unity/Castles/Castles/Assets/Scripts/src/map/pathfinding.cs",
 		"/C/Users/Chris/Documents/Unity/Castles/Castles/Assets/OutlineEffect/OutlineEffect.cs",
 		"/C/Users/Chris/Documents/Unity/Castles/Castles/Assets/Scripts/src/army/Character.cs",
 		"/C/Users/Chris/Documents/Unity/Castles/Castles/Assets/Scripts/src/gear/WeaponList.cs",
@@ -400,6 +495,7 @@
 		"case_sensitive": true,
 		"find_history":
 		[
+			";\n",
 			">();\n",
 			";\n",
 			"\");\n",
@@ -433,15 +529,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 10819,
+						"buffer_size": 11460,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								3679,
-								3679
+								772,
+								772
 							]
 						],
 						"settings":
@@ -450,7 +546,7 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 2179.0,
+						"translation.y": 547.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 0,
@@ -458,6 +554,64 @@
 				},
 				{
 					"buffer": 1,
+					"file": "src/battle/MapManager.cs",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 6767,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								2225,
+								2225
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C#/C#.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 872.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "src/map/Node.cs",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 531,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								277,
+								277
+							]
+						],
+						"settings":
+						{
+							"auto_name": "using System.Collections;",
+							"syntax": "Packages/C#/C#.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				},
+				{
+					"buffer": 3,
 					"file": "src/DataStore.cs",
 					"semi_transient": false,
 					"settings":
@@ -482,11 +636,11 @@
 						"translation.y": 11.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 3,
+					"stack_index": 5,
 					"type": "text"
 				},
 				{
-					"buffer": 2,
+					"buffer": 4,
 					"file": "src/army/Soldier.cs",
 					"semi_transient": false,
 					"settings":
@@ -511,11 +665,11 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 2,
+					"stack_index": 4,
 					"type": "text"
 				},
 				{
-					"buffer": 3,
+					"buffer": 5,
 					"file": "src/battle/Belligerent.cs",
 					"semi_transient": false,
 					"settings":
@@ -539,11 +693,11 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 1,
+					"stack_index": 3,
 					"type": "text"
 				},
 				{
-					"buffer": 4,
+					"buffer": 6,
 					"file": "src/army/CharacterList.cs",
 					"semi_transient": false,
 					"settings":
@@ -568,11 +722,11 @@
 						"translation.y": 822.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 5,
+					"stack_index": 7,
 					"type": "text"
 				},
 				{
-					"buffer": 5,
+					"buffer": 7,
 					"file": "src/UnitSprite.cs",
 					"semi_transient": false,
 					"settings":
@@ -596,7 +750,7 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 4,
+					"stack_index": 6,
 					"type": "text"
 				}
 			]
