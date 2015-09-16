@@ -190,6 +190,13 @@ namespace Battle {
 			_sprite.transform.position = pos;
 		}
 
+		/**
+		 * Steers the soldier towards their target position
+		 * @param Vector3 _currentVelocity velocity during the last time step
+		 * @param Vector3 _currentLocation the soldiers current position
+		 * @param Vector3 _targetLocation  the soldiers target position
+		 * @param float   _maxSpeed        the maximum speed the soldier can travel at
+		 */
 		public Vector3 SteerForSeek(Vector3 _currentVelocity, Vector3 _currentLocation, Vector3 _targetLocation, float _maxSpeed) {
 			Vector3 desiredVelocity = Truncate(_targetLocation - _currentLocation, _maxSpeed);
 			Vector3 steering = Truncate(desiredVelocity - _currentVelocity, _maxSpeed);
@@ -206,6 +213,10 @@ namespace Battle {
 			return Vector3.Normalize(_input) * _max;
 		}
 
+		/**
+		 * Called when the user selects a formation from the UI
+		 * @param string _formation the selected formation
+		 */
 		public void FormationButtonPressed(string _formation) {
 			List<GameObject> division;
 			division = new List<GameObject>();
@@ -223,11 +234,13 @@ namespace Battle {
 				division = belligerents[human].troops["archers"];
 				break;
 			}
-			Debug.Log(division.Count);
-
 			SetFormation(human, division, _formation);
 		}
 
+		/**
+		 * Called when the user selects a division from the UI
+		 * @param string _division the selected division
+		 */
 		public void DivisionButtonPressed(string _division) {
 			selectedDivision = _division;
 			Debug.Log("Selected division changed to: " + selectedDivision);
@@ -250,6 +263,10 @@ namespace Battle {
 			}
 		}
 
+		/**
+		 * Applies the outline to the currently selected division
+		 * @param List<GameObject> _division the selected division
+		 */
 		private void HighlightDivision(List<GameObject> _division) {
 			//clear outline
 			mainCamera.GetComponent<OutlineEffect>().outlineRenderers.Clear();
@@ -258,6 +275,12 @@ namespace Battle {
 			}
 		}
 
+		/**
+		 * Sets the target positions for the selected division
+		 * @param int              _belligerent the army
+		 * @param List<GameObject> _division    the division
+		 * @param string           _formation   the selected formation
+		 */
 		public void SetFormation(int _belligerent, List<GameObject> _division, string _formation) {
 			int soldierCount = _division.Count;
 			float spacing = 0.25f;
