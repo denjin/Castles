@@ -4,6 +4,26 @@
 		"selected_items":
 		[
 			[
+				"le",
+				"levelHeight"
+			],
+			[
+				"nod",
+				"nodeToCompare"
+			],
+			[
+				"he",
+				"heapIndex"
+			],
+			[
+				"So",
+				"SortUp"
+			],
+			[
+				"swap",
+				"swapIndex"
+			],
+			[
 				"itemA",
 				"itemAIndex"
 			],
@@ -82,14 +102,6 @@
 			[
 				"per",
 				"percentX"
-			],
-			[
-				"le",
-				"levelWidth"
-			],
-			[
-				"nod",
-				"Node"
 			],
 			[
 				"V",
@@ -331,7 +343,7 @@
 			"file": "src/battle/MapManager.cs",
 			"settings":
 			{
-				"buffer_size": 7607,
+				"buffer_size": 7033,
 				"line_ending": "Unix"
 			}
 		},
@@ -339,7 +351,7 @@
 			"file": "src/map/Node.cs",
 			"settings":
 			{
-				"buffer_size": 531,
+				"buffer_size": 884,
 				"line_ending": "Windows",
 				"name": "using System.Collections;"
 			}
@@ -348,7 +360,7 @@
 			"file": "src/Heap.cs",
 			"settings":
 			{
-				"buffer_size": 875,
+				"buffer_size": 2512,
 				"line_ending": "Windows"
 			}
 		},
@@ -540,7 +552,7 @@
 	"groups":
 	[
 		{
-			"selected": 3,
+			"selected": 1,
 			"sheets":
 			[
 				{
@@ -578,15 +590,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 7607,
+						"buffer_size": 7033,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								6648,
-								6648
+								6211,
+								6211
 							]
 						],
 						"settings":
@@ -595,10 +607,10 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 4394.0,
+						"translation.y": 3597.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 2,
+					"stack_index": 0,
 					"type": "text"
 				},
 				{
@@ -607,15 +619,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 531,
+						"buffer_size": 884,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								277,
-								277
+								78,
+								78
 							]
 						],
 						"settings":
@@ -627,7 +639,7 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 1,
+					"stack_index": 2,
 					"type": "text"
 				},
 				{
@@ -636,15 +648,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 875,
+						"buffer_size": 2512,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								273,
-								273
+								1758,
+								1758
 							]
 						],
 						"settings":
@@ -652,10 +664,10 @@
 							"syntax": "Packages/C#/C#.tmLanguage"
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 1156.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 0,
+					"stack_index": 1,
 					"type": "text"
 				},
 				{

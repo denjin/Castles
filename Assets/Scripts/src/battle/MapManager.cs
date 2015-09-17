@@ -183,9 +183,6 @@ public class MapManager {
 			}
 			//flip the order of the path
 			path.Reverse();
-			for(int i = 0; i < path.Count; i++) {
-				Debug.Log(i + " : [" + path[i].gridX + "][" + path[i].gridY + "]");
-			}
 		}
 
 		public Int2 GetSize() {
