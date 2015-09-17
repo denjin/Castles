@@ -78,7 +78,7 @@ public class MapManager {
 			Node startNode = WorldToNode(_startPosition);
 			Node endNode = WorldToNode(_endPosition);
 			//create the open / closed sets
-			List<Node> openSet = new List<Node>();
+			Heap<Node> openSet = new Heap<Node>(levelWidth * levelHeight);
 			HashSet<Node> closedSet = new HashSet<Node>();
 			//add the starting node to the open set
 			openSet.Add(startNode);
@@ -87,17 +87,8 @@ public class MapManager {
 			//scan through the open set
 			while (openSet.Count > 0) {
 				//start with the first node in the open set
-				currentNode = openSet[0];
-				//check all other nodes in the open set
-				for (int i = 1; i < openSet.Count; i++) {
-					//check if this node's fCost is less than the current node's fCost or if they're the same, then check if it's hCost is lower
-					if (openSet[i].fCost < currentNode.fCost || openSet[i].fCost == currentNode.fCost && openSet[i].hCost < currentNode.hCost) {
-						//set this node as the current node
-						currentNode = openSet[i];
-					}
-				}
-				//remove current node from the closed set and add it to the closed set
-				openSet.Remove(currentNode);
+				currentNode = openSet.RemoveFirst();
+
 				closedSet.Add(currentNode);
 				//check if the current node is the target node
 				if (currentNode == endNode) {
@@ -125,6 +116,8 @@ public class MapManager {
 						if (!openSet.Contains(neighbour)) {
 							//add this neighbour to the open set
 							openSet.Add(neighbour);
+						} else {
+							openSet.UpdateItem(neighbour);
 						}
 					}
 				}
