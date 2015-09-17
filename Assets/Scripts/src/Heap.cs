@@ -64,24 +64,20 @@ public class Heap<T> where T : IHeapItem<T> {
 			int childIndexLeft = item.HeapIndex * 2 + 1;
 			int childIndexRight = item.HeapIndex * 2 + 2;
 			int swapIndex = 0;
-			//check if item has a child on the left
+
 			if (childIndexLeft < currentItemCount) {
-				//set the item to swap as the left child
 				swapIndex = childIndexLeft;
-				//check if item has a child on the right
+
 				if (childIndexRight < currentItemCount) {
-					//check if child on the right has a lower priority than the child on the left
 					if (items[childIndexLeft].CompareTo(items[childIndexRight]) < 0) {
-						//set the item to swap as the right child
 						swapIndex = childIndexRight;
 					}
-					//check if item has a higher priority than highest child
-					if (item.CompareTo(items[swapIndex]) < 0) {
-						//swap these items in the heap
-						Swap(item, items[swapIndex]);
-					} else {
-						return;
-					}
+				}
+
+				if (item.CompareTo(items[swapIndex]) < 0) {
+					Swap (item,items[swapIndex]);
+				} else {
+					return;
 				}
 			} else {
 				return;
