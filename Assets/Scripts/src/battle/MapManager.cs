@@ -67,6 +67,11 @@ public class MapManager {
 			mainCamera.transform.position = camPosition;
 		}
 
+		/**
+		 * Uses A* to calculate the most efficient path between the start position and the end position
+		 * @param Vector2 _startPosition where we start from
+		 * @param Vector2 _endPosition   where we want to end up
+		 */
 		public void FindPath(Vector2 _startPosition, Vector2 _endPosition) {
 			Debug.Log("Finding path between: " + _startPosition + " and " + _endPosition);
 			//get the grid nodes from the provided positions
@@ -126,6 +131,10 @@ public class MapManager {
 			}
 		}
 
+		/**
+		 * Gets a list of nodes adjacent to the target node
+		 * @param Node _node the node to check
+		 */
 		public List<Node> GetNeighbours(Node _node) {
 			List<Node> neighbours = new List<Node>();
 			for (int x = -1; x <= 1; x++) {
@@ -148,22 +157,38 @@ public class MapManager {
 			return neighbours;
 		}
 
+		/**
+		 * Computes the cost of getting from a to b
+		 * @param Node nodeA start
+		 * @param Node nodeB end
+		 */
 		public int GetDistance(Node nodeA, Node nodeB) {
+			//get the distance in each axis
 			int dX = Mathf.Abs(nodeA.gridX - nodeB.gridX);
 			int dY = Mathf.Abs(nodeA.gridY - nodeB.gridY);
+			//calculate the cost
 			if (dX > dY) {
 				return 14 * dY + 10 * (dX - dY);
 			}
 			return 14 * dX + 10 * (dY - dX);
 		}
 
+		/**
+		 * Go through the path between the end and the start via parents to generate the path
+		 * @param Node startNode start
+		 * @param Node endNode   end
+		 */
 		public void RetracePath(Node startNode, Node endNode) {
+			//create a list to store the nodes
 			List<Node> path = new List<Node>();
+			//set the current node to the last node
 			Node currentNode = endNode;
+			//trace back through the path going from node to parent
 			while (currentNode != startNode) {
 				path.Add(currentNode);
 				currentNode = currentNode.parent;
 			}
+			//flip the order of the path
 			path.Reverse();
 			for(int i = 0; i < path.Count; i++) {
 				Debug.Log(i + " : [" + path[i].gridX + "][" + path[i].gridY + "]");

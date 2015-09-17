@@ -38,7 +38,6 @@ namespace Battle {
 		}
 
 		void Update() {
-			
 			if (Input.GetMouseButton(0)) {
 				Vector3 pos = mainCamera.ScreenToWorldPoint(Input.mousePosition);
 				pos.z = 0;
