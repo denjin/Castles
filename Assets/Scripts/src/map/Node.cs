@@ -2,7 +2,7 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
-namespace Map {
+namespace Battle {
 	public class Node : IHeapItem<Node> {
 		public bool walkable;
 		public Vector2 worldPosition;

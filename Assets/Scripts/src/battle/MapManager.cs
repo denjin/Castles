@@ -2,11 +2,10 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using SpriteTile;
-using Map;
+using Battle;
+using System;
 
-namespace Battle {
-
-public class MapManager {
+public class MapManager : MonoBehaviour {
 		private Camera mainCamera;
 		//base size of the map
 		private int levelWidth;
@@ -18,23 +17,21 @@ public class MapManager {
 		//height / width of the generated iso map
 		private Int2 mapSize;
 		//the size of each tile
-		private float tileSize = 0.16f;
+		private float tileSize;
 		//how many different tiles do we have?
 		private int numTiles = 4;
-		
-		private float seed;
-		private float noise;
 
-		public MapManager(Camera _mainCamera, int _levelWidth = 100, int _levelHeight = 100) {
+
+		void Awake() {
 			//initialise the camera
-			mainCamera = _mainCamera;
+			mainCamera = Camera.main;
 			Tile.SetCamera(mainCamera);
-
 			//setup map variables
-			levelWidth = _levelWidth;
-			levelHeight = _levelHeight;
+			levelWidth = 100;
+			levelHeight = 100;
+			tileSize = 0.16f;
 			//setup the node list
-			nodes = new Node[_levelWidth, _levelHeight];
+			nodes = new Node[levelWidth, levelHeight];
 			//add a buffer to the size of the level
 			buffer = new Int2(levelWidth * 2, levelHeight * 2);
 			//create the level
@@ -42,15 +39,11 @@ public class MapManager {
 			Tile.AddLayer(new Int2(buffer.x, buffer.y), 3, new Vector2(tileSize, tileSize), 0, LayerLock.None);
 			//save the size of the map
 			mapSize = Tile.GetMapSize();
-			
-			//setup the noise function
-			seed = Random.value;
-			
 			//build the level
 			for (int tY = 0; tY < levelHeight; tY++) {
 				for (int tX = 0; tX < levelWidth; tX++) {
 					//select a tile
-					int tile1 = 1;
+					int tile1 = 0;
 					//position the tile
 					Int2 position = new Int2(tX, tY);
 					//set the tile
@@ -59,12 +52,23 @@ public class MapManager {
 					nodes[tX,tY] = new Node(true, new Vector2(tX * tileSize, tY * tileSize), tX, tY);
 				}
 			}
+
+			for (int x = 10; x < 90; x++) {
+				for (int y = 40; y < 60; y++) {
+					Tile.SetTile(new Int2(x, y), 0, 0, 3);
+					nodes[x, y].walkable = false;
+				}
+			}
 			
 			//set the cameras position to the first tiles position
 			Int2 middle = new Int2(levelWidth / 2, levelHeight / 2);
 			Vector3 tilePosition = Tile.MapToWorldPosition(middle, 0);
 			Vector3 camPosition = new Vector3(tilePosition.x, tilePosition.y, -10f);
-			mainCamera.transform.position = camPosition;
+			//mainCamera.transform.position = camPosition;
+		}
+
+		public void StartFindPath(Vector2 startPosition, Vector2 endPosition) {
+			StartCoroutine(FindPath(startPosition, endPosition));
 		}
 
 		/**
@@ -72,56 +76,66 @@ public class MapManager {
 		 * @param Vector2 _startPosition where we start from
 		 * @param Vector2 _endPosition   where we want to end up
 		 */
-		public void FindPath(Vector2 _startPosition, Vector2 _endPosition) {
-			Debug.Log("Finding path between: " + _startPosition + " and " + _endPosition);
+		public IEnumerator FindPath(Vector2 _startPosition, Vector2 _endPosition) {
+			Vector2[] waypoints = new Vector2[0];
+			bool pathSuccess = false;
 			//get the grid nodes from the provided positions
 			Node startNode = WorldToNode(_startPosition);
 			Node endNode = WorldToNode(_endPosition);
-			//create the open / closed sets
-			Heap<Node> openSet = new Heap<Node>(levelWidth * levelHeight);
-			HashSet<Node> closedSet = new HashSet<Node>();
-			//add the starting node to the open set
-			openSet.Add(startNode);
-			//create temp node to check
-			Node currentNode;
-			//scan through the open set
-			while (openSet.Count > 0) {
-				//start with the first node in the open set
-				currentNode = openSet.RemoveFirst();
 
-				closedSet.Add(currentNode);
-				//check if the current node is the target node
-				if (currentNode == endNode) {
-					RetracePath(startNode, endNode);
-					//finish
-					return;
-				}
-				//check node's neighbours
-				foreach(Node neighbour in GetNeighbours(currentNode)) {
-					//check if neighbour blocks the path or in the closed set
-					if (!neighbour.walkable || closedSet.Contains(neighbour)) {
-						//skip this neighbour
-						continue;
+			if (startNode.walkable && endNode.walkable) {
+				//create the open / closed sets
+				Heap<Node> openSet = new Heap<Node>(levelWidth * levelHeight);
+				HashSet<Node> closedSet = new HashSet<Node>();
+				//add the starting node to the open set
+				openSet.Add(startNode);
+				//create temp node to check
+				Node currentNode;
+				//scan through the open set
+				while (openSet.Count > 0) {
+					//start with the first node in the open set
+					currentNode = openSet.RemoveFirst();
+					closedSet.Add(currentNode);
+					//check if the current node is the target node
+					if (currentNode == endNode) {
+						pathSuccess = true;
+						//finish
+						break;
 					}
-					//calculate the cost to get from the current node to the neighbour
-					int newCostToNeighbour = currentNode.gCost + GetDistance(currentNode, neighbour);
-					//check if this cost is less than the neighbours cost or neighbour is in the closed set
-					if (newCostToNeighbour < neighbour.gCost || !openSet.Contains(neighbour)) {
-						//set neighbours costs
-						neighbour.gCost = newCostToNeighbour;
-						neighbour.hCost = GetDistance(neighbour, endNode);
-						//make this neighbour the current node
-						neighbour.parent = currentNode;
-						//if the neighbour isn't already in the open set
-						if (!openSet.Contains(neighbour)) {
-							//add this neighbour to the open set
-							openSet.Add(neighbour);
-						} else {
-							openSet.UpdateItem(neighbour);
+					//check node's neighbours
+					foreach(Node neighbour in GetNeighbours(currentNode)) {
+						//check if neighbour blocks the path or in the closed set
+						if (!neighbour.walkable || closedSet.Contains(neighbour)) {
+							//skip this neighbour
+							continue;
+						}
+						//calculate the cost to get from the current node to the neighbour
+						int newCostToNeighbour = currentNode.gCost + GetDistance(currentNode, neighbour);
+						//check if this cost is less than the neighbours cost or neighbour is in the closed set
+						if (newCostToNeighbour < neighbour.gCost || !openSet.Contains(neighbour)) {
+							//set neighbours costs
+							neighbour.gCost = newCostToNeighbour;
+							neighbour.hCost = GetDistance(neighbour, endNode);
+							//make this neighbour the current node
+							neighbour.parent = currentNode;
+							//if the neighbour isn't already in the open set
+							if (!openSet.Contains(neighbour)) {
+								//add this neighbour to the open set
+								openSet.Add(neighbour);
+							} else {
+								openSet.UpdateItem(neighbour);
+							}
 						}
 					}
 				}
 			}
+
+			
+			yield return null;
+			if (pathSuccess) {
+				waypoints = RetracePath(startNode, endNode);
+			}
+			PathRequestManager.Instance.FinishedProcessingPath(waypoints, pathSuccess);
 		}
 
 		/**
@@ -171,7 +185,7 @@ public class MapManager {
 		 * @param Node startNode start
 		 * @param Node endNode   end
 		 */
-		public void RetracePath(Node startNode, Node endNode) {
+		public Vector2[] RetracePath(Node startNode, Node endNode) {
 			//create a list to store the nodes
 			List<Node> path = new List<Node>();
 			//set the current node to the last node
@@ -182,7 +196,24 @@ public class MapManager {
 				currentNode = currentNode.parent;
 			}
 			//flip the order of the path
-			path.Reverse();
+			Vector2[] waypoints = SimplifyPath(path);
+			Array.Reverse(waypoints);
+			return waypoints;
+		}
+
+		Vector2[] SimplifyPath(List<Node> path) {
+			List<Vector2> waypoints = new List<Vector2>();
+			
+			Vector2 directionOld = Vector2.zero;
+
+			for (int i = 1; i < path.Count; i ++) {
+				Vector2 directionNew = new Vector2(path[i - 1].gridX - path[i].gridX,path[i-1].gridY - path[i].gridY);
+				if (directionNew != directionOld) {
+					waypoints.Add(path[i].worldPosition);
+				}
+				directionOld = directionNew;
+			}
+			return waypoints.ToArray();
 		}
 
 		public Int2 GetSize() {
@@ -203,14 +234,4 @@ public class MapManager {
 			int y = Mathf.RoundToInt((levelHeight - 1) * percentY);
 			return nodes[x,y];
 		}
-		
-		private int GetPerlinNoise(int x, int y, float _seed, int _numTiles) {
-			float noiseVal = Mathf.PerlinNoise(_seed + x, _seed + y) * (_numTiles + 1);
-			int _int = (int)Mathf.Floor(noiseVal);
-			if (_int < 0) {
-				_int = 0;
-			}
-			return _int;
-		}
 	}
-}

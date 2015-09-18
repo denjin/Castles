@@ -6,7 +6,6 @@ using Battle;
 using Armies;
 using Gear;
 
-namespace Battle {
 	public class BattleManager : MonoBehaviour {
 		//the camera
 		public Camera mainCamera;
@@ -25,7 +24,7 @@ namespace Battle {
 		GameObject rallyPoint;
 
 		void Awake() {
-			map = new MapManager(mainCamera, 100, 100);
+			map = gameObject.GetComponent<MapManager>();
 			string[] characters = new string[2];
 			characters[0] = "Dave";
 			characters[1] = "Pete";
@@ -42,18 +41,18 @@ namespace Battle {
 				Vector3 pos = mainCamera.ScreenToWorldPoint(Input.mousePosition);
 				pos.z = 0;
 				rallyPoint.transform.position = pos;
-				map.FindPath(Vector2.zero, rallyPoint.transform.position);
 			}
-			
-			for (int i = 0; i < /*belligerents.Count*/1; i++) {
+			/*
+			for (int i = 0; i < 1; i++) {
 				for (int j = 0; j < belligerents[i].divisions.Count; j++) {
 					string division = belligerents[i].divisions[j];
 					for (int k = 0; k < belligerents[i].troops[division].Count; k++) {
-						MoveSoldier(belligerents[i], division, k);
+						//MoveSoldier(belligerents[i], division, k);
 						SortSprite(belligerents[i].troops[division][k]);
 					}
 				}
 			}
+			*/
 		}
 
 		/**
@@ -315,4 +314,3 @@ namespace Battle {
 			Debug.Log("Selected formation changed to: " + _formation + "for: " + selectedDivision);
 		}
 	}
-}
