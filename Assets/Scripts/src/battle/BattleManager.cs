@@ -23,7 +23,7 @@ using Gear;
 
 		GameObject rallyPoint;
 
-		void Awake() {
+		void Start() {
 			map = gameObject.GetComponent<MapManager>();
 			string[] characters = new string[2];
 			characters[0] = "Dave";
@@ -41,6 +41,10 @@ using Gear;
 				Vector3 pos = mainCamera.ScreenToWorldPoint(Input.mousePosition);
 				pos.z = 0;
 				rallyPoint.transform.position = pos;
+				List<GameObject> division = belligerents[human].troops[selectedDivision];
+				for (int i = 0; i < division.Count; i++) {
+					division[i].GetComponent<UnitSprite>().newTarget = pos;
+				}
 			}
 			/*
 			for (int i = 0; i < 1; i++) {
@@ -160,8 +164,8 @@ using Gear;
 			int j;
 			//set a random starting tile for each army
 			for (i = 0; i < belligerents.Count; i++) {
-				deploymentTile.x = (int)Mathf.Floor(Random.value * mapSize.x);
-				deploymentTile.y = (int)Mathf.Floor(Random.value * mapSize.y);
+				deploymentTile.x = 50;//(int)Mathf.Floor(Random.value * mapSize.x);
+				deploymentTile.y = 50;//(int)Mathf.Floor(Random.value * mapSize.y);
 				Vector3 pos = map.TileToWorld(deploymentTile);
 				//set each soldier's position to the target tile
 				for (j = 0; j < belligerents[i].troops["infantry"].Count; j++) {

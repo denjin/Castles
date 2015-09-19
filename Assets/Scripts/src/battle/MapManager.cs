@@ -43,7 +43,7 @@ public class MapManager : MonoBehaviour {
 			for (int tY = 0; tY < levelHeight; tY++) {
 				for (int tX = 0; tX < levelWidth; tX++) {
 					//select a tile
-					int tile1 = 0;
+					int tile1 = 1;
 					//position the tile
 					Int2 position = new Int2(tX, tY);
 					//set the tile
@@ -53,18 +53,29 @@ public class MapManager : MonoBehaviour {
 				}
 			}
 
-			for (int x = 10; x < 90; x++) {
-				for (int y = 40; y < 60; y++) {
+			for (int x = 40; x <= 60; x++) {
+				for (int y = 40; y <= 60; y++) {
 					Tile.SetTile(new Int2(x, y), 0, 0, 3);
 					nodes[x, y].walkable = false;
 				}
 			}
+
+			for (int x = 41; x <= 59; x++) {
+				for (int y = 41; y <= 59; y++) {
+					Tile.SetTile(new Int2(x, y), 0, 0, 1);
+					nodes[x, y].walkable = true;
+				}
+			}
+
+			Tile.SetTile(new Int2(50, 60), 0, 0, 1);
+			nodes[50, 60].walkable = true;
+
 			
 			//set the cameras position to the first tiles position
 			Int2 middle = new Int2(levelWidth / 2, levelHeight / 2);
 			Vector3 tilePosition = Tile.MapToWorldPosition(middle, 0);
 			Vector3 camPosition = new Vector3(tilePosition.x, tilePosition.y, -10f);
-			//mainCamera.transform.position = camPosition;
+			mainCamera.transform.position = camPosition;
 		}
 
 		public void StartFindPath(Vector2 startPosition, Vector2 endPosition) {
@@ -203,15 +214,8 @@ public class MapManager : MonoBehaviour {
 
 		Vector2[] SimplifyPath(List<Node> path) {
 			List<Vector2> waypoints = new List<Vector2>();
-			
-			Vector2 directionOld = Vector2.zero;
-
 			for (int i = 1; i < path.Count; i ++) {
-				Vector2 directionNew = new Vector2(path[i - 1].gridX - path[i].gridX,path[i-1].gridY - path[i].gridY);
-				if (directionNew != directionOld) {
-					waypoints.Add(path[i].worldPosition);
-				}
-				directionOld = directionNew;
+				waypoints.Add(path[i].worldPosition);
 			}
 			return waypoints.ToArray();
 		}
