@@ -33,13 +33,8 @@ namespace Battle {
 		}
 
 		public int HeapIndex {
-			get {
-				return heapIndex;
-			}
-
-			set {
-				heapIndex = value;
-			}
+			get;
+			set;
 		}
 
 		public int CompareTo (Node nodeToCompare) {
