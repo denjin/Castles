@@ -37,26 +37,19 @@ using Gear;
 		}
 
 		void Update() {
-			if (Input.GetMouseButton(0)) {
+			if (Input.GetMouseButtonDown(0)) {
 				Vector3 pos = mainCamera.ScreenToWorldPoint(Input.mousePosition);
 				pos.z = 0;
 				rallyPoint.transform.position = pos;
-				List<GameObject> division = belligerents[human].troops[selectedDivision];
+				//List<GameObject> division = belligerents[human].troops[selectedDivision];
+				/*
 				for (int i = 0; i < division.Count; i++) {
 					division[i].GetComponent<UnitSprite>().newTarget = pos;
 				}
+				*/
+				map.UpdateTile(map.WorldToNode(pos));
 			}
-			/*
-			for (int i = 0; i < 1; i++) {
-				for (int j = 0; j < belligerents[i].divisions.Count; j++) {
-					string division = belligerents[i].divisions[j];
-					for (int k = 0; k < belligerents[i].troops[division].Count; k++) {
-						//MoveSoldier(belligerents[i], division, k);
-						SortSprite(belligerents[i].troops[division][k]);
-					}
-				}
-			}
-			*/
+
 		}
 
 		/**

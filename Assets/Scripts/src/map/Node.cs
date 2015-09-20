@@ -5,6 +5,7 @@ using System.Collections.Generic;
 namespace Battle {
 	public class Node : IHeapItem<Node> {
 		public bool walkable;
+		public bool wall;
 		public Vector2 worldPosition;
 
 		public int gCost;
@@ -17,8 +18,9 @@ namespace Battle {
 
 		public int heapIndex;
 
-		public Node(bool _walkable, Vector2 _worldPosition, int _gridX, int _gridY) {
+		public Node(bool _walkable, bool _wall, Vector2 _worldPosition, int _gridX, int _gridY) {
 			walkable = _walkable;
+			wall = _wall;
 			worldPosition = _worldPosition;
 			gridX = _gridX;
 			gridY = _gridY;

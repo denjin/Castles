@@ -42,40 +42,82 @@ public class MapManager : MonoBehaviour {
 			//build the level
 			for (int tY = 0; tY < levelHeight; tY++) {
 				for (int tX = 0; tX < levelWidth; tX++) {
-					//select a tile
-					int tile1 = 1;
 					//position the tile
 					Int2 position = new Int2(tX, tY);
 					//set the tile
-					Tile.SetTile(position, 0, 0, tile1);
+					Tile.SetTile(position, 0, 0, 0);
 					//add the node to the node list
-					nodes[tX,tY] = new Node(true, new Vector2(tX * tileSize, tY * tileSize), tX, tY);
+					nodes[tX,tY] = new Node(true, false, new Vector2(tX * tileSize, tY * tileSize), tX, tY);
 				}
 			}
 
 			for (int x = 40; x <= 60; x++) {
 				for (int y = 40; y <= 60; y++) {
-					Tile.SetTile(new Int2(x, y), 0, 0, 3);
+					Tile.SetTile(new Int2(x, y), 0, 1, 0);
 					nodes[x, y].walkable = false;
+					nodes[x, y].wall = true;
 				}
 			}
 
 			for (int x = 41; x <= 59; x++) {
 				for (int y = 41; y <= 59; y++) {
-					Tile.SetTile(new Int2(x, y), 0, 0, 1);
+					Tile.SetTile(new Int2(x, y), 0, 0, 0);
 					nodes[x, y].walkable = true;
+					nodes[x, y].wall = false;
 				}
 			}
 
-			Tile.SetTile(new Int2(50, 60), 0, 0, 1);
+			Tile.SetTile(new Int2(50, 60), 0, 0, 0);
 			nodes[50, 60].walkable = true;
+			nodes[50, 60].wall = false;
 
+			for (int x = 0; x < levelWidth; x++) {
+				for (int y = 0; y < levelHeight; y++) {
+					UpdateTile(nodes[x,y]);
+				}
+			}
 			
 			//set the cameras position to the first tiles position
 			Int2 middle = new Int2(levelWidth / 2, levelHeight / 2);
 			Vector3 tilePosition = Tile.MapToWorldPosition(middle, 0);
 			Vector3 camPosition = new Vector3(tilePosition.x, tilePosition.y, -10f);
 			mainCamera.transform.position = camPosition;
+		}
+
+		public void UpdateTile(Node node) {
+			if (node.wall) {
+				List<Node> neighbours = GetNeighbours(node, false);
+				int mask = 0;
+				for (int i = 0; i < neighbours.Count; i++) {
+					if (neighbours[i].gridX == node.gridX) {
+						if (neighbours[i].gridY < node.gridY) {
+							//south
+							if (neighbours[i].wall) {
+								mask += 4;
+							}
+						} else {
+							//north
+							if (neighbours[i].wall) {
+								mask += 1;
+							}
+						}
+					} else {
+						if (neighbours[i].gridX < node.gridX) {
+							//west
+							if (neighbours[i].wall) {
+								mask += 8;
+							}
+						} else {
+							//east
+							if (neighbours[i].wall) {
+								mask += 2;
+							}
+						}
+					}
+				}
+				Tile.SetTile(new Int2(node.gridX, node.gridY), 0, 1, mask);
+
+			}
 		}
 
 		public void StartFindPath(Vector2 startPosition, Vector2 endPosition) {
@@ -153,7 +195,7 @@ public class MapManager : MonoBehaviour {
 		 * Gets a list of nodes adjacent to the target node
 		 * @param Node _node the node to check
 		 */
-		public List<Node> GetNeighbours(Node _node) {
+		public List<Node> GetNeighbours(Node node, bool full = true) {
 			List<Node> neighbours = new List<Node>();
 			for (int x = -1; x <= 1; x++) {
 				for (int y = -1; y <= 1; y++) {
@@ -163,10 +205,18 @@ public class MapManager : MonoBehaviour {
 						continue;
 					}
 					//values to check if this is valid
-					int checkX = _node.gridX + x;
-					int checkY = _node.gridY + y;
+					int checkX = node.gridX + x;
+					int checkY = node.gridY + y;
 					//check if this is a valid node
 					if (checkX >= 0 && checkX < levelWidth && checkY >= 0 && checkY < levelHeight) {
+						//if we're not doing a full check
+						if (!full) {
+							//and if this neighbour isn't in N, E, S or W of the target
+							if (nodes[checkX, checkY].gridX != node.gridX && nodes[checkX, checkY].gridY != node.gridY) {
+								//skip this one
+								continue;
+							}
+						}
 						//add this node to the neighbours
 						neighbours.Add(nodes[checkX, checkY]);
 					}
