@@ -5,13 +5,15 @@ using System.Collections.Generic;
 
 namespace Battle {
 	public class PathRequestManager : MonoBehaviour {
-
+		//queue to store all incoming requests for paths
 		Queue<PathRequest> pathRequestQueue = new Queue<PathRequest>();
+		//the current request we're processing
 		PathRequest currentRequest;
+		//reference to this manager to enforce singleton status
 		private static PathRequestManager instance;
-
+		//a check for whether we're currently handling a path
 		bool isProcessingPath;
-
+		//reference to the map class
 		MapManager mapManager;
 
 		/**
@@ -24,6 +26,7 @@ namespace Battle {
 		}
 
 		void Awake() {
+			//save the map reference
 			mapManager = GameObject.Find("BattleManager").GetComponent<BattleManager>().map;
 		}
 
