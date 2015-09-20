@@ -84,7 +84,7 @@ public class MapManager : MonoBehaviour {
 			mainCamera.transform.position = camPosition;
 		}
 
-		public void UpdateTile(Node node) {
+		public void UpdateTile(Node node, bool full = false) {
 			if (node.wall) {
 				List<Node> neighbours = GetNeighbours(node, false);
 				int mask = 0;
@@ -116,6 +116,11 @@ public class MapManager : MonoBehaviour {
 					}
 				}
 				Tile.SetTile(new Int2(node.gridX, node.gridY), 0, 1, mask);
+				if (full) {
+					for (int i = 0; i < neighbours.Count; i++) {
+						UpdateTile(neighbours[i]);
+					}
+				}
 
 			}
 		}
