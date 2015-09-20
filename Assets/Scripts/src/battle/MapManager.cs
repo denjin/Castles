@@ -84,6 +84,12 @@ public class MapManager : MonoBehaviour {
 			mainCamera.transform.position = camPosition;
 		}
 
+		public void MakeWall(Node node) {
+			Tile.SetTile(new Int2(node.gridX, node.gridY), 0, 1, 0);
+			node.wall = true;
+			node.walkable = false;
+			UpdateTile(node, true);
+		}
 		public void UpdateTile(Node node, bool full = false) {
 			if (node.wall) {
 				List<Node> neighbours = GetNeighbours(node, false);
