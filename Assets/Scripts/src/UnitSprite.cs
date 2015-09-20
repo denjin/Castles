@@ -21,10 +21,10 @@ public class UnitSprite : MonoBehaviour {
 	void Start() {
 		target = Vector2.zero;
 		newTarget = Vector2.zero;
-		//PathRequestManager.Instance.RequestPath(transform.position, target, OnPathFound);
 	}
 
 	void Update() {
+		//check if this unit has been given a new target
 		if (target != newTarget) {
 			ResetPath();
 			PathRequestManager.Instance.RequestPath(transform.position, newTarget, OnPathFound);
@@ -41,8 +41,6 @@ public class UnitSprite : MonoBehaviour {
 	}
 
 	private void ResetPath() {
-		Debug.Log("Resetting path");
-		
 		targetIndex = 0;
 		path = new Vector2[0];
 	}
@@ -67,11 +65,9 @@ public class UnitSprite : MonoBehaviour {
 		if (path != null) {
 			for (int i = targetIndex; i < path.Length; i ++) {
 				Gizmos.color = Color.black;
-
 				if (i == targetIndex) {
 					Gizmos.DrawLine(transform.position, path[i]);
-				}
-				else {
+				} else {
 					Gizmos.DrawLine(path[i-1],path[i]);
 				}
 			}
