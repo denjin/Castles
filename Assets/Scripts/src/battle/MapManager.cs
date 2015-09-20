@@ -131,7 +131,13 @@ public class MapManager : MonoBehaviour {
 			}
 		}
 
+		/**
+		 * Tells the FindPath Coroutine to start
+		 * @param Vector2 startPosition the position the path should start at
+		 * @param Vector2 endPosition   the position the path wants to finish at
+		 */
 		public void StartFindPath(Vector2 startPosition, Vector2 endPosition) {
+			//start the coroutine
 			StartCoroutine(FindPath(startPosition, endPosition));
 		}
 
@@ -146,59 +152,59 @@ public class MapManager : MonoBehaviour {
 			//get the grid nodes from the provided positions
 			Node startNode = WorldToNode(_startPosition);
 			Node endNode = WorldToNode(_endPosition);
-
-			if (startNode.walkable && endNode.walkable) {
-				//create the open / closed sets
-				Heap<Node> openSet = new Heap<Node>(levelWidth * levelHeight);
-				HashSet<Node> closedSet = new HashSet<Node>();
-				//add the starting node to the open set
-				openSet.Add(startNode);
-				//create temp node to check
-				Node currentNode;
-				//scan through the open set
-				while (openSet.Count > 0) {
-					//start with the first node in the open set
-					currentNode = openSet.RemoveFirst();
-					closedSet.Add(currentNode);
-					//check if the current node is the target node
-					if (currentNode == endNode) {
-						pathSuccess = true;
-						//finish
-						break;
+			//create the open / closed sets
+			Heap<Node> openSet = new Heap<Node>(levelWidth * levelHeight);
+			HashSet<Node> closedSet = new HashSet<Node>();
+			//add the starting node to the open set
+			openSet.Add(startNode);
+			//create temp node to check
+			Node currentNode;
+			//scan through the open set
+			while (openSet.Count > 0) {
+				//start with the first node in the open set
+				currentNode = openSet.RemoveFirst();
+				closedSet.Add(currentNode);
+				//check if the current node is the target node
+				if (currentNode == endNode) {
+					pathSuccess = true;
+					//finish
+					break;
+				}
+				//check node's neighbours
+				foreach(Node neighbour in GetNeighbours(currentNode)) {
+					//check if neighbour blocks the path or in the closed set
+					if (!neighbour.walkable || closedSet.Contains(neighbour)) {
+						//skip this neighbour
+						continue;
 					}
-					//check node's neighbours
-					foreach(Node neighbour in GetNeighbours(currentNode)) {
-						//check if neighbour blocks the path or in the closed set
-						if (!neighbour.walkable || closedSet.Contains(neighbour)) {
-							//skip this neighbour
-							continue;
-						}
-						//calculate the cost to get from the current node to the neighbour
-						int newCostToNeighbour = currentNode.gCost + GetDistance(currentNode, neighbour);
-						//check if this cost is less than the neighbours cost or neighbour is in the closed set
-						if (newCostToNeighbour < neighbour.gCost || !openSet.Contains(neighbour)) {
-							//set neighbours costs
-							neighbour.gCost = newCostToNeighbour;
-							neighbour.hCost = GetDistance(neighbour, endNode);
-							//make this neighbour the current node
-							neighbour.parent = currentNode;
-							//if the neighbour isn't already in the open set
-							if (!openSet.Contains(neighbour)) {
-								//add this neighbour to the open set
-								openSet.Add(neighbour);
-							} else {
-								openSet.UpdateItem(neighbour);
-							}
+					//calculate the cost to get from the current node to the neighbour
+					int newCostToNeighbour = currentNode.gCost + GetDistance(currentNode, neighbour);
+					//check if this cost is less than the neighbours cost or neighbour is in the closed set
+					if (newCostToNeighbour < neighbour.gCost || !openSet.Contains(neighbour)) {
+						//set neighbours costs
+						neighbour.gCost = newCostToNeighbour;
+						neighbour.hCost = GetDistance(neighbour, endNode);
+						//make this neighbour the current node
+						neighbour.parent = currentNode;
+						//if the neighbour isn't already in the open set
+						if (!openSet.Contains(neighbour)) {
+							//add this neighbour to the open set
+							openSet.Add(neighbour);
+						} else {
+							//sort the item into the open set heap
+							openSet.UpdateItem(neighbour);
 						}
 					}
 				}
 			}
-
-			
+			//after we've traversed through the open set, continue in the next frame
 			yield return null;
+			//if we've reached the end of the path
 			if (pathSuccess) {
+				//work back through the path, child to parent
 				waypoints = RetracePath(startNode, endNode);
 			}
+			//tell the manager that this path is completed
 			PathRequestManager.Instance.FinishedProcessingPath(waypoints, pathSuccess);
 		}
 
@@ -209,26 +215,19 @@ public class MapManager : MonoBehaviour {
 		public List<Node> GetNeighbours(Node node, bool full = true) {
 			List<Node> neighbours = new List<Node>();
 			for (int x = -1; x <= 1; x++) {
-				for (int y = -1; y <= 1; y++) {
-					//if we're in the centre of the check
+				for (int y = -1; y <= 1; y++) {//if we're in the centre of the check
 					if (x == 0 && y == 0) {
-						//skip over this one because it's the supplied node
-						continue;
+						continue;//skip over this one because it's the supplied node
 					}
-					//values to check if this is valid
 					int checkX = node.gridX + x;
 					int checkY = node.gridY + y;
 					//check if this is a valid node
 					if (checkX >= 0 && checkX < levelWidth && checkY >= 0 && checkY < levelHeight) {
-						//if we're not doing a full check
 						if (!full) {
-							//and if this neighbour isn't in N, E, S or W of the target
 							if (nodes[checkX, checkY].gridX != node.gridX && nodes[checkX, checkY].gridY != node.gridY) {
-								//skip this one
 								continue;
 							}
 						}
-						//add this node to the neighbours
 						neighbours.Add(nodes[checkX, checkY]);
 					}
 				}
@@ -242,10 +241,8 @@ public class MapManager : MonoBehaviour {
 		 * @param Node nodeB end
 		 */
 		public int GetDistance(Node nodeA, Node nodeB) {
-			//get the distance in each axis
 			int dX = Mathf.Abs(nodeA.gridX - nodeB.gridX);
 			int dY = Mathf.Abs(nodeA.gridY - nodeB.gridY);
-			//calculate the cost
 			if (dX > dY) {
 				return 14 * dY + 10 * (dX - dY);
 			}
@@ -258,16 +255,12 @@ public class MapManager : MonoBehaviour {
 		 * @param Node endNode   end
 		 */
 		public Vector2[] RetracePath(Node startNode, Node endNode) {
-			//create a list to store the nodes
 			List<Node> path = new List<Node>();
-			//set the current node to the last node
 			Node currentNode = endNode;
-			//trace back through the path going from node to parent
 			while (currentNode != startNode) {
 				path.Add(currentNode);
 				currentNode = currentNode.parent;
 			}
-			//flip the order of the path
 			Vector2[] waypoints = SimplifyPath(path);
 			Array.Reverse(waypoints);
 			return waypoints;
