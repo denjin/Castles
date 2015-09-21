@@ -157,7 +157,6 @@ namespace Armies {
 						sprite = obj[i].list[j].str;
 						break;
 					}
-					
 				}
 				characters.Add(name, new Character(name, diplomacy, martial, intrigue, hp, mp, armour, weapons, soldiers, sprite, human));
 			}

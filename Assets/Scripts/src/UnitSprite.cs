@@ -5,7 +5,7 @@ using System;
 namespace Battle{
 
 
-public class UnitSprite : MonoBehaviour {
+public class Unit : MonoBehaviour {
 	public int id;
 	public int armyId;
 	public int division;

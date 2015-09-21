@@ -46,7 +46,7 @@ using Gear;
 				rallyPoint.transform.position = pos;
 				List<GameObject> division = belligerents[human].troops[selectedDivision];
 				for (int i = 0; i < division.Count; i++) {
-					division[i].GetComponent<UnitSprite>().newTarget = pos;
+					division[i].GetComponent<Unit>().newTarget = pos;
 				}
 			}
 
@@ -59,8 +59,8 @@ using Gear;
 		 * @param int         _soldier     the id of the soldier
 		 */
 		private void MoveSoldier(Belligerent _belligerent, string _division, int _soldier){
-			Vector3 velocity = SteerForSeek(_belligerent.troops[_division][_soldier].GetComponent<UnitSprite>().velocity, _belligerent.troops[_division][_soldier].transform.position, _belligerent.troops[_division][_soldier].GetComponent<UnitSprite>().targetLocation, 0.05f);
-			_belligerent.troops[_division][_soldier].GetComponent<UnitSprite>().velocity = velocity;
+			Vector3 velocity = SteerForSeek(_belligerent.troops[_division][_soldier].GetComponent<Unit>().velocity, _belligerent.troops[_division][_soldier].transform.position, _belligerent.troops[_division][_soldier].GetComponent<Unit>().targetLocation, 0.05f);
+			_belligerent.troops[_division][_soldier].GetComponent<Unit>().velocity = velocity;
 			_belligerent.troops[_division][_soldier].transform.position += velocity;
 		}
 
@@ -111,9 +111,9 @@ using Gear;
 			soldierSprite.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>(graphicsPath + soldier.GetSprite());
 			soldierSprite.GetComponent<SpriteRenderer>().sortingLayerName = _sortingLayer;
 			//add component to track id and army id
-			soldierSprite.AddComponent<UnitSprite>();
-			soldierSprite.GetComponent<UnitSprite>().armyId = _armyId;
-			soldierSprite.GetComponent<UnitSprite>().id = _soldierId;
+			soldierSprite.AddComponent<Unit>();
+			soldierSprite.GetComponent<Unit>().armyId = _armyId;
+			soldierSprite.GetComponent<Unit>().id = _soldierId;
 			if (weapon.GetRange() == 0) {
 				belligerents[_armyId].troops["infantry"].Add(soldierSprite);
 			} else {
@@ -285,7 +285,7 @@ using Gear;
 				for (i = 0; i < soldierCount; i++) {
 					position.x = i * spacing;
 					position.y = 0;
-					_division[i].GetComponent<UnitSprite>().targetLocation = position;
+					_division[i].GetComponent<Unit>().targetLocation = position;
 				}
 				break;
 
@@ -293,7 +293,7 @@ using Gear;
 				for (i = 0; i < soldierCount; i++) {
 					position.x = 0;
 					position.y = i * spacing;
-					_division[i].GetComponent<UnitSprite>().targetLocation = position;
+					_division[i].GetComponent<Unit>().targetLocation = position;
 				}
 				break;
 
@@ -303,7 +303,7 @@ using Gear;
 					int row = (int)Mathf.Floor(i / sqrt);
 					position.x = (i * spacing - row);
 					position.y = row * spacing;
-					_division[i].GetComponent<UnitSprite>().targetLocation = position;
+					_division[i].GetComponent<Unit>().targetLocation = position;
 				}
 				break;
 			}
