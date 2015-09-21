@@ -203,6 +203,8 @@ public class MapManager : MonoBehaviour {
 			if (pathSuccess) {
 				//work back through the path, child to parent
 				waypoints = RetracePath(startNode, endNode);
+				Debug.Log(waypoints.Length);
+				
 			}
 			//tell the manager that this path is completed
 			PathRequestManager.Instance.FinishedProcessingPath(waypoints, pathSuccess);
@@ -268,7 +270,7 @@ public class MapManager : MonoBehaviour {
 
 		Vector2[] SimplifyPath(List<Node> path) {
 			List<Vector2> waypoints = new List<Vector2>();
-			for (int i = 1; i < path.Count; i ++) {
+			for (int i = 0; i < path.Count; i ++) {
 				waypoints.Add(path[i].worldPosition);
 			}
 			return waypoints.ToArray();

@@ -46,7 +46,7 @@ using Gear;
 				//map.UpdateTile(map.WorldToNode(pos));
 			}
 
-			if (Input.GetMouseButtonDown(1)) {
+			if (Input.GetMouseButton(1)) {
 				Vector2 pos = mainCamera.ScreenToWorldPoint(Input.mousePosition);
 				//pos.z = 0;
 				rallyPoint.transform.position = pos;
