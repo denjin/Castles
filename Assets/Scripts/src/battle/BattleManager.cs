@@ -127,8 +127,8 @@ using Gear;
 		/**
 		 * Creates the soldiers for the battle and adds them to the right army
 		 * Also initialises the sprites on screen
-		 * @param {[type]} int _character
-		 * @param {[type]} Dictionary<string, int>       _data         [description]
+		 * @param int _character
+		 * @param Dictionary<string, int>       _data         [description]
 		 */
 		private void AddSoldiers(int _character, Dictionary<string, int> _data) {
 			totalSoldiers = 1;
