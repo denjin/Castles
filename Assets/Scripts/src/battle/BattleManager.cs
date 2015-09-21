@@ -7,8 +7,6 @@ using Armies;
 using Gear;
 
 	public class BattleManager : MonoBehaviour {
-		//the camera
-		public Camera mainCamera;
 		//the map
 		public MapManager map;
 		//the belligerent who is the human player
@@ -38,17 +36,13 @@ using Gear;
 
 		void Update() {
 			if (Input.GetMouseButton(0)) {
-				Vector2 pos = mainCamera.ScreenToWorldPoint(Input.mousePosition);
-				
+				Vector2 pos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 				Node node = map.WorldToNode(pos);
 				map.MakeWall(node);
-
-				//map.UpdateTile(map.WorldToNode(pos));
 			}
 
 			if (Input.GetMouseButton(1)) {
-				Vector2 pos = mainCamera.ScreenToWorldPoint(Input.mousePosition);
-				//pos.z = 0;
+				Vector2 pos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 				rallyPoint.transform.position = pos;
 				List<GameObject> division = belligerents[human].troops[selectedDivision];
 				for (int i = 0; i < division.Count; i++) {
@@ -126,7 +120,7 @@ using Gear;
 				belligerents[_armyId].troops["archers"].Add(soldierSprite);
 			}
 			if (_armyId == human) {
-				mainCamera.GetComponent<OutlineEffect>().outlineRenderers.Add(soldierSprite.GetComponent<SpriteRenderer>());
+				Camera.main.GetComponent<OutlineEffect>().outlineRenderers.Add(soldierSprite.GetComponent<SpriteRenderer>());
 			}
 		}
 
@@ -269,9 +263,9 @@ using Gear;
 		 */
 		private void HighlightDivision(List<GameObject> _division) {
 			//clear outline
-			mainCamera.GetComponent<OutlineEffect>().outlineRenderers.Clear();
+			Camera.main.GetComponent<OutlineEffect>().outlineRenderers.Clear();
 			for (int i = 0; i < _division.Count; i++) {
-				mainCamera.GetComponent<OutlineEffect>().outlineRenderers.Add(_division[i].GetComponent<SpriteRenderer>());
+				Camera.main.GetComponent<OutlineEffect>().outlineRenderers.Add(_division[i].GetComponent<SpriteRenderer>());
 			}
 		}
 

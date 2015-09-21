@@ -6,19 +6,14 @@ using Battle;
 using System;
 
 public class MapManager : MonoBehaviour {
-		private Camera mainCamera;
-		//base size of the map
 		private int levelWidth;
 		private int levelHeight;
-		//array to store node data, purely for pathfinding purposes
 		public Node[,] nodes;
-		//the size of each tile
 		private float tileSize;
 
 		void Awake() {
 			//initialise the camera
-			mainCamera = Camera.main;
-			Tile.SetCamera(mainCamera);
+			Tile.SetCamera(Camera.main);
 			//setup map variables
 			levelWidth = 100;
 			levelHeight = 100;
@@ -66,11 +61,11 @@ public class MapManager : MonoBehaviour {
 				}
 			}
 			
-			//set the cameras position to the first tiles position
+			//set the cameras position to the center tile's position
 			Int2 middle = new Int2(levelWidth / 2, levelHeight / 2);
 			Vector3 tilePosition = Tile.MapToWorldPosition(middle, 0);
 			Vector3 camPosition = new Vector3(tilePosition.x, tilePosition.y, -10f);
-			mainCamera.transform.position = camPosition;
+			Camera.main.transform.position = camPosition;
 		}
 
 		public void MakeWall(Node node) {
@@ -79,6 +74,7 @@ public class MapManager : MonoBehaviour {
 			node.walkable = false;
 			UpdateTile(node, true);
 		}
+		
 		public void UpdateTile(Node node, bool full = false) {
 			if (node.wall) {
 				List<Node> neighbours = GetNeighbours(node, false);
