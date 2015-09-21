@@ -12,15 +12,8 @@ public class MapManager : MonoBehaviour {
 		private int levelHeight;
 		//array to store node data, purely for pathfinding purposes
 		public Node[,] nodes;
-		//amount to add to the map to get it to fit properly into the iso map
-		private Int2 buffer;
-		//height / width of the generated iso map
-		private Int2 mapSize;
 		//the size of each tile
 		private float tileSize;
-		//how many different tiles do we have?
-		private int numTiles = 4;
-
 
 		void Awake() {
 			//initialise the camera
@@ -32,13 +25,9 @@ public class MapManager : MonoBehaviour {
 			tileSize = 0.16f;
 			//setup the node list
 			nodes = new Node[levelWidth, levelHeight];
-			//add a buffer to the size of the level
-			buffer = new Int2(levelWidth * 2, levelHeight * 2);
 			//create the level
-			Tile.NewLevel(new Int2(buffer.x, buffer.y), 3, new Vector2(tileSize, tileSize), 0, LayerLock.None);
-			Tile.AddLayer(new Int2(buffer.x, buffer.y), 3, new Vector2(tileSize, tileSize), 0, LayerLock.None);
-			//save the size of the map
-			mapSize = Tile.GetMapSize();
+			Tile.NewLevel(new Int2(levelWidth, levelHeight), 3, new Vector2(tileSize, tileSize), 0, LayerLock.None);
+			Tile.AddLayer(new Int2(levelWidth, levelHeight), 3, new Vector2(tileSize, tileSize), 0, LayerLock.None);
 			//build the level
 			for (int tY = 0; tY < levelHeight; tY++) {
 				for (int tX = 0; tX < levelWidth; tX++) {

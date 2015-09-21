@@ -158,13 +158,12 @@ using Gear;
 			//sets the size of the map
 			Int2 mapSize = map.GetSize();
 			Int2 deploymentTile = new Int2();
-			Vector3 tilePosition = new Vector3();
 			int i;
 			int j;
 			//set a random starting tile for each army
 			for (i = 0; i < belligerents.Count; i++) {
-				deploymentTile.x = 50;//(int)Mathf.Floor(Random.value * mapSize.x);
-				deploymentTile.y = 50;//(int)Mathf.Floor(Random.value * mapSize.y);
+				deploymentTile.x = (int)Mathf.Floor(Random.value * mapSize.x);
+				deploymentTile.y = (int)Mathf.Floor(Random.value * mapSize.y);
 				Vector3 pos = map.TileToWorld(deploymentTile);
 				//set each soldier's position to the target tile
 				for (j = 0; j < belligerents[i].troops["infantry"].Count; j++) {
