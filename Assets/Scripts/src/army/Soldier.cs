@@ -6,8 +6,6 @@ using Gear;
 
 namespace Armies {
 	public class Soldier {
-		//the soldiers unique id
-		protected int i;
 		//name of the soldier
 		protected string name;
 		//hit points
@@ -26,8 +24,7 @@ namespace Armies {
 
 		public Soldier () {}
 
-		public Soldier(string _name, int _hp, int _mp, Dictionary<string, string> _armour, Dictionary<string, string> _weapons, string _sprite, int _i = -1) {
-			i = _i;
+		public Soldier(string _name, int _hp, int _mp, Dictionary<string, string> _armour, Dictionary<string, string> _weapons, string _sprite) {
 			name = _name;
 			hp = _hp;
 			mp = _mp;
@@ -40,14 +37,6 @@ namespace Armies {
 		//--------------------
 		//getters / setters
 		//--------------------
-		
-		public int GetI() {
-			return i;
-		}
-
-		public void SetI(int _i) {
-			i = _i;
-		}
 
 		public float GetPosX() {
 			return posX;
