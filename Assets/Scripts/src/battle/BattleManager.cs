@@ -100,11 +100,8 @@ using Gear;
 		private void CreateSoldier(int _armyId, int _soldierId, string _type, string _sortingLayer = "Units") {
 			//create temp soldier data
 			Soldier soldier = DataStore.Instance.GetSoldier(_type);
-			soldier.SetI(_soldierId);
 			WeaponItem weapon = DataStore.Instance.GetWeaponItem(soldier.GetWeaponItem("1"));
-			//add soldier data to belligrent
-			belligerents[_armyId].soldiers.Add(soldier);
-			//add soldier sprite
+			//add soldier
 			GameObject soldierSprite = new GameObject();
 			//add sprite renderer component to new sprite and load appropriate sprite asset into it
 			soldierSprite.AddComponent<SpriteRenderer>();
