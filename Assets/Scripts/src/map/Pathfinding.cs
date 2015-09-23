@@ -51,7 +51,7 @@ public class Pathfinding : MonoBehaviour {
 			//check node's neighbours
 			foreach(Node neighbour in map.GetNeighbours(currentNode)) {
 				//check if neighbour blocks the path or in the closed set
-				if (!neighbour.walkable || closedSet.Contains(neighbour)) {
+				if (!neighbour.Walkable || closedSet.Contains(neighbour)) {
 					//skip this neighbour
 					continue;
 				}

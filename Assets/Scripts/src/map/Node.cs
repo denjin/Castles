@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 
 public class Node : IHeapItem<Node> {
-	public bool walkable;
+	//public bool walkable;
 	public bool wall;
 	public Vector2 worldPosition;
 
@@ -17,8 +17,7 @@ public class Node : IHeapItem<Node> {
 
 	public int heapIndex;
 
-	public Node(bool _walkable, bool _wall, Vector2 _worldPosition, int _gridX, int _gridY) {
-		walkable = _walkable;
+	public Node(bool _wall, Vector2 _worldPosition, int _gridX, int _gridY) {
 		wall = _wall;
 		worldPosition = _worldPosition;
 		gridX = _gridX;
@@ -32,6 +31,17 @@ public class Node : IHeapItem<Node> {
 	}
 
 	public int HeapIndex {
+		get;
+		set;
+	}
+
+	public bool Walkable {
+		get {
+			return !wall;
+		}
+	}
+
+	public bool Wall {
 		get;
 		set;
 	}

@@ -10,54 +10,42 @@ public class MapManager : MonoBehaviour {
 	public int levelHeight;
 	public Node[,] nodes;
 	public float tileSize;
+	public TextAsset map;
 
 	void Awake() {
+		map = Resources.Load("maps/test_map") as TextAsset;
 		//initialise the camera
 		Tile.SetCamera(cam);
-		//setup the node list
+		levelHeight = 50;
+		levelWidth = 50;
+		Tile.LoadLevel(map);
 		nodes = new Node[levelWidth, levelHeight];
 		//create the level
-		Tile.NewLevel(new Int2(levelWidth, levelHeight), 3, new Vector2(tileSize, tileSize), 0, LayerLock.None);
+		//Tile.NewLevel(new Int2(levelWidth, levelHeight), 3, new Vector2(tileSize, tileSize), 0, LayerLock.None);
 		Tile.AddLayer(new Int2(levelWidth, levelHeight), 3, new Vector2(tileSize, tileSize), 0, LayerLock.None);
 		//build the level
 		int x;
 		int y;
-		for (x = 0; x < levelHeight; x++) {
-			for (y = 0; y < levelWidth; y++) {
-				//position the tile
-				Int2 position = new Int2(x, y);
-				//set the tile
-				Tile.SetTile(position, 0, 0, 0);
-				//add the node to the node list
-				nodes[x,y] = new Node(true, false, new Vector2(x * tileSize, y * tileSize), x, y);
-			}
-		}
-
-		for (x = 40; x <= 60; x++) {
-			for (y = 40; y <= 60; y++) {
-				Tile.SetTile(new Int2(x, y), 0, 1, 0);
-				nodes[x, y].walkable = false;
-				nodes[x, y].wall = true;
-			}
-		}
-
-		for (x = 41; x <= 59; x++) {
-			for (y = 41; y <= 59; y++) {
-				Tile.SetTile(new Int2(x, y), 0, 0, 0);
-				nodes[x, y].walkable = true;
-				nodes[x, y].wall = false;
-			}
-		}
-
-		Tile.SetTile(new Int2(50, 60), 0, 0, 0);
-		nodes[50, 60].walkable = true;
-		nodes[50, 60].wall = false;
-
+		bool wall;
 		for (x = 0; x < levelWidth; x++) {
 			for (y = 0; y < levelHeight; y++) {
-				UpdateTile(nodes[x,y]);
+				if (Tile.GetTile(new Int2(x, y)).tile == 0) {
+					wall = true;
+				} else {
+					wall = false;
+				}
+				//set the node
+				nodes[x,y] = new Node(wall, new Vector2(x * tileSize, y * tileSize), x, y);
 			}
 		}
+		for (x = 0; x < levelWidth; x++) {
+			for (y = 0; y < levelHeight; y++) {
+				if (nodes[x,y].wall) {
+					UpdateTile(nodes[x,y]);
+				}
+			}
+		}
+		
 		
 		//set the cameras position to the center tile's position
 		Int2 middle = new Int2(levelWidth / 2, levelHeight / 2);
@@ -67,9 +55,8 @@ public class MapManager : MonoBehaviour {
 	}
 
 	public void MakeWall(Node node) {
-		Tile.SetTile(new Int2(node.gridX, node.gridY), 0, 1, 0);
+		Tile.SetTile(new Int2(node.gridX, node.gridY), 0, 0, 0);
 		node.wall = true;
-		node.walkable = false;
 		UpdateTile(node, true);
 	}
 	
@@ -104,7 +91,7 @@ public class MapManager : MonoBehaviour {
 					}
 				}
 			}
-			Tile.SetTile(new Int2(node.gridX, node.gridY), 0, 1, mask);
+			Tile.SetTile(new Int2(node.gridX, node.gridY), 0, 0, mask);
 			if (full) {
 				for (int i = 0; i < neighbours.Count; i++) {
 					UpdateTile(neighbours[i]);
