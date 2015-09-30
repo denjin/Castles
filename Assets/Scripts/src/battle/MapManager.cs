@@ -21,21 +21,23 @@ public class MapManager : MonoBehaviour {
 		Tile.LoadLevel(map);
 		nodes = new Node[levelWidth, levelHeight];
 		//create the level
-		//Tile.NewLevel(new Int2(levelWidth, levelHeight), 3, new Vector2(tileSize, tileSize), 0, LayerLock.None);
 		Tile.AddLayer(new Int2(levelWidth, levelHeight), 3, new Vector2(tileSize, tileSize), 0, LayerLock.None);
 		//build the level
 		int x;
 		int y;
 		bool wall;
+		bool opaque;
 		for (x = 0; x < levelWidth; x++) {
 			for (y = 0; y < levelHeight; y++) {
 				if (Tile.GetTile(new Int2(x, y)).tile == 0) {
 					wall = true;
+					opaque = true;
 				} else {
 					wall = false;
+					opaque = false;
 				}
 				//set the node
-				nodes[x,y] = new Node(wall, new Vector2(x * tileSize, y * tileSize), x, y);
+				nodes[x,y] = new Node(wall, opaque, new Vector2(x * tileSize, y * tileSize), x, y);
 			}
 		}
 		for (x = 0; x < levelWidth; x++) {
@@ -46,7 +48,6 @@ public class MapManager : MonoBehaviour {
 			}
 		}
 		
-		
 		//set the cameras position to the center tile's position
 		Int2 middle = new Int2(levelWidth / 2, levelHeight / 2);
 		Vector3 tilePosition = Tile.MapToWorldPosition(middle, 0);
@@ -54,9 +55,28 @@ public class MapManager : MonoBehaviour {
 		cam.transform.position = camPosition;
 	}
 
+	void Update() {
+		Vector2 pos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+		
+		if (Input.GetMouseButtonDown(1)) {
+			Node node = WorldToNode(pos);
+			MakeWall(node);
+		}
+	}
+
+	
+
 	public void MakeWall(Node node) {
-		Tile.SetTile(new Int2(node.gridX, node.gridY), 0, 0, 0);
-		node.wall = true;
+		if (nodes[node.gridX, node.gridY].wall) {
+			Tile.SetTile(new Int2(node.gridX, node.gridY), 0, 0, 16);
+			node.wall = false;
+			node.opaque = false;
+		} else {
+			Tile.SetTile(new Int2(node.gridX, node.gridY), 0, 0, 0);
+			node.wall = true;
+			node.opaque = true;
+		}
+		
 		UpdateTile(node, true);
 	}
 	
@@ -101,6 +121,10 @@ public class MapManager : MonoBehaviour {
 		}
 	}
 
+	public void SetTile(int _x, int _y) {
+		Tile.SetTile(new Int2(_x, _y), 0, 0, 17);
+	}
+
 
 	/**
 	 * Gets a list of nodes adjacent to the target node
@@ -142,8 +166,104 @@ public class MapManager : MonoBehaviour {
 		float percentY = _position.y / (levelHeight * tileSize);
 		percentX = Mathf.Clamp01(percentX);
 		percentY = Mathf.Clamp01(percentY);
-		int x = Mathf.RoundToInt((levelWidth - 1) * percentX);
-		int y = Mathf.RoundToInt((levelHeight - 1) * percentY);
+		int x = Mathf.RoundToInt((levelWidth) * percentX);
+		int y = Mathf.RoundToInt((levelHeight) * percentY);
 		return nodes[x,y];
 	}
+
+	public float Distance(Node a, Node b) {
+		float dx = b.gridX - a.gridX;
+		float dy = b.gridY - a.gridY;
+		return Mathf.Sqrt(dx * dx + dy * dy);
+	}
+
+	public void ClearVision() {
+		for (int x = 0; x < levelWidth; x++) {
+			for (int y = 0; y < levelHeight; y++) {
+				nodes[x, y].visible = false;
+				SetNodeVisibility(nodes[x, y], 0.25f);
+			}
+		}
+	}
+
+	public void GetBasicVision(Node source, int range) {
+		int minx = Mathf.Max(source.gridX - range, 0);
+		int miny = Mathf.Max(source.gridY - range, 0);
+		int maxx = Mathf.Min(source.gridX + range, levelWidth - 1);
+		int maxy = Mathf.Min(source.gridY + range, levelHeight - 1);
+
+		List<Node> line;
+		for (int x = minx; x <= maxx; x++) {
+			line = GetLine(source, nodes[x,miny]);
+			ScanLine(line);
+			line = GetLine(source, nodes[x,maxy]);
+			ScanLine(line);
+		}
+
+		for (int y = miny; y <= maxy; y++) {
+			line = GetLine(source, nodes[minx,y]);
+			ScanLine(line);
+			line = GetLine(source, nodes[maxx,y]);
+			ScanLine(line);
+		}
+		for (int x = 0; x < levelWidth; x++) {
+			for (int y = 0; y < levelHeight; y++) {
+				if (nodes[x,y].visible) {
+					float dist = Distance(source, nodes[x,y]);
+					if (dist < range) {
+						SetNodeVisibility(nodes[x, y], 1f);
+					}
+				}
+			}
+		}
+	}
+
+
+	public void ScanLine(List<Node> line) {
+		for (int i = 0; i < line.Count; i++) {
+			line[i].visible = true;
+			if (line[i].opaque) {
+				break;
+			}
+		}
+	}
+
+	public void SetNodeVisibility(Node target, float vis) {
+		Tile.SetColor(new Int2(target.gridX, target.gridY), 0, new Color(255f, 255f, 255f, vis));
+	}
+
+	public List<Node> GetLine (Node source, Node target) {
+		List<Node> line = new List<Node>();
+		//source positions
+		int x0 = source.gridX;
+		int y0 = source.gridY;
+		//target positions
+		int x1 = target.gridX;
+		int y1 = target.gridY;
+		//distances
+		int dx = Mathf.Abs((x1 - x0));
+		int dy = Mathf.Abs((y1 - y0));
+		//increment direction
+		int sx = x0 < x1 ? 1 : -1;
+		int sy = y0 < y1 ? 1 : -1;
+		//init start position
+		int err = dx - dy;
+		while (true) {
+			line.Add(nodes[x0, y0]);
+			if (x0 == x1 && y0 == y1) {
+				break;
+			}
+			int err2 = err * 2;
+			if (err2 > -dx) {
+				err -= dy;
+				x0 += sx;
+			}
+			if (err2 < dx) {
+				err += dx;
+				y0 += sy;
+			}
+		}
+		return line;
+	}
+
 }

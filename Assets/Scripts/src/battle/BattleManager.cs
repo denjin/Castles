@@ -35,33 +35,11 @@ using Gear;
 		}
 
 		void Update() {
-			if (Input.GetMouseButton(0)) {
-				Vector2 pos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-				Node node = map.WorldToNode(pos);
-				map.MakeWall(node);
+			Vector2 pos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+			if (Input.GetMouseButtonDown(0)) {
+				belligerents[human].troops[selectedDivision][0].GetComponent<Unit>().newTarget = pos;
 			}
-
-			if (Input.GetMouseButton(1)) {
-				Vector2 pos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-				rallyPoint.transform.position = pos;
-				List<GameObject> division = belligerents[human].troops[selectedDivision];
-				for (int i = 0; i < division.Count; i++) {
-					division[i].GetComponent<Unit>().newTarget = pos;
-				}
-			}
-
-		}
-
-		/**
-		 * Moves the selected soldier towards their current target
-		 * @param Belligerent _belligerent the army the soldier belongs to
-		 * @param string      _division    the division the soldier belongs to
-		 * @param int         _soldier     the id of the soldier
-		 */
-		private void MoveSoldier(Belligerent _belligerent, string _division, int _soldier){
-			Vector3 velocity = SteerForSeek(_belligerent.troops[_division][_soldier].GetComponent<Unit>().velocity, _belligerent.troops[_division][_soldier].transform.position, _belligerent.troops[_division][_soldier].GetComponent<Unit>().targetLocation, 0.05f);
-			_belligerent.troops[_division][_soldier].GetComponent<Unit>().velocity = velocity;
-			_belligerent.troops[_division][_soldier].transform.position += velocity;
+			UpdateVision();
 		}
 
 		/**
@@ -181,51 +159,56 @@ using Gear;
 			_sprite.transform.position = pos;
 		}
 
-		/**
-		 * Steers the soldier towards their target position
-		 * @param Vector3 _currentVelocity velocity during the last time step
-		 * @param Vector3 _currentLocation the soldiers current position
-		 * @param Vector3 _targetLocation  the soldiers target position
-		 * @param float   _maxSpeed        the maximum speed the soldier can travel at
-		 */
-		public Vector3 SteerForSeek(Vector3 _currentVelocity, Vector3 _currentLocation, Vector3 _targetLocation, float _maxSpeed) {
-			Vector3 desiredVelocity = Truncate(_targetLocation - _currentLocation, _maxSpeed);
-			Vector3 steering = Truncate(desiredVelocity - _currentVelocity, _maxSpeed);
-			Vector3 newVelocity = Truncate(_currentVelocity + steering, _maxSpeed);
-			return newVelocity;
+		private void UpdateVision() {
+			map.ClearVision();
+			List<GameObject> division = belligerents[human].troops["infantry"];
+			for (int i = 0; i < division.Count; i++) {
+				map.GetBasicVision(map.WorldToNode(division[i].transform.position), 10);
+			}
 		}
 
-		/**
-		 * Limits a vector's magnitude by a maximum size
-		 * @param Vector3 _input the vector to limit
-		 * @param float   _max   the maximum length
-		 */
-		public Vector3 Truncate(Vector3 _input, float _max) {
-			return Vector3.Normalize(_input) * _max;
+		private void MoveDivision(Vector2 target) {
+			List<GameObject> division = belligerents[human].troops[selectedDivision];
+			//set the division's target
+			belligerents[human].targets[selectedDivision] = target;
+			int i;
+			string formation = belligerents[human].formations[selectedDivision];
+			switch(formation) {
+				case ("column") :
+				for (i = 0; i < division.Count; i++) {
+					belligerents[human].troops[selectedDivision][i].GetComponent<Unit>().newTarget = new Vector2(0 + target.x, i * map.tileSize + target.y);
+				}
+				break;
+
+				case ("line") :
+				for (i = 0; i < division.Count; i++) {
+					belligerents[human].troops[selectedDivision][i].GetComponent<Unit>().newTarget = new Vector2(i * map.tileSize + target.x, 0 + target.y);
+				}
+				break;
+
+				case ("square") :
+				int sqrt = (int)Mathf.Round(Mathf.Sqrt(division.Count));
+				Debug.Log(sqrt);
+				
+				for (i = 0; i < division.Count; i++) {
+					int row = (int)Mathf.Floor(i / sqrt);
+					Vector2 position = Vector2.zero;
+					position.x = i * map.tileSize + target.x - (row * sqrt * map.tileSize);
+					position.y = row * map.tileSize + target.y;
+					belligerents[human].troops[selectedDivision][i].GetComponent<Unit>().newTarget = position;
+				}
+				break;
+			}
 		}
 
 		/**
 		 * Called when the user selects a formation from the UI
 		 * @param string _formation the selected formation
 		 */
-		public void FormationButtonPressed(string _formation) {
-			List<GameObject> division;
-			division = new List<GameObject>();
-			switch (selectedDivision) {
-				case ("all") :
-				division.AddRange(belligerents[human].troops["infantry"]);
-				division.AddRange(belligerents[human].troops["archers"]);
-				break;
-
-				case ("infantry") :
-				division = belligerents[human].troops["infantry"];
-				break;
-
-				case ("archers") :
-				division = belligerents[human].troops["archers"];
-				break;
-			}
-			SetFormation(human, division, _formation);
+		public void FormationButtonPressed(string formation) {
+			belligerents[human].formations[selectedDivision] = formation;
+			Debug.Log(belligerents[human].formations[selectedDivision]);
+			
 		}
 
 		/**
@@ -235,23 +218,6 @@ using Gear;
 		public void DivisionButtonPressed(string _division) {
 			selectedDivision = _division;
 			Debug.Log("Selected division changed to: " + selectedDivision);
-			
-			switch (_division) {
-				case "all" :
-				List<GameObject> all = new List<GameObject>();
-				all.AddRange(belligerents[human].troops["infantry"]);
-				all.AddRange(belligerents[human].troops["archers"]);
-				HighlightDivision(all);
-				break;
-
-				case "infantry" :
-				HighlightDivision(belligerents[human].troops["infantry"]);
-				break;
-
-				case "archers" :
-				HighlightDivision(belligerents[human].troops["archers"]);
-				break;
-			}
 		}
 
 		/**

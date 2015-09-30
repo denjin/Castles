@@ -3,8 +3,12 @@ using System.Collections;
 using System.Collections.Generic;
 
 public class Node : IHeapItem<Node> {
-	//public bool walkable;
 	public bool wall;
+
+	//occlusion
+	public bool opaque;
+	public bool visible;
+
 	public Vector2 worldPosition;
 
 	public int gCost;
@@ -17,8 +21,9 @@ public class Node : IHeapItem<Node> {
 
 	public int heapIndex;
 
-	public Node(bool _wall, Vector2 _worldPosition, int _gridX, int _gridY) {
+	public Node(bool _wall, bool _opaque, Vector2 _worldPosition, int _gridX, int _gridY) {
 		wall = _wall;
+		opaque = _opaque;
 		worldPosition = _worldPosition;
 		gridX = _gridX;
 		gridY = _gridY;
@@ -45,6 +50,8 @@ public class Node : IHeapItem<Node> {
 		get;
 		set;
 	}
+
+	
 
 	public int CompareTo (Node nodeToCompare) {
 		int compare = fCost.CompareTo(nodeToCompare.fCost);
