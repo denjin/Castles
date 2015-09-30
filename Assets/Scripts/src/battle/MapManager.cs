@@ -67,12 +67,12 @@ public class MapManager : MonoBehaviour {
 	
 
 	public void MakeWall(Node node) {
-		if (nodes[node.gridX, node.gridY].wall) {
-			Tile.SetTile(new Int2(node.gridX, node.gridY), 0, 0, 16);
+		if (nodes[node.x, node.y].wall) {
+			Tile.SetTile(new Int2(node.x, node.y), 0, 0, 16);
 			node.wall = false;
 			node.opaque = false;
 		} else {
-			Tile.SetTile(new Int2(node.gridX, node.gridY), 0, 0, 0);
+			Tile.SetTile(new Int2(node.x, node.y), 0, 0, 0);
 			node.wall = true;
 			node.opaque = true;
 		}
@@ -85,8 +85,8 @@ public class MapManager : MonoBehaviour {
 			List<Node> neighbours = GetNeighbours(node, false);
 			int mask = 0;
 			for (int i = 0; i < neighbours.Count; i++) {
-				if (neighbours[i].gridX == node.gridX) {
-					if (neighbours[i].gridY < node.gridY) {
+				if (neighbours[i].x == node.x) {
+					if (neighbours[i].y < node.y) {
 						//south
 						if (neighbours[i].wall) {
 							mask += 4;
@@ -98,7 +98,7 @@ public class MapManager : MonoBehaviour {
 						}
 					}
 				} else {
-					if (neighbours[i].gridX < node.gridX) {
+					if (neighbours[i].x < node.x) {
 						//west
 						if (neighbours[i].wall) {
 							mask += 8;
@@ -111,7 +111,7 @@ public class MapManager : MonoBehaviour {
 					}
 				}
 			}
-			Tile.SetTile(new Int2(node.gridX, node.gridY), 0, 0, mask);
+			Tile.SetTile(new Int2(node.x, node.y), 0, 0, mask);
 			if (full) {
 				for (int i = 0; i < neighbours.Count; i++) {
 					UpdateTile(neighbours[i]);
@@ -137,12 +137,12 @@ public class MapManager : MonoBehaviour {
 				if (x == 0 && y == 0) {
 					continue;//skip over this one because it's the supplied node
 				}
-				int checkX = node.gridX + x;
-				int checkY = node.gridY + y;
+				int checkX = node.x + x;
+				int checkY = node.y + y;
 				//check if this is a valid node
 				if (checkX >= 0 && checkX < levelWidth && checkY >= 0 && checkY < levelHeight) {
 					if (!full) {
-						if (nodes[checkX, checkY].gridX != node.gridX && nodes[checkX, checkY].gridY != node.gridY) {
+						if (nodes[checkX, checkY].x != node.x && nodes[checkX, checkY].y != node.y) {
 							continue;
 						}
 					}
@@ -172,8 +172,8 @@ public class MapManager : MonoBehaviour {
 	}
 
 	public float Distance(Node a, Node b) {
-		float dx = b.gridX - a.gridX;
-		float dy = b.gridY - a.gridY;
+		float dx = b.x - a.x;
+		float dy = b.y - a.y;
 		return Mathf.Sqrt(dx * dx + dy * dy);
 	}
 
@@ -187,10 +187,10 @@ public class MapManager : MonoBehaviour {
 	}
 
 	public void GetBasicVision(Node source, int range) {
-		int minx = Mathf.Max(source.gridX - range, 0);
-		int miny = Mathf.Max(source.gridY - range, 0);
-		int maxx = Mathf.Min(source.gridX + range, levelWidth - 1);
-		int maxy = Mathf.Min(source.gridY + range, levelHeight - 1);
+		int minx = Mathf.Max(source.x - range, 0);
+		int miny = Mathf.Max(source.y - range, 0);
+		int maxx = Mathf.Min(source.x + range, levelWidth - 1);
+		int maxy = Mathf.Min(source.y + range, levelHeight - 1);
 
 		List<Node> line;
 		for (int x = minx; x <= maxx; x++) {
@@ -229,17 +229,17 @@ public class MapManager : MonoBehaviour {
 	}
 
 	public void SetNodeVisibility(Node target, float vis) {
-		Tile.SetColor(new Int2(target.gridX, target.gridY), 0, new Color(255f, 255f, 255f, vis));
+		Tile.SetColor(new Int2(target.x, target.y), 0, new Color(255f, 255f, 255f, vis));
 	}
 
 	public List<Node> GetLine (Node source, Node target) {
 		List<Node> line = new List<Node>();
 		//source positions
-		int x0 = source.gridX;
-		int y0 = source.gridY;
+		int x0 = source.x;
+		int y0 = source.y;
 		//target positions
-		int x1 = target.gridX;
-		int y1 = target.gridY;
+		int x1 = target.x;
+		int y1 = target.y;
 		//distances
 		int dx = Mathf.Abs((x1 - x0));
 		int dy = Mathf.Abs((y1 - y0));

@@ -14,19 +14,19 @@ public class Node : IHeapItem<Node> {
 	public int gCost;
 	public int hCost;
 
-	public int gridX;
-	public int gridY;
+	public int x;
+	public int y;
 
 	public Node parent;
 
 	public int heapIndex;
 
-	public Node(bool _wall, bool _opaque, Vector2 _worldPosition, int _gridX, int _gridY) {
+	public Node(bool _wall, bool _opaque, Vector2 _worldPosition, int _x, int _y) {
 		wall = _wall;
 		opaque = _opaque;
 		worldPosition = _worldPosition;
-		gridX = _gridX;
-		gridY = _gridY;
+		x = _x;
+		y = _y;
 	}
 
 	public int fCost {
