@@ -2,7 +2,7 @@ using UnityEngine;
 using System.Collections;
 using System;
 
-namespace Battle{
+namespace Battle {
 
 
 public class Unit : MonoBehaviour {
@@ -17,7 +17,7 @@ public class Unit : MonoBehaviour {
 	public Vector2 targetLocation;
 	public Vector2[] path;
 	int targetIndex;
-	
+
 	void Start() {
 		target = Vector2.zero;
 		newTarget = Vector2.zero;
