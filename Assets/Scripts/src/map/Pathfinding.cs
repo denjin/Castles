@@ -9,6 +9,62 @@ public class Pathfinding : MonoBehaviour {
 	void Awake() {
 		map = GetComponent<MapManager>();
 	}
+
+	public Vector2[] GetPath(Vector2 _startPosition, Vector2 _endPosition) {
+		Vector2[] waypoints = new Vector2[0];
+		bool pathSuccess = false;
+		//get the grid nodes from the provided positions
+		Node startNode = map.WorldToNode(_startPosition);
+		Node endNode = map.WorldToNode(_endPosition);
+		//create the open / closed sets
+		Heap<Node> openSet = new Heap<Node>(map.levelWidth * map.levelHeight);
+		HashSet<Node> closedSet = new HashSet<Node>();
+		//add the starting node to the open set
+		openSet.Add(startNode);
+		//create temp node to check
+		Node currentNode;
+		//scan through the open set
+		while (openSet.Count > 0) {
+			//start with the first node in the open set
+			currentNode = openSet.RemoveFirst();
+			closedSet.Add(currentNode);
+			//check if the current node is the target node
+			if (currentNode == endNode) {
+				pathSuccess = true;
+				break;
+			}
+			//check node's neighbours
+			foreach(Node neighbour in map.GetNeighbours(currentNode, map.bounds)) {
+				//check if neighbour blocks the path or in the closed set
+				if (!neighbour.Walkable || closedSet.Contains(neighbour)) {
+					//skip this neighbour
+					continue;
+				}
+				//calculate the cost to get from the current node to the neighbour
+				int newCostToNeighbour = currentNode.gCost + GetDistance(currentNode, neighbour);
+				//check if this cost is less than the neighbours cost or neighbour is in the closed set
+				if (newCostToNeighbour < neighbour.gCost || !openSet.Contains(neighbour)) {
+					//set neighbours costs
+					neighbour.gCost = newCostToNeighbour;
+					neighbour.hCost = GetDistance(neighbour, endNode);
+					//make this neighbour the current node
+					neighbour.parent = currentNode;
+					//if the neighbour isn't already in the open set
+					if (!openSet.Contains(neighbour)) {
+						//add this neighbour to the open set
+						openSet.Add(neighbour);
+					} else {
+						//sort the item into the open set heap
+						openSet.UpdateItem(neighbour);
+					}
+				}
+			}
+		}
+		if (pathSuccess) {
+			waypoints = RetracePath(startNode, endNode);
+		}
+		return waypoints;
+	}
 	/**
 	 * Tells the FindPath Coroutine to start
 	 * @param Vector2 startPosition the position the path should start at
@@ -49,7 +105,7 @@ public class Pathfinding : MonoBehaviour {
 				break;
 			}
 			//check node's neighbours
-			foreach(Node neighbour in map.GetNeighbours(currentNode)) {
+			foreach(Node neighbour in map.GetNeighbours(currentNode, map.bounds)) {
 				//check if neighbour blocks the path or in the closed set
 				if (!neighbour.Walkable || closedSet.Contains(neighbour)) {
 					//skip this neighbour

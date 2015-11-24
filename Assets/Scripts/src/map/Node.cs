@@ -8,6 +8,14 @@ public class Node : IHeapItem<Node> {
 	//occlusion
 	public bool opaque;
 	public bool visible;
+	//can i be reached
+	public bool reachable;
+
+	public bool occupied;
+
+	//cover
+	public bool lowCover = false;
+	public bool highCover = false;
 
 	public Vector2 worldPosition;
 
@@ -42,7 +50,11 @@ public class Node : IHeapItem<Node> {
 
 	public bool Walkable {
 		get {
-			return !wall;
+			if (wall || occupied) {
+				return false;
+			} else {
+				return true;
+			}
 		}
 	}
 
@@ -50,8 +62,6 @@ public class Node : IHeapItem<Node> {
 		get;
 		set;
 	}
-
-	
 
 	public int CompareTo (Node nodeToCompare) {
 		int compare = fCost.CompareTo(nodeToCompare.fCost);

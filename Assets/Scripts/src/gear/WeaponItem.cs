@@ -1,65 +1,24 @@
-namespace Gear {
-	public class WeaponItem : Item {
-		private string type;
-		private int requiredHands;
-		private int range;
-		private int damage;
-		private string damageType;
 
-		public WeaponItem() {}
+public class WeaponItem : Item {
+	public string type;
+	public int shortRange;
+	public int longRange;
+	public int shortModifier;
+	public int longModifier;
+	public int damage;
+	public int strength;
+	public int reliability;
 
-		public WeaponItem (string _name, int _weight, string _type, int _requiredHands, int _range, int _damage, string _damageType) : base (_name, _weight) {
-			type = _type;
-			requiredHands = _requiredHands;
-			range = _range;
-			damage = _damage;
-			damageType = _damageType;
-		}
+	public WeaponItem() {}
 
-		//--------------------
-		//getters / setters
-		//--------------------
-
-		public void SetWeaponType (string _type) {
-			type = _type;
-		}
-		
-		public string GetWeaponType () {
-			return type;
-		}
-		
-		public void SetRequiredHands (int _requiredHands) {
-			requiredHands = _requiredHands;
-		}
-		
-		public int GetRequiredHands () {
-			return requiredHands;
-		}
-
-		public void SetRange (int _range) {
-			range = _range;
-		}
-		
-		public int GetRange () {
-			return range;
-		}
-		
-		public void SetDamage (int _damage) {
-			damage = _damage;
-		}
-		
-		public int GetDamage () {
-			return damage;
-		}
-
-		public void SetDamageType (string _damageType) {
-			damageType = _damageType;
-		}
-		
-		public string GetDamageType () {
-			return damageType;
-		}
-		
-		
+	public WeaponItem (string _name, int _weight, string _type, int _shortRange, int _longRange, int _shortModifier, int _longModifier, int _damage, int _strength, int _reliability) : base (_name, _weight) {
+		type = _type;
+		shortRange = _shortRange;
+		longRange = _longRange;
+		shortModifier = _shortModifier;
+		longModifier = _longModifier;
+		damage = _damage;
+		strength = _strength;
+		reliability = _reliability;
 	}
 }

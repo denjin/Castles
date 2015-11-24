@@ -4,16 +4,232 @@
 		"selected_items":
 		[
 			[
+				"sel",
+				"selectedSoldiers"
+			],
+			[
+				"mous",
+				"mouseDragged"
+			],
+			[
+				"mou",
+				"mouseDragged"
+			],
+			[
+				"curr",
+				"currentMousePosition"
+			],
+			[
+				"sol",
+				"soldiers"
+			],
+			[
+				"tar",
+				"targetNode"
+			],
+			[
+				"Pa",
+				"ParseData"
+			],
+			[
+				"_lo",
+				"_longModifier"
+			],
+			[
+				"lo",
+				"longModifier"
+			],
+			[
+				"_sh",
+				"_shortModifier"
+			],
+			[
+				"lon",
+				"longRange"
+			],
+			[
+				"sho",
+				"shortModifier"
+			],
+			[
+				"str",
+				"strength"
+			],
+			[
+				"mod",
+				"modifier"
+			],
+			[
+				"v",
+				"viewport"
+			],
+			[
+				"re",
+				"return"
+			],
+			[
+				"ma",
+				"mapViewSize"
+			],
+			[
+				"Mou",
+				"mousePosition"
+			],
+			[
+				"shi",
+				"shiftKey"
+			],
+			[
+				"Cl",
+				"ClearSelection"
+			],
+			[
+				"po",
+				"position1"
+			],
+			[
+				"posi",
+				"position1"
+			],
+			[
+				"ini",
+				"initialClickPosition"
+			],
+			[
+				"cu",
+				"currentMousePosition"
+			],
+			[
+				"On",
+				"OnMouseUp"
+			],
+			[
+				"Un",
+				"UnityEngine"
+			],
+			[
+				"se",
+				"selectedSoldiers"
+			],
+			[
+				"GetC",
+				"GetComponent"
+			],
+			[
+				"Sprite",
+				"Sprite"
+			],
+			[
+				"fir",
+				"fireteams"
+			],
+			[
+				"te",
+				"teamName"
+			],
+			[
+				"fi",
+				"fireteams"
+			],
+			[
+				"amm",
+				"ammoitem"
+			],
+			[
+				"Upd",
+				"UpdateVision"
+			],
+			[
+				"Sca",
+				"ScanFill"
+			],
+			[
 				"le",
-				"levelDepth"
+				"levelWidth"
+			],
+			[
+				"l",
+				"levelWidth"
+			],
+			[
+				"per",
+				"percent"
+			],
+			[
+				"lev",
+				"levelWidth"
+			],
+			[
+				"Up",
+				"UpdateVision"
+			],
+			[
+				"Cle",
+				"ClearGrid"
+			],
+			[
+				"no",
+				"nodes"
+			],
+			[
+				"int",
+				"intensity"
+			],
+			[
+				"calc",
+				"calculating"
+			],
+			[
+				"o",
+				"occlusion"
+			],
+			[
+				"nor",
+				"normalise"
+			],
+			[
+				"No",
+				"NormaliseDeg"
+			],
+			[
+				"Nor",
+				"NormaliseRad"
+			],
+			[
+				"_",
+				"_alpha"
+			],
+			[
+				"gr",
+				"gridX"
+			],
+			[
+				"gri",
+				"gridX"
+			],
+			[
+				"st",
+				"startNode"
+			],
+			[
+				"vi",
+				"visibleNodes"
+			],
+			[
+				"ti",
+				"tileSize"
+			],
+			[
+				"fo",
+				"formations"
+			],
+			[
+				"ve",
+				"Vector2"
 			],
 			[
 				"path",
 				"pathfinding"
-			],
-			[
-				"Pa",
-				"Pathfinding"
 			],
 			[
 				"wa",
@@ -28,10 +244,6 @@
 				"gridX"
 			],
 			[
-				"no",
-				"node"
-			],
-			[
 				"ch",
 				"checkY"
 			],
@@ -40,20 +252,12 @@
 				"neighbours"
 			],
 			[
-				"gr",
-				"gridY"
-			],
-			[
 				"ne",
 				"neighbours"
 			],
 			[
 				"Neigh",
 				"neighbours"
-			],
-			[
-				"sel",
-				"selectedDivision"
 			],
 			[
 				"new",
@@ -70,10 +274,6 @@
 			[
 				"noe",
 				"nodes"
-			],
-			[
-				"cu",
-				"currentWayPoint"
 			],
 			[
 				"di",
@@ -136,10 +336,6 @@
 				"HeapIndex"
 			],
 			[
-				"st",
-				"startNode"
-			],
-			[
 				"che",
 				"check"
 			],
@@ -160,24 +356,12 @@
 				"closedSet"
 			],
 			[
-				"curr",
-				"currentNode"
-			],
-			[
 				"open",
 				"openSet"
 			],
 			[
 				"op",
 				"openSet"
-			],
-			[
-				"_",
-				"_startPosition"
-			],
-			[
-				"per",
-				"percentX"
 			],
 			[
 				"Ve",
@@ -198,10 +382,6 @@
 			[
 				"Ad",
 				"AddRange"
-			],
-			[
-				"sol",
-				"soldierSprite"
 			],
 			[
 				"in",
@@ -248,20 +428,12 @@
 				"UnitSprite"
 			],
 			[
-				"Sprite",
-				"SpriteRenderer"
-			],
-			[
 				"ra",
 				"rallyPoint"
 			],
 			[
 				"arm",
 				"armySprites"
-			],
-			[
-				"po",
-				"position"
 			],
 			[
 				"Cre",
@@ -274,10 +446,6 @@
 			[
 				"ar",
 				"armySprites"
-			],
-			[
-				"lo",
-				"locX"
 			],
 			[
 				"army",
@@ -304,10 +472,6 @@
 				"DataStore"
 			],
 			[
-				"int",
-				"intrigue"
-			],
-			[
 				"am",
 				"armySprites"
 			],
@@ -326,10 +490,6 @@
 			[
 				"_le",
 				"_levelHeight"
-			],
-			[
-				"lev",
-				"levelHeight"
 			],
 			[
 				"level",
@@ -354,34 +514,6 @@
 			[
 				"da",
 				"damageType"
-			],
-			[
-				"_d",
-				"_damageType"
-			],
-			[
-				"acc",
-				"accessData"
-			],
-			[
-				"Js",
-				"JSONObject"
-			],
-			[
-				"Ar",
-				"ArmourItem"
-			],
-			[
-				"Cl",
-				"ClothGloves"
-			],
-			[
-				"tun",
-				"testTunic"
-			],
-			[
-				"re",
-				"requiredHands"
 			]
 		]
 	},
@@ -391,47 +523,64 @@
 			"file": "src/battle/BattleManager.cs",
 			"settings":
 			{
-				"buffer_size": 11196,
+				"buffer_size": 6184,
 				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "src/utils/SelectionBox.cs",
+			"settings":
+			{
+				"buffer_size": 3004,
+				"line_ending": "Windows"
 			}
 		},
 		{
 			"file": "src/battle/MapManager.cs",
 			"settings":
 			{
-				"buffer_size": 4424,
+				"buffer_size": 6399,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "src/army/CharacterList.cs",
+			"file": "src/map/Node.cs",
 			"settings":
 			{
-				"buffer_size": 4050,
+				"buffer_size": 991,
 				"line_ending": "Windows"
 			}
 		},
 		{
-			"file": "src/MapLoader.cs",
+			"file": "src/gear/WeaponItem.cs",
 			"settings":
 			{
-				"buffer_size": 616,
+				"buffer_size": 667,
 				"line_ending": "Windows"
 			}
 		},
 		{
-			"file": "src/battle/PathRequestManager.cs",
+			"file": "src/utils/Dice.cs",
 			"settings":
 			{
-				"buffer_size": 1900,
+				"buffer_size": 221,
+				"line_ending": "Windows",
+				"name": "using UnityEngine;"
+			}
+		},
+		{
+			"file": "src/battle/Shooting.cs",
+			"settings":
+			{
+				"buffer_size": 1666,
 				"line_ending": "Windows"
 			}
 		},
 		{
-			"file": "src/battle/Belligerent.cs",
+			"file": "src/Unit.cs",
 			"settings":
 			{
-				"buffer_size": 672,
+				"buffer_size": 1972,
 				"line_ending": "Windows"
 			}
 		}
@@ -443,10 +592,18 @@
 	"build_varint": "",
 	"command_palette":
 	{
-		"height": 392.0,
-		"last_filter": "",
+		"height": 242.0,
+		"last_filter": "brac",
 		"selected_items":
 		[
+			[
+				"brac",
+				"Preferences: BracketGuard Settings - Default"
+			],
+			[
+				"i",
+				"Package Control: Install Package"
+			],
 			[
 				"",
 				"Colorsublime: Install Theme"
@@ -500,38 +657,58 @@
 	],
 	"file_history":
 	[
-		"/C/Users/Chris/Documents/Unity/Castles/Castles/Assets/Scripts/src/UnitSprite.cs",
+		"/C/Users/Chris/Documents/Unity/Castles/Castles/Assets/Scripts/src/Unit.cs",
 		"/C/Users/Chris/Documents/Unity/Castles/Castles/Assets/Scripts/src/map/Node.cs",
+		"/C/Users/Chris/Documents/Unity/Castles/Castles/Assets/Scripts/src/gear/Item.cs",
+		"/C/Users/Chris/Documents/Unity/Castles/Castles/Assets/Scripts/src/DataStore.cs",
+		"/C/Users/Chris/Documents/Unity/Castles/Castles/Assets/Scripts/src/gear/WeaponList.cs",
+		"/C/Users/Chris/Documents/Unity/Castles/Castles/Assets/Scripts/src/battle/Resolve.cs",
+		"/C/Users/Chris/Documents/Unity/Castles/Castles/Assets/Scripts/src/utils/SelectionBox.cs",
+		"/C/Users/Chris/Documents/Unity/Castles/Castles/Assets/Scripts/src/army/PlayerData.cs",
+		"/C/Users/Chris/Documents/Unity/Castles/Castles/Assets/Scripts/src/Player.cs",
+		"/C/Users/Chris/Documents/Unity/Castles/Castles/Assets/Scripts/src/battle/PathRequestManager.cs",
+		"/C/Users/Chris/Documents/Unity/Castles/Castles/Assets/Scripts/src/battle/MapManager.cs",
+		"/C/Users/Chris/Documents/Unity/Castles/Castles/Assets/Scripts/src/CameraController.cs",
+		"/C/Users/Chris/Documents/Unity/Castles/Castles/Assets/Scripts/src/troops/Fireteam.cs",
 		"/C/Users/Chris/Documents/Unity/Castles/Castles/Assets/Scripts/src/map/Pathfinding.cs",
+		"/C/Users/Chris/Documents/Unity/Castles/Castles/Assets/Scripts/lib/BenZed/SelectionBox.cs",
+		"/C/Users/Chris/Documents/Unity/Castles/Castles/Assets/Scripts/lib/BenZed/IBoxSelectable.cs",
+		"/C/Users/Chris/AppData/Roaming/Sublime Text 3/Packages/User/Preferences.sublime-settings",
+		"/C/Users/Chris/Documents/Unity/Castles/Castles/Assets/Scripts/src/army/SoldierList.cs",
+		"/C/Users/Chris/Documents/Unity/Castles/Castles/Assets/Scripts/src/utils/ButtonID.cs",
+		"/C/Users/Chris/Documents/Unity/Castles/Castles/Assets/Scripts/src/army/Character.cs",
 		"/C/Users/Chris/Documents/Unity/Castles/Castles/Assets/Scripts/src/army/CharacterList.cs",
+		"/C/Users/Chris/Documents/Unity/Castles/Castles/Assets/Scripts/src/army/Division.cs",
+		"/C/Users/Chris/Documents/Unity/Castles/Castles/Assets/Scripts/src/army/Army.cs",
+		"/C/Users/Chris/Documents/Unity/Castles/Castles/Assets/Scripts/src/army/Soldier.cs",
+		"/C/Users/Chris/Documents/Unity/Castles/Castles/Assets/Scripts/src/map/FieldOfView.cs",
+		"/C/Users/Chris/Documents/Unity/Castles/Castles/Assets/Scripts/src/utils/FloodFill.cs",
+		"/C/Users/Chris/Documents/Unity/Castles/Castles/Assets/Scripts/src/utils/Bresenham.cs",
+		"/C/Users/Chris/Documents/Unity/Castles/Castles/Assets/Scripts/src/utils/Angle.cs",
+		"/C/Users/Chris/Documents/Unity/Castles/Castles/Assets/Scripts/src/utils/Sector.cs",
+		"/C/Users/Chris/Documents/Unity/Castles/Castles/Assets/Scripts/src/utils/Point.cs",
+		"/C/Users/Chris/Desktop/aaa.cs",
+		"/C/Users/Chris/AppData/Roaming/Sublime Text 3/Packages/BracketGuard/BracketGuard.sublime-settings",
+		"/C/Users/Chris/Documents/Unity/Castles/Castles/Assets/Scripts/src/battle/Belligerent.cs",
+		"/C/Users/Chris/Documents/Unity/Castles/Castles/Assets/Scripts/src/battle/aaa.cs",
+		"/C/Users/Chris/Documents/Unity/Castles/Castles/Assets/Scripts/src/MapLoader.cs",
+		"/C/Users/Chris/Documents/Unity/Castles/Castles/Assets/Scripts/src/UnitSprite.cs",
 		"/C/Users/Chris/Documents/Unity/Castles/Castles/Assets/Scripts/src/PixelPerfectCamera.cs",
 		"/C/Users/Chris/Documents/Unity/Castles/Castles/Assets/Scripts/src/Heap.cs",
 		"/C/Users/Chris/Documents/Unity/Castles/Castles/Assets/Scripts/src/battle/JobManager.cs",
-		"/C/Users/Chris/Documents/Unity/Castles/Castles/Assets/Scripts/src/battle/PathRequestManager.cs",
 		"/C/Users/Chris/Documents/Unity/Castles/Castles/Assets/Scripts/src/battle/JobRequestManager.cs",
-		"/C/Users/Chris/Documents/Unity/Castles/Castles/Assets/Scripts/src/DataStore.cs",
 		"/C/Users/Chris/Documents/Unity/Castles/Castles/Assets/Scripts/src/battle/Pathfinding.cs",
-		"/C/Users/Chris/Documents/Unity/Castles/Castles/Assets/Scripts/src/army/Soldier.cs",
 		"/C/Users/Chris/Documents/Unity/Castles/Castles/Assets/Scripts/src/map/pathfinding.cs",
 		"/C/Users/Chris/Documents/Unity/Castles/Castles/Assets/OutlineEffect/OutlineEffect.cs",
-		"/C/Users/Chris/Documents/Unity/Castles/Castles/Assets/Scripts/src/army/Character.cs",
-		"/C/Users/Chris/Documents/Unity/Castles/Castles/Assets/Scripts/src/gear/WeaponList.cs",
-		"/C/Users/Chris/Documents/Unity/Castles/Castles/Assets/Scripts/src/battle/MapManager.cs",
-		"/C/Users/Chris/Documents/Unity/Castles/Castles/Assets/Scripts/src/army/Army.cs",
 		"/C/Users/Chris/Documents/Unity/Castles/Castles/Assets/Plugins/UnitySteer-development/Behaviors/SteerForWander.cs",
 		"/C/Users/Chris/Documents/Unity/Castles/Castles/Assets/Plugins/UnitySteer-development/Behaviors/AutonomousVehicle.cs",
-		"/C/Users/Chris/Documents/Unity/Castles/Castles/Assets/Scripts/src/army/SoldierList.cs",
 		"/C/Users/Chris/Documents/Unity/Castles/Castles/Assets/Scripts/src/battle/BattleManager.cs",
 		"/C/Users/Chris/Documents/Unity/Castles/Castles/Assets/Scripts/src/gear/ArmourList.cs",
 		"/C/Users/Chris/Documents/Unity/Castles/Castles/Assets/Scripts/src/gear/WeaponItem.cs",
 		"/C/Users/Chris/Documents/Unity/Castles/Castles/Assets/Scripts/src/gear/ArmourItem.cs",
-		"/C/Users/Chris/Documents/Unity/Castles/Castles/Assets/Scripts/src/CameraController.cs",
 		"/C/Users/Chris/Documents/Unity/Castles/Castles/Assets/Scripts/src/battle/ArmyManager.cs",
-		"/C/Users/Chris/Documents/Unity/Castles/Castles/Assets/Scripts/src/gear/Item.cs",
-		"/C/Users/Chris/Documents/Unity/Castles/Castles/Assets/Scripts/src/army/Division.cs",
 		"/C/Users/Chris/Documents/Unity/Castles/Castles/Assets/Scripts/src/army/Peasant.cs",
 		"/C/Users/Chris/Documents/Unity/Castles/Castles/Assets/Scripts/src/JSONParser.cs",
-		"/C/Users/Chris/AppData/Roaming/Sublime Text 3/Packages/User/Preferences.sublime-settings",
 		"/C/Users/Chris/Documents/Unity/Castles/Castles/Assets/Scripts/lib/JSON/JSONObject.cs",
 		"/C/Users/Chris/AppData/Roaming/Sublime Text 3/Packages/Default/Preferences.sublime-settings",
 		"/C/Users/Chris/Documents/Unity/Castles/Castles/Assets/Resources/armour_items.txt",
@@ -565,6 +742,38 @@
 		"case_sensitive": true,
 		"find_history":
 		[
+			";\n",
+			"    ",
+			"	 ",
+			"    ",
+			"gridX",
+			"gridY",
+			"gridX",
+			"pos.x",
+			"w",
+			"_li",
+			"_incoming",
+			";\n",
+			"    ",
+			"ScanOctant(startNode, ",
+			"ScanOctant(node, ",
+			"ScanOctant(depth",
+			"GetVisDistance",
+			"map[",
+			"							",
+			"\\n(\\s)*\\{",
+			"    ",
+			"\\n(\\s)*\\{",
+			"    ",
+			"map.",
+			"VisiblePoints",
+			"player.",
+			"VisualRange",
+			"visrange2",
+			"pEndSlope",
+			"pStartSlope",
+			"pOctant",
+			"pDepth",
 			"Camera.main",
 			"UnitSprite",
 			"			\n",
@@ -604,15 +813,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 11196,
+						"buffer_size": 6184,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								5162,
-								5162
+								4462,
+								4462
 							]
 						],
 						"settings":
@@ -621,7 +830,7 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 6340.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 0,
@@ -629,19 +838,19 @@
 				},
 				{
 					"buffer": 1,
-					"file": "src/battle/MapManager.cs",
+					"file": "src/utils/SelectionBox.cs",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 4424,
+						"buffer_size": 3004,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1676,
-								1676
+								2738,
+								2738
 							]
 						],
 						"settings":
@@ -650,7 +859,7 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": -0.0,
-						"translation.y": 3336.0,
+						"translation.y": 591.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 1,
@@ -658,19 +867,19 @@
 				},
 				{
 					"buffer": 2,
-					"file": "src/army/CharacterList.cs",
+					"file": "src/battle/MapManager.cs",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 4050,
+						"buffer_size": 6399,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1201,
-								1201
+								1696,
+								1696
 							]
 						],
 						"settings":
@@ -679,7 +888,7 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 874.0,
+						"translation.y": 1003.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 3,
@@ -687,47 +896,19 @@
 				},
 				{
 					"buffer": 3,
-					"file": "src/MapLoader.cs",
+					"file": "src/map/Node.cs",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 616,
+						"buffer_size": 991,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								564,
-								564
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C#/C#.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 2,
-					"type": "text"
-				},
-				{
-					"buffer": 4,
-					"file": "src/battle/PathRequestManager.cs",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 1900,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								830,
-								830
+								0,
+								0
 							]
 						],
 						"settings":
@@ -736,32 +917,120 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 49.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 4,
 					"type": "text"
 				},
 				{
-					"buffer": 5,
-					"file": "src/battle/Belligerent.cs",
+					"buffer": 4,
+					"file": "src/gear/WeaponItem.cs",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 672,
+						"buffer_size": 667,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								299,
-								299
+								500,
+								500
 							]
 						],
 						"settings":
 						{
+							"syntax": "Packages/C#/C#.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 6,
+					"type": "text"
+				},
+				{
+					"buffer": 5,
+					"file": "src/utils/Dice.cs",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 221,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								221,
+								221
+							]
+						],
+						"settings":
+						{
+							"auto_name": "using UnityEngine;",
 							"syntax": "Packages/C#/C#.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 7,
+					"type": "text"
+				},
+				{
+					"buffer": 6,
+					"file": "src/battle/Shooting.cs",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1666,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								524,
+								524
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C#/C#.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 255.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				},
+				{
+					"buffer": 7,
+					"file": "src/Unit.cs",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1972,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C#/C#.tmLanguage",
+							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
 						"translation.y": 0.0,
@@ -814,7 +1083,7 @@
 	{
 		"height": 58.0
 	},
-	"save_all_on_build": true,
+	"save_all_on_build": false,
 	"select_file":
 	{
 		"height": 0.0,

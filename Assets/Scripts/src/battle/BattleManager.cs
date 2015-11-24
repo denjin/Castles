@@ -1,275 +1,318 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
+//using System;
 using System.Collections;
 using System.Collections.Generic;
 using SpriteTile;
-using Battle;
-using Armies;
-using Gear;
+using DG.Tweening;
+using UnityEngine.EventSystems;
 
-	public class BattleManager : MonoBehaviour {
-		//the map
-		public MapManager map;
-		//the belligerent who is the human player
-		private int human = 0;
-		private string selectedDivision = "all";
+public class BattleManager : MonoBehaviour {
+	//the map
+	private MapManager map;
+	//the ui
+	public UIManager ui;
+	//the human player
+	public Player player;
+	//the ai controlled player
+	public AIPlayer ai;
+	//array to store which soldiers are currently selected
+	public int selectedSoldier = 0;
+	private string selectedOrder = "move";
+	//a list storing the various different types of weapons
+	Dictionary<string, WeaponItem> weapons;
+	public Player enemyTypes;
 
-		private string graphicsPath = "graphics/units/";
 
-		private List<Belligerent> belligerents;
-		private List<GameObject>[] armySprites;
-		private int totalSoldiers;
+	Node targetNode;
+	Node oldTargetNode;
 
-		GameObject rallyPoint;
+	//GameObject canvas;
 
-		void Start() {
-			map = gameObject.GetComponent<MapManager>();
-			string[] characters = new string[2];
-			characters[0] = "Dave";
-			characters[1] = "Pete";
-			InitArmies(characters);
-			DeployArmies();
-			rallyPoint = new GameObject();
-			rallyPoint.AddComponent<SpriteRenderer>();
-			rallyPoint.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("graphics/misc/rallypoint");
-			rallyPoint.GetComponent<SpriteRenderer>().sortingLayerName = "Units";
+	public bool humanTurn = true;
+	public bool resolving = false;
+
+	public delegate void StopMovement();
+	public static event StopMovement OnStopMovement;
+	
+	void Awake() {
+		Global.Instance.Init();
+		player = PlayerData.Load("common/characters");
+		enemyTypes = PlayerData.Load("common/enemy_types");
+		ai = new AIPlayer(map);
+	}
+
+	void Start() {
+		map = Global.Instance.mapManager;
+		map.Init("maps/test_map");
+		ui = GetComponent<UIManager>();
+		
+
+		
+		
+		Unit.OnEnteredNewNode += UpdateVision;
+		Unit.OnArrived += UnitArrived;
+		InputManager.OnTabPressed += NextUnit;
+		InputManager.OnActionStart += StartOrder;
+		InputManager.OnActionEnd += EndOrder;
+		ui.InitUI();
+		
+		//canvas = GameObject.Find("ButtonCanvas");
+		Global.Instance.SetMapBounds(new Vector2(0 - map.tileSize / 2, 0 - map.tileSize / 2), new Vector2(map.levelWidth * map.tileSize + map.tileSize / 2, map.levelHeight * map.tileSize + map.tileSize / 2));
+		weapons = WeaponList.GetWeaponList("common/weapon_items");
+		
+		DeployArmies();
+
+		UpdateVision();
+		Global.Instance.cam.ScrollTo(player.soldierObjects[selectedSoldier].transform.position);
+		SoldierSelected(0);
+	}	
+
+	public void EndTurn() {
+		humanTurn = !humanTurn;
+		for (int i = 0; i < player.soldierStats.Length; i++) {
+			player.soldierStats[i].currentMovementPoints = player.soldierStats[i].baseMovementPoints;
+			player.soldierStats[i].currentActionPoints = player.soldierStats[i].baseActionPoints;
 		}
+		SoldierSelected(0);
+	}
 
-		void Update() {
-			Vector2 pos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-			if (Input.GetMouseButtonDown(0)) {
-				belligerents[human].troops[selectedDivision][0].GetComponent<Unit>().newTarget = pos;
-			}
-			UpdateVision();
-		}
+	
 
-		/**
-		 * Starts the initialisation of the soldiers and characters for the battle, sets up the various arrays & lists
-		 * @param {[type]} string[] _belligerents array of characters names
-		 */
-		private void InitArmies(string[] _belligerents) {
-			armySprites = new List<GameObject>[_belligerents.Length];
-			//armyData = new List<Soldier>[_belligerents.Length];
-			belligerents = new List<Belligerent>();
-			Character character;
-			Dictionary<string, int> soldiers;
-			
-			for (int i = 0; i < _belligerents.Length; i++) {
-				character = DataStore.Instance.GetCharacter(_belligerents[i]);
-				//add new belligerent
-				Belligerent belligerent = new Belligerent(i, character.GetName());
-				belligerents.Add(belligerent);
-				//create list to store soldier sprites
-				armySprites[i] = new List<GameObject>();
-				//add leader soldier
-				CreateSoldier(i, 0, "leader");
-				//add the rest of the soldiers
-				soldiers = character.GetSoldiers();
-				AddSoldiers(i, soldiers);
-			}
-		}
-
-		/**
-		 * Creates a soldier and an on screen soldier asset, sets up it's graphics etc
-		 * @param {int}    _armyId       the id of the army this soldier belongs to
-		 * @param {int}    _soldierId    the id of this soldier
-		 * @param {int}    _type         the type of soldier to create
-		 * @param {String} _sortingLayer the sorting layer, defaults to the units layer
-		 */
-		private void CreateSoldier(int _armyId, int _soldierId, string _type, string _sortingLayer = "Units") {
-			//create temp soldier data
-			Soldier soldier = DataStore.Instance.GetSoldier(_type);
-			WeaponItem weapon = DataStore.Instance.GetWeaponItem(soldier.GetWeaponItem("1"));
-			//add soldier
-			GameObject soldierSprite = new GameObject();
-			//add sprite renderer component to new sprite and load appropriate sprite asset into it
-			soldierSprite.AddComponent<SpriteRenderer>();
-			soldierSprite.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>(graphicsPath + soldier.GetSprite());
-			soldierSprite.GetComponent<SpriteRenderer>().sortingLayerName = _sortingLayer;
-			//add component to track id and army id
-			soldierSprite.AddComponent<Unit>();
-			soldierSprite.GetComponent<Unit>().armyId = _armyId;
-			soldierSprite.GetComponent<Unit>().id = _soldierId;
-			if (weapon.GetRange() == 0) {
-				belligerents[_armyId].troops["infantry"].Add(soldierSprite);
-			} else {
-				belligerents[_armyId].troops["archers"].Add(soldierSprite);
-			}
-			if (_armyId == human) {
-				Camera.main.GetComponent<OutlineEffect>().outlineRenderers.Add(soldierSprite.GetComponent<SpriteRenderer>());
-			}
-		}
-
-		/**
-		 * Creates the soldiers for the battle and adds them to the right army
-		 * Also initialises the sprites on screen
-		 * @param int _character
-		 * @param Dictionary<string, int>       _data         [description]
-		 */
-		private void AddSoldiers(int _character, Dictionary<string, int> _data) {
-			totalSoldiers = 1;
-			//for each soldier type in the data
-			foreach (KeyValuePair<string, int> type in _data) {
-				//for each required soldier of this type
-				for (int i = 0; i < type.Value; i++) {
-					//add a soldier
-					CreateSoldier(_character, totalSoldiers, type.Key);
-					totalSoldiers += 1;
-				}
-			}
-			//reset num of soldiers
-			totalSoldiers = 1;
-		}
-
-		/**
-		 * Positions the soldiers in a randomly assigned tile
-		 */
-		private void DeployArmies() {
-			//sets the size of the map
-			Int2 mapSize = map.GetSize();
-			Int2 deploymentTile = new Int2();
-			int i;
-			int j;
-			//set a random starting tile for each army
-			for (i = 0; i < belligerents.Count; i++) {
-				deploymentTile.x = (int)Mathf.Floor(Random.value * mapSize.x);
-				deploymentTile.y = (int)Mathf.Floor(Random.value * mapSize.y);
-				Vector3 pos = map.TileToWorld(deploymentTile);
-				//set each soldier's position to the target tile
-				for (j = 0; j < belligerents[i].troops["infantry"].Count; j++) {
-					DeploySoldier(belligerents[i].troops["infantry"][j], new Vector3(pos.x + Random.value - 0.5f, pos.y + Random.value - 0.5f));
-				}
-				for (j = 0; j < belligerents[i].troops["archers"].Count; j++) {
-					DeploySoldier(belligerents[i].troops["archers"][j], new Vector3(pos.x + Random.value - 0.5f, pos.y + Random.value - 0.5f));
-				}
-			}
-		}
-
-		private void DeploySoldier(GameObject _soldier, Vector3 _pos) {
-			_soldier.transform.position = _pos;
-		}
-
-		/**
-		 * Sorts a sprite by it's x position
-		 * @param GameObject _sprite the sprite to sort
-		 */
-		private void SortSprite(GameObject _sprite) {
-			float y = _sprite.transform.position.y;
-			Vector3 pos = _sprite.transform.position;
-			pos.z = y;
-			_sprite.transform.position = pos;
-		}
-
-		private void UpdateVision() {
-			map.ClearVision();
-			List<GameObject> division = belligerents[human].troops["infantry"];
-			for (int i = 0; i < division.Count; i++) {
-				map.GetBasicVision(map.WorldToNode(division[i].transform.position), 10);
-			}
-		}
-
-		private void MoveDivision(Vector2 target) {
-			List<GameObject> division = belligerents[human].troops[selectedDivision];
-			//set the division's target
-			belligerents[human].targets[selectedDivision] = target;
-			int i;
-			string formation = belligerents[human].formations[selectedDivision];
-			switch(formation) {
-				case ("column") :
-				for (i = 0; i < division.Count; i++) {
-					belligerents[human].troops[selectedDivision][i].GetComponent<Unit>().newTarget = new Vector2(0 + target.x, i * map.tileSize + target.y);
-				}
-				break;
-
-				case ("line") :
-				for (i = 0; i < division.Count; i++) {
-					belligerents[human].troops[selectedDivision][i].GetComponent<Unit>().newTarget = new Vector2(i * map.tileSize + target.x, 0 + target.y);
-				}
-				break;
-
-				case ("square") :
-				int sqrt = (int)Mathf.Round(Mathf.Sqrt(division.Count));
-				Debug.Log(sqrt);
-				
-				for (i = 0; i < division.Count; i++) {
-					int row = (int)Mathf.Floor(i / sqrt);
-					Vector2 position = Vector2.zero;
-					position.x = i * map.tileSize + target.x - (row * sqrt * map.tileSize);
-					position.y = row * map.tileSize + target.y;
-					belligerents[human].troops[selectedDivision][i].GetComponent<Unit>().newTarget = position;
-				}
-				break;
-			}
-		}
-
-		/**
-		 * Called when the user selects a formation from the UI
-		 * @param string _formation the selected formation
-		 */
-		public void FormationButtonPressed(string formation) {
-			belligerents[human].formations[selectedDivision] = formation;
-			Debug.Log(belligerents[human].formations[selectedDivision]);
-			
-		}
-
-		/**
-		 * Called when the user selects a division from the UI
-		 * @param string _division the selected division
-		 */
-		public void DivisionButtonPressed(string _division) {
-			selectedDivision = _division;
-			Debug.Log("Selected division changed to: " + selectedDivision);
-		}
-
-		/**
-		 * Applies the outline to the currently selected division
-		 * @param List<GameObject> _division the selected division
-		 */
-		private void HighlightDivision(List<GameObject> _division) {
-			//clear outline
-			Camera.main.GetComponent<OutlineEffect>().outlineRenderers.Clear();
-			for (int i = 0; i < _division.Count; i++) {
-				Camera.main.GetComponent<OutlineEffect>().outlineRenderers.Add(_division[i].GetComponent<SpriteRenderer>());
-			}
-		}
-
-		/**
-		 * Sets the target positions for the selected division
-		 * @param int              _belligerent the army
-		 * @param List<GameObject> _division    the division
-		 * @param string           _formation   the selected formation
-		 */
-		public void SetFormation(int _belligerent, List<GameObject> _division, string _formation) {
-			int soldierCount = _division.Count;
-			float spacing = 0.25f;
-			int i;
-			Vector2 position = new Vector2();
-			switch (_formation) {
-				case ("line") :
-				for (i = 0; i < soldierCount; i++) {
-					position.x = i * spacing;
-					position.y = 0;
-					_division[i].GetComponent<Unit>().targetLocation = position;
-				}
-				break;
-
-				case ("column") :
-				for (i = 0; i < soldierCount; i++) {
-					position.x = 0;
-					position.y = i * spacing;
-					_division[i].GetComponent<Unit>().targetLocation = position;
-				}
-				break;
-
-				case ("square") :
-				int sqrt = (int)Mathf.Round(Mathf.Sqrt(soldierCount));
-				for (i = 0; i < soldierCount; i++) {
-					int row = (int)Mathf.Floor(i / sqrt);
-					position.x = (i * spacing - row);
-					position.y = row * spacing;
-					_division[i].GetComponent<Unit>().targetLocation = position;
-				}
-				break;
-			}
-			Debug.Log("Selected formation changed to: " + _formation + "for: " + selectedDivision);
+	/**
+	 * Positions the soldiers in a randomly assigned tile
+	 */
+	private void DeployArmies() {
+		//sets the size of the map
+		Int2 mapSize = map.GetSize();
+		//set a random starting tile for each army
+		Int2 deploymentTile = new Int2((int)Mathf.Floor(Random.value * mapSize.x), (int)Mathf.Floor(Random.value * mapSize.y));
+		
+		for (int i = 0; i < player.soldierObjects.Length; i++) {
+			Node node = GetRandomNode(map.nodes[deploymentTile.x, deploymentTile.y], 4);
+			node.occupied = true;
+			player.soldierObjects[i].transform.position = node.worldPosition;
 		}
 	}
+
+	private Node GetRandomNode(Node baseNode, int range) {
+		while(true) {
+			Node randomNode;
+			Vector2 shuffle = new Vector2((Random.value - 0.5f) * (map.tileSize * range), (Random.value - 0.5f) * (map.tileSize * range));
+			float x = baseNode.worldPosition.x + shuffle.x;
+			float y = baseNode.worldPosition.y + shuffle.y;
+			Node targetNode = map.WorldToNode(new Vector2(Mathf.Clamp(x, Global.Instance.mapMinBounds.x, Global.Instance.mapMaxBounds.x), Mathf.Clamp(y, Global.Instance.mapMinBounds.y, Global.Instance.mapMaxBounds.y)));
+			if (targetNode.Walkable) {
+				randomNode = targetNode;
+				return randomNode;
+			}
+		}
+	}
+
+	/**
+	 * Sorts a sprite by it's x position
+	 * @param GameObject _sprite the sprite to sort
+	 */
+	private void SortSprite(GameObject _sprite) {
+		float y = _sprite.transform.position.y;
+		Vector3 pos = _sprite.transform.position;
+		pos.z = y;
+		_sprite.transform.position = pos;
+	}
+
+	private void UpdateVision() {
+		map.ClearVision();
+		if (selectedOrder != "shoot") {
+			for (int i = 0; i < player.soldierObjects.Length; i++) {
+				map.GetBasicVision(map.WorldToNode(player.soldierObjects[i].transform.position), player.soldierStats[i].sightRange);
+			}
+		} else {
+			map.GetBasicVision(map.WorldToNode(player.soldierObjects[selectedSoldier].transform.position), player.soldierStats[selectedSoldier].sightRange);
+		}
+	
+	}
+
+	private void PreviewPath(Vector2 target) {
+		if (!resolving) {
+			PathRequestManager.Instance.RequestPath(player.soldierObjects[selectedSoldier].transform.position, target, OnPathFound);
+		}
+	}
+
+	private void OnPathFound(Vector2[] path, bool pathSuccess) {
+		int length = Mathf.Min(player.soldierStats[selectedSoldier].currentMovementPoints, path.Length);
+		Vector2[] newPath = new Vector2[length + 1];
+		newPath[0] = player.soldierObjects[selectedSoldier].transform.position;
+		
+		for (int i = 0; i < length; i++) {
+			newPath[i+1] = path[i];
+		}
+		map.PreviewPath(newPath);
+	}
+
+	private void IssueMoveCommand(Vector2 target) {
+		map.ClearPreview();
+		if (!player.soldierStats[selectedSoldier].moving) {
+			resolving = true;
+			player.soldierStats[selectedSoldier].newTarget = target;
+		}
+	}
+
+	private void IssueShootCommand(Vector2 target) {
+		Shoot(player.soldierStats[selectedSoldier], map.WorldToNode(target));
+	}
+
+	public void UnitArrived() {
+		resolving = false;
+		map.GetReachableNodes(map.WorldToNode(player.soldierObjects[selectedSoldier].transform.position), player.soldierStats[selectedSoldier].currentMovementPoints + 1, player.soldierStats[selectedSoldier]);
+	}
+
+	private void NextUnit() {
+		if(Global.Instance.inputManager.shiftKey) {
+			SoldierSelected(selectedSoldier - 1);
+		} else {
+			SoldierSelected(selectedSoldier + 1);
+		}
+		
+	}
+	
+
+	public void SoldierSelected(int selection) {
+
+		player.soldierObjects[selectedSoldier].transform.Find("glow").GetComponent<SpriteRenderer>().color = new Color(255f, 255f, 255f, 0f);
+		if (Global.Instance.inputManager.doubleClick) {
+			Global.Instance.cam.ScrollTo(player.soldierObjects[selectedSoldier].transform.position);
+		}
+		
+		selectedSoldier = selection;
+		if (selectedSoldier >= player.soldierObjects.Length) {
+			selectedSoldier = 0;
+		} else if (selectedSoldier < 0) {
+			selectedSoldier = player.soldierObjects.Length - 1;
+		}
+
+		player.soldierObjects[selectedSoldier].transform.Find("glow").GetComponent<SpriteRenderer>().color = new Color(255f, 255f, 255f, 255f);
+		
+		ui.HighlightSoldier(selectedSoldier);
+		map.GetReachableNodes(map.WorldToNode(player.soldierObjects[selectedSoldier].transform.position), player.soldierStats[selectedSoldier].currentMovementPoints + 1, player.soldierStats[selectedSoldier]);
+		UpdateVision();
+	}
+
+	
+
+	public void OrderSelected(string order) {
+		selectedOrder = order;
+		map.ClearReachableTiles();
+
+		switch (order) {
+			case "move" :
+				map.GetReachableNodes(map.WorldToNode(player.soldierObjects[selectedSoldier].transform.position), player.soldierStats[selectedSoldier].currentMovementPoints + 1, player.soldierStats[selectedSoldier]);
+			break;
+		}
+		UpdateVision();
+	}
+
+	public GameObject GetSoldierInNode(Node node) {
+		Debug.Log(node.x + "-" + node.y);
+		//check humans first
+		for (int i = 0; i < player.soldierObjects.Length; i++) {
+			if (player.soldierStats[i].currentNode == node) {
+				return player.soldierObjects[i];
+			}
+		}
+		//then check ai
+		for (int j = 0; j < ai.soldierObjects.Length; j++) {
+			if (ai.soldierStats[j].currentNode == node) {
+				return ai.soldierObjects[j];
+			}
+		}
+		return null;
+	}
+
+	public bool SoldierIsHuman(Unit unit) {
+		if (System.Array.Exists(player.soldierStats, element => element == unit)) {
+			return true;
+		}
+		return false;
+	}
+
+	
+
+	public void StartOrder() {
+		//map.ClearPreview();
+		Vector2 pos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+		targetNode = map.WorldToNode(pos);
+		switch (selectedOrder) {
+			case ("move") :
+				if (targetNode != oldTargetNode) {
+					PreviewPath(pos);
+					oldTargetNode = targetNode;
+				}
+				
+			break;
+
+			case ("shoot") :
+			UpdateVision();
+				if (targetNode != oldTargetNode) {
+					List<Node> visibleNodes = map.fov.GetVisibleNodes(map.WorldToNode(player.soldierObjects[selectedSoldier].transform.position), player.soldierStats[selectedSoldier].sightRange);
+					GameObject targetSoldier = GetSoldierInNode(targetNode);
+					if (visibleNodes.Contains(targetNode) && targetSoldier != null && !SoldierIsHuman(targetSoldier.GetComponent<Unit>())) {
+						map.PreviewShot(player.soldierObjects[selectedSoldier].transform.position, targetNode.worldPosition);
+					} else {
+						map.ClearPreview();
+					}
+					
+					oldTargetNode = targetNode;
+				}
+			break;
+		}
+	}
+
+	public void EndOrder() {
+		map.ClearPreview();
+		switch (selectedOrder) {
+			case ("move") :
+				IssueMoveCommand(Camera.main.ScreenToWorldPoint(Input.mousePosition));
+			break;
+
+			case("shoot") :
+				IssueShootCommand(Camera.main.ScreenToWorldPoint(Input.mousePosition));
+			break;
+
+		}
+		selectedOrder = "move";
+		UpdateVision();
+	}
+
+	public void Shoot(Unit shooter, Node targetNode) {
+		//get the node we're shooting at
+		Node originNode = map.WorldToNode(shooter.gameObject.transform.position);
+		//get the unit sitting in the node
+		Unit targetUnit = GetSoldierInNode(targetNode).GetComponent<Unit>();
+		//if there is no target, just pretend this never happened
+		if (targetUnit == null) {
+			return;
+		}
+		//get the number we require to be rolled
+		int required = Shooting.GetRequiredHitRoll(shooter);
+		//get ready to record the shot modifiers
+		int modifier = 0;
+		//get the path of the shot
+		List<Node> shotPath = map.GetLine(originNode, targetNode);
+		//apply cover modifier
+		modifier += Shooting.GetCoverModifier(shotPath);
+		//apply modifiers from the unit shooting and their weapon
+		modifier += Shooting.GetShooterModifier(shooter, weapons[shooter.weapon1], (int)Mathf.Round(map.Distance(originNode, targetNode)));
+		//apply modifiers from the unit being shot at
+		modifier += Shooting.GetTargetModifier(targetUnit, weapons[shooter.weapon1]);
+		//roll a die
+		int roll = Dice.Roll();
+		//always miss on a 1 or if the modified roll is lower than the required roll
+		if (roll == 1 || roll + modifier < required) {
+			Debug.Log("miss");
+		} else {
+			Debug.Log("hit");
+		}
+
+		
+	}
+}
