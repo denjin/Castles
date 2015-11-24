@@ -1,44 +1,13 @@
 {
-	{
-		"name" : "Dave",
-		"human" : "true",
-		"diplomacy" : 5,
-		"martial" : 5,
-		"intrigue" : 5,
-		"hp" : 20,
-		"mp" : 20,
-		"armour" : {
-			"torso" : "Tunic",
-			"legs" : "Breeches",
-			"feet" : "Cloth Boots"
-		},
-		"weapons" : {
-			"1" : "Club",
-			"2" : "Stones"
-		},
-		"soldiers" : {
-			"peasant" : 10
-		},
-		"sprite" : "leader"
-	},
-	
-	{
-		"name" : "Pete",
-		"diplomacy" : 4,
-		"martial" : 4,
-		"intrigue" : 4,
-		"hp" : 20,
-		"mp" : 20,
-		"armour" : {
-			"torso" : "Tunic"
-		},
-		"weapons" : {
-			"1" : "Club",
-			"2" : "Stones"
-		},
-		"soldiers" : {
-			"peasant" : 20
-		},
-		"sprite" : "leader",
-	}
+	"name" : "First Squad",
+	"soldiers" : [
+		{"name" : "Dave",	"portrait" : "portrait_1", "weaponSkill" : 3, "ballisticSkill" : 1, "strength" : 3, "toughness" : 3, "initiative" : 3, "experience" : 0, "health" : 5, "morale" : 100, "stamina" : 100, "weapon1" : "M1", "weapon2" : "M1911"},
+		{"name" : "John", 	"portrait" : "portrait_2", "weaponSkill" : 3, "ballisticSkill" : 3, "strength" : 3, "toughness" : 3, "initiative" : 3, "experience" : 0, "health" : 5, "morale" : 100, "stamina" : 100, "weapon1" : "M1", "weapon2" : "M1911"},
+		{"name" : "Mark", 	"portrait" : "portrait_3", "weaponSkill" : 3, "ballisticSkill" : 3, "strength" : 3, "toughness" : 3, "initiative" : 3, "experience" : 0, "health" : 5, "morale" : 100, "stamina" : 100, "weapon1" : "M1", "weapon2" : "M1911"},
+		{"name" : "Tom", 	"portrait" : "portrait_4", "weaponSkill" : 3, "ballisticSkill" : 3, "strength" : 3, "toughness" : 3, "initiative" : 3, "experience" : 0, "health" : 5, "morale" : 100, "stamina" : 100, "weapon1" : "M1", "weapon2" : "M1911"},
+		{"name" : "Dan", 	"portrait" : "portrait_5", "weaponSkill" : 3, "ballisticSkill" : 3, "strength" : 3, "toughness" : 3, "initiative" : 3, "experience" : 0, "health" : 5, "morale" : 100, "stamina" : 100, "weapon1" : "M1", "weapon2" : "M1911"},
+		{"name" : "Ian", 	"portrait" : "portrait_6", "weaponSkill" : 3, "ballisticSkill" : 3, "strength" : 3, "toughness" : 3, "initiative" : 3, "experience" : 0, "health" : 5, "morale" : 100, "stamina" : 100, "weapon1" : "M1", "weapon2" : "M1911"},
+		{"name" : "Chris", 	"portrait" : "portrait_7", "weaponSkill" : 3, "ballisticSkill" : 3, "strength" : 3, "toughness" : 3, "initiative" : 3, "experience" : 0, "health" : 5, "morale" : 100, "stamina" : 100, "weapon1" : "M1", "weapon2" : "M1911"},
+		{"name" : "James", 	"portrait" : "portrait_8", "weaponSkill" : 3, "ballisticSkill" : 3, "strength" : 3, "toughness" : 3, "initiative" : 3, "experience" : 0, "health" : 5, "morale" : 100, "stamina" : 100, "weapon1" : "M1", "weapon2" : "M1911"},
+	]
 }

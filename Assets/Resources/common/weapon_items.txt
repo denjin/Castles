@@ -1,31 +1,27 @@
-{
+[
 	{
-		"name" : "Knife",
-		"weight" : 1,
-		"type" : "sword",
-		"required_hands" : 1,
-		"range" : 0,
-		"damage" : 1,
-		"damage_type" : "piercing"
+		"name" : "M1",
+		"weight" : 3,
+		"type" : "gun",
+		"shortrange" : 10,
+		"longrange" : 10,
+		"shortmodifier" : 1,
+		"longmodifier" : 0,
+		"damage" : 5,
+		"strength" : 3,
+		"reliability" : 8
 	},
 	
 	{
-		"name" : "Club",
+		name" : "M1911",
 		"weight" : 1,
-		"type" : "blunt",
-		"required_hands" : 1,
-		"range" : 0,
-		"damage" : 1,
-		"damage_type" : "crushing"
-	},
-	
-	{
-		"name" : "Stones",
-		"weight" : 1,
-		"type" : "throwing",
-		"required_hands" : 1,
-		"range" : 5,
-		"damage" : 1,
-		"damage_type" : "crushing"
+		"type" : "gun",
+		"shortrange" : 5,
+		"longrange" : 10,
+		"shortmodifier" : 1,
+		"longmodifier" : -1,
+		"damage" : 2,
+		"strength" : 2,
+		"reliability" : 8
 	}
-}
+]

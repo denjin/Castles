@@ -1,0 +1,15 @@
+{
+	"popups" : [
+		{"name" : "shoot", "text" : "Fire a round at the target" },
+		{"name" : "run", "text" : "Use an action to move again" },
+		{"name" : "overwatch", "text" : "Watch for enemy units and fire during their turn" },
+		{"name" : "strength", "text" : "The raw strength of the soldier, effects hand-to-hand combat"},
+		{"name" : "toughness", "text" : "Determines the soldier's resilience to damage"},
+		{"name" : "initiative", "text" : "Effects the soldier's resilience to morale damage, also high initiative helps in hand-to-hand"},
+		{"name" : "weaponSkill", "text" : "The skill this soldier has with hand-to-hand weapons"},
+		{"name" : "ballisticSkill", "text" : "The skill this soldier has with ranged weapons"},
+	]
+
+
+
+}

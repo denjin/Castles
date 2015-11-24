@@ -1,0 +1,6 @@
+{
+	"name" : "Enemy Soldiers",
+	"soldiers" : [
+		{"name" : "Simple",	"portrait" : "portrait_1", "weaponSkill" : 3, "ballisticSkill" : 3, "strength" : 3, "toughness" : 3, "initiative" : 3, "experience" : 0, "health" : 5, "morale" : 100, "stamina" : 100, "weapon1" : "M1", "weapon2" : "M1911"},
+	]
+}
